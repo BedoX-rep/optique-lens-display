@@ -5,7 +5,7 @@ import { RotateCcw, Shield, MapPin, Lock } from "lucide-react";
 const Hero = () => {
   return (
     <section className="bg-white h-[400px] md:h-[500px] relative">
-      <div className="max-w-[1200px] mx-auto relative overflow-hidden h-full bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500">
+      <div className="max-w-[1440px] mx-auto relative overflow-hidden h-full bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500">
         {/* Decorative gradient overlay */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="w-full h-full bg-gradient-to-tr from-blue-200/60 via-transparent to-blue-400/40"></div>
@@ -35,7 +35,7 @@ const Hero = () => {
               </Button>
 
               {/* Trust badges - responsive positioning */}
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-4 md:bottom-8 lg:bottom-16">
+              <div className="absolute left-1/2 -translate-x-1/2" style={{ bottom: 'calc(2rem - 50px)' }}>
                 {/* Mobile version - stacked */}
                 <div className="flex md:hidden flex-col bg-white/90 backdrop-blur-md rounded-lg shadow-lg p-3 space-y-2">
                   <div className="flex items-center gap-2 text-xs text-gray-600">

@@ -7,7 +7,6 @@ import ProductCard from "./ProductCard";
 const TrendingFrames = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
-  const [itemsPerView, setItemsPerView] = useState(3);
 
   const frames = [
     {
@@ -61,31 +60,15 @@ const TrendingFrames = () => {
     }
   ];
 
-  // Set items per view based on screen size
-  useEffect(() => {
-    const updateItemsPerView = () => {
-      if (window.innerWidth < 768) {
-        setItemsPerView(1);
-      } else if (window.innerWidth < 1024) {
-        setItemsPerView(2);
-      } else {
-        setItemsPerView(3);
-      }
-    };
-
-    updateItemsPerView();
-    window.addEventListener('resize', updateItemsPerView);
-    return () => window.removeEventListener('resize', updateItemsPerView);
-  }, []);
-
-  const maxDisplayIndex = Math.max(0, frames.length - itemsPerView);
-  const displayFrames = frames.slice(currentIndex, currentIndex + itemsPerView);
+  const itemsPerView = 3;
+  const displayFrames = frames.slice(0, 3);
+  const maxDisplayIndex = Math.max(0, displayFrames.length - itemsPerView);
 
   // Auto-scroll functionality
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex(prev => (prev >= maxDisplayIndex ? 0 : prev + 1));
-    }, 4000);
+    }, 4000); // Auto-scroll every 4 seconds
 
     return () => clearInterval(interval);
   }, [maxDisplayIndex]);
@@ -108,30 +91,30 @@ const TrendingFrames = () => {
 
   return (
     <section className="pt-5 pb-12 bg-white">
-      <div className="max-w-[1200px] mx-auto px-4">
+      <div className="max-w-[1440px] mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight bg-gradient-to-r from-purple-800 via-blue-700 to-purple-800 bg-clip-text text-transparent">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight bg-gradient-to-r from-purple-800 via-blue-700 to-purple-800 bg-clip-text text-transparent">
             Current trending frames
           </h2>
-          <p className="text-base md:text-lg text-gray-600 font-medium italic">
-            <span className="text-gray-500">Frames to suit every budget, select yours today.</span>
+          <p className="text-lg text-gray-600 font-medium italic">
+            Frames to suit every budget, select yours today.
           </p>
         </div>
 
         {/* Carousel Container */}
-        <div className="relative bg-white p-3 md:p-6 overflow-hidden">
-          {/* Navigation Arrows - Hidden on mobile */}
+        <div className="relative bg-white p-6 overflow-hidden">
+          {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="hidden md:block absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           
           <button
             onClick={goToNext}
-            className="hidden md:block absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -139,14 +122,17 @@ const TrendingFrames = () => {
           {/* Carousel Track */}
           <div className="flex items-center justify-center">
             <div 
-              className="flex transition-transform duration-500 ease-in-out gap-3 md:gap-6 px-0 md:px-12"
-              style={{ width: '100%' }}
+              className="flex transition-transform duration-500 ease-in-out gap-6 px-12"
+              style={{ 
+                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
+                width: `${(displayFrames.length / itemsPerView) * 100}%`
+              }}
             >
               {displayFrames.map((frame) => (
                 <div 
                   key={frame.id} 
                   className="flex-shrink-0"
-                  style={{ width: `${100 / itemsPerView}%` }}
+                  style={{ width: `${100 / displayFrames.length}%` }}
                 >
                   <div className="max-w-[350px] mx-auto">
                     <ProductCard
@@ -161,22 +147,7 @@ const TrendingFrames = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Buttons */}
-        <div className="flex md:hidden justify-center gap-4 mb-6">
-          <button
-            onClick={goToPrevious}
-            className="bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          
-          <button
-            onClick={goToNext}
-            className="bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
+        
 
         {/* Dots Indicator */}
         <div className="flex justify-center space-x-2 mt-8">

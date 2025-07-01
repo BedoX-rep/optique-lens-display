@@ -5,7 +5,7 @@ import ProductCategories from "@/components/ProductCategories";
 import TrendingFrames from "@/components/TrendingFrames";
 import BuyProcess from "@/components/BuyProcess";
 import ServiceSections from "@/components/ServiceSections";
-import Newsletter from "@/components/Newsletter";
+// import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -18,7 +18,7 @@ const Index = () => {
         <TrendingFrames />
         <BuyProcess />
         <ServiceSections />
-        <Newsletter />
+        {/* <Newsletter /> */}
       </main>
       <Footer />
     </div>
