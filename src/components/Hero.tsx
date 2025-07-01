@@ -23,7 +23,7 @@ const Hero = () => {
         {/* Hero content - Center */}
         <div className="w-full flex flex-col items-center justify-center text-center h-full relative">
           <h1 className="text-2xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 leading-tight tracking-tight">
-            <span className="block font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500">Shop Prescription Glasses</span>
+            <span className="block font-bold" style={{ color: '#220944' }}>Shop Prescription Glasses</span>
             <span className="block font-semibold text-white">& Sunglasses Online</span>
           </h1>
           <p className="text-base lg:text-xl text-black mb-6 max-w-2xl mx-auto leading-relaxed font-medium italic tracking-wide">
@@ -35,27 +35,37 @@ const Hero = () => {
 
           {/* Trust badges absolutely positioned at bottom 20% */}
           <div className="absolute left-1/2 -translate-x-1/2" style={{ bottom: 'calc(20% - 75px)' }}>
-            <div className="flex bg-white/40 backdrop-blur-md rounded-full shadow-2xl overflow-hidden border-2 border-purple-300 divide-x-2 divide-purple-200">
+            <div className="flex bg-white/40 backdrop-blur-md rounded-full shadow-2xl overflow-hidden">
               {/* 30-Day Free Return */}
-              <div className="flex items-center gap-3 px-8 py-5 text-purple-900 bg-white/80 hover:bg-purple-100 transition-colors duration-200 first:rounded-l-full last:rounded-r-full text-base">
-                <RotateCcw className="w-6 h-6 text-purple-700" />
+              <div className="flex items-center gap-3 px-8 py-5 bg-white/80 hover:bg-gray-100 transition-colors duration-200 first:rounded-l-full text-base text-gray-500">
+                <RotateCcw className="w-6 h-6" style={{ color: '#220944' }} />
                 <span className="font-semibold whitespace-nowrap">30-Day Free Return</span>
               </div>
+              {/* Vertical separator - deep purple, short, fully integrated */}
+              <div className="flex items-center" style={{background: 'rgba(255,255,255,0.8)'}}>
+                <div style={{width: '1px', height: '24px', background: '#220944', borderRadius: '1px'}} />
+              </div>
               {/* 365-Day Guarantee */}
-              <div className="flex items-center gap-3 px-8 py-5 text-purple-900 bg-white/80 hover:bg-purple-100 transition-colors duration-200 first:rounded-l-full last:rounded-r-full text-base">
-                <Shield className="w-6 h-6 text-purple-700" />
+              <div className="flex items-center gap-3 px-8 py-5 bg-white/80 hover:bg-gray-100 transition-colors duration-200 text-base text-gray-500">
+                <Shield className="w-6 h-6" style={{ color: '#220944' }} />
                 <span className="font-semibold whitespace-nowrap">365-Day Guarantee</span>
               </div>
+              <div className="flex items-center" style={{background: 'rgba(255,255,255,0.8)'}}>
+                <div style={{width: '1px', height: '24px', background: '#220944', borderRadius: '1px'}} />
+              </div>
               {/* Delivery within all of Morocco */}
-              <div className="flex items-center gap-3 px-8 py-5 text-purple-900 bg-white/80 hover:bg-purple-100 transition-colors duration-200 first:rounded-l-full last:rounded-r-full text-base">
-                <MapPin className="w-6 h-6 text-purple-700" />
+              <div className="flex items-center gap-3 px-8 py-5 bg-white/80 hover:bg-gray-100 transition-colors duration-200 text-base text-gray-500">
+                <MapPin className="w-6 h-6" style={{ color: '#220944' }} />
                 <span className="font-semibold whitespace-nowrap">
                   Delivery within all of <span className="morocco-animate">Morocco</span> 🇲🇦
                 </span>
               </div>
+              <div className="flex items-center" style={{background: 'rgba(255,255,255,0.8)'}}>
+                <div style={{width: '1px', height: '24px', background: '#220944', borderRadius: '1px'}} />
+              </div>
               {/* Secure Online Ordering */}
-              <div className="flex items-center gap-3 px-8 py-5 text-purple-900 bg-white/80 hover:bg-purple-100 transition-colors duration-200 first:rounded-l-full last:rounded-r-full text-base">
-                <Lock className="w-6 h-6 text-purple-700" />
+              <div className="flex items-center gap-3 px-8 py-5 bg-white/80 hover:bg-gray-100 transition-colors duration-200 last:rounded-r-full text-base text-gray-500">
+                <Lock className="w-6 h-6" style={{ color: '#220944' }} />
                 <span className="font-semibold whitespace-nowrap">Secure Online Ordering</span>
               </div>
             </div>

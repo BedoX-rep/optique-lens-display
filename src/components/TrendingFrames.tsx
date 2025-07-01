@@ -98,7 +98,7 @@ const TrendingFrames = () => {
             Current trending frames
           </h2>
           <p className="text-lg text-gray-600 font-medium italic">
-            Frames to suit every budget, select yours today.
+            <span className="text-gray-500">Frames to suit every budget, select yours today.</span>
           </p>
         </div>
 
