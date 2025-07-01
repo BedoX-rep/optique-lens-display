@@ -23,7 +23,7 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-[1440px] mx-auto px-4">
+      <div className="max-w-[1200px] mx-auto px-4">
         {/* Top Bar - Hidden on mobile */}
         <div className="hidden md:flex justify-between items-center py-2 text-sm text-gray-600 border-b border-gray-100">
           <div className="flex items-center space-x-4">
