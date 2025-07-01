@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProductCard from "./ProductCard";
+import MobileProductCard from "./MobileProductCard";
 
 const TrendingFrames = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -60,9 +61,17 @@ const TrendingFrames = () => {
     }
   ];
 
-  const itemsPerView = 3;
-  const displayFrames = frames.slice(0, 3);
-  const maxDisplayIndex = Math.max(0, displayFrames.length - itemsPerView);
+  // Responsive: 1 card on mobile, 3 on desktop
+  const [itemsPerView, setItemsPerView] = useState(3);
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerView(window.innerWidth < 768 ? 1 : 3);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  const maxDisplayIndex = Math.max(0, frames.length - itemsPerView);
 
   // Auto-scroll functionality
   useEffect(() => {
@@ -122,25 +131,53 @@ const TrendingFrames = () => {
           {/* Carousel Track */}
           <div className="flex items-center justify-center">
             <div 
-              className="flex transition-transform duration-500 ease-in-out gap-6 px-12"
-              style={{ 
-                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
-                width: `${(displayFrames.length / itemsPerView) * 100}%`
+              className={`flex transition-transform duration-500 ease-in-out gap-6 px-0 md:px-12 ${itemsPerView === 1 ? 'w-full' : ''}`}
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`,
+                width: itemsPerView === 1 ? '100%' : `${(frames.length / itemsPerView) * 100}%`
               }}
             >
-              {displayFrames.map((frame) => (
+              {frames.map((frame) => (
                 <div 
-                  key={frame.id} 
+                  key={frame.id}
                   className="flex-shrink-0"
-                  style={{ width: `${100 / displayFrames.length}%` }}
+                  style={{ width: itemsPerView === 1 ? '100%' : `${100 / itemsPerView}%` }}
                 >
-                  <div className="max-w-[350px] mx-auto">
-                    <ProductCard
-                      {...frame}
-                      isLiked={likedProducts.includes(frame.id)}
-                      onLike={() => toggleLike(frame.id)}
-                    />
-                  </div>
+                  {itemsPerView === 1 ? (
+                    <div className="p-4 bg-white rounded-2xl shadow-lg border border-gray-200 flex flex-col items-center justify-center max-w-xs min-h-[370px] w-full mx-auto">
+                      <img 
+                        src={frame.image} 
+                        alt={frame.name} 
+                        className="mb-4 object-contain rounded-xl"
+                        style={{ maxWidth: '90%', maxHeight: '140px', minHeight: '100px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
+                      />
+                      <div className="w-full flex flex-col items-center gap-2">
+                        <span className="text-lg font-bold text-gray-900 text-center leading-tight">{frame.name}</span>
+                        <div className="flex flex-row items-center gap-2 mt-1 mb-1">
+                          {frame.colors.map((color) => (
+                            <span key={color} className="w-5 h-5 rounded-full border border-gray-300" style={{ backgroundColor: color }} title={color}></span>
+                          ))}
+                        </div>
+                        <span className="text-base font-semibold text-purple-700 mt-1">{frame.price}</span>
+                        <button
+                          className={`mt-3 px-3 py-1 rounded-full border text-xs font-medium transition-colors ${likedProducts.includes(frame.id) ? 'bg-purple-100 text-purple-700 border-purple-400' : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-purple-50 hover:text-purple-700'}`}
+                          onClick={() => toggleLike(frame.id)}
+                        >
+                          {likedProducts.includes(frame.id) ? '♥ Liked' : '♡ Like'}
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex justify-center items-center w-full">
+                      <div className="max-w-[350px] w-full mx-auto flex justify-center items-center">
+                        <ProductCard
+                          {...frame}
+                          isLiked={likedProducts.includes(frame.id)}
+                          onLike={() => toggleLike(frame.id)}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

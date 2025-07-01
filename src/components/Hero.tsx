@@ -4,17 +4,23 @@ import { RotateCcw, Shield, MapPin, Lock } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="bg-white h-[400px] md:h-[500px] relative">
+    <section className="bg-white h-[310px] md:h-[500px] relative">
       <div className="max-w-[1440px] mx-auto relative overflow-hidden h-full bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500">
         {/* Decorative gradient overlay */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="w-full h-full bg-gradient-to-tr from-blue-200/60 via-transparent to-blue-400/40"></div>
         </div>
+        {/* Responsive hero image: use a different image for mobile */}
         <div className="absolute inset-0">
           <img 
+            src="/attached_images/imgi_241_banner_background.webp" 
+            alt="Hero banner mobile" 
+            className="w-full h-full object-cover block md:hidden"
+          />
+          <img 
             src="/attached_images/banner2.png" 
-            alt="Hero banner" 
-            className="w-full h-full object-cover"
+            alt="Hero banner desktop" 
+            className="w-full h-full object-cover hidden md:block"
           />
           <div className="absolute inset-0 bg-blue-400 bg-opacity-30"></div>
         </div>
@@ -23,41 +29,60 @@ const Hero = () => {
           <div className="flex flex-col lg:flex-row items-center justify-between h-full">
             {/* Hero content - Center */}
             <div className="w-full flex flex-col items-center justify-center text-center h-full relative">
-              <h1 className="text-xl md:text-2xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 leading-tight tracking-tight px-4">
+
+              <h1
+                className="text-xl md:text-2xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 leading-tight tracking-tight px-4 hero-title-mt"
+                style={{ marginTop: '50px' }}
+              >
+                <style>{`
+                  @media (max-width: 767px) {
+                    .hero-title-mt {
+                      margin-top: 77px !important;
+                    }
+                  }
+                `}</style>
                 <span className="block font-bold" style={{ color: '#220944' }}>Shop Prescription Glasses</span>
                 <span className="block font-semibold text-white">& Sunglasses Online</span>
               </h1>
               <p className="text-sm md:text-base lg:text-xl text-black mb-6 max-w-2xl mx-auto leading-relaxed font-medium italic tracking-wide px-4">
-                Free Lenses Included With Every Frame, Delivered Across <span className="morocco-animate">Morocco</span>
+                Free Lenses Included With Every Frame.<br className="block md:hidden" /> Delivered Across <span className="morocco-animate">Morocco</span>
               </p>
-              <Button className="bg-black hover:bg-gray-900 text-white px-6 md:px-8 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold uppercase tracking-wide shadow-md transition-all duration-200 hover:shadow-lg mb-2">
-                Shop now
-              </Button>
+              {/* Hide Shop button on mobile */}
+              <div className="hidden md:block">
+                <Button className="bg-black hover:bg-gray-900 text-white px-6 md:px-8 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold uppercase tracking-wide shadow-md transition-all duration-200 hover:shadow-lg mb-2">
+                  Shop now
+                </Button>
+              </div>
 
-              {/* Trust badges - responsive positioning */}
-              <div className="absolute left-1/2 -translate-x-1/2" style={{ bottom: 'calc(2rem - 50px)' }}>
-                {/* Mobile version - stacked */}
-                <div className="flex md:hidden flex-col bg-white/90 backdrop-blur-md rounded-lg shadow-lg p-3 space-y-2">
-                  <div className="flex items-center gap-2 text-xs text-gray-600">
-                    <RotateCcw className="w-4 h-4" style={{ color: '#220944' }} />
-                    <span className="font-semibold">30-Day Free Return</span>
+              {/* Mobile Trust Badges - Interconnected Minimalist Design */}
+              <div className="md:hidden flex justify-center mt-4 mb-2 w-full">
+                <div className="flex w-full max-w-xs bg-white rounded-2xl shadow border border-purple-100 overflow-hidden">
+                  {/* Badge 1 */}
+                  <div className="flex-1 flex flex-col items-center py-2 px-1">
+                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#4B176A" strokeWidth="1.5" fill="none"/><path d="M7 13c0-2.5 2-5 5-5s5 2.5 5 5" stroke="#4B176A" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                    <span className="text-[10px] font-medium text-purple-900 mt-1">30d Return</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-gray-600">
-                    <Shield className="w-4 h-4" style={{ color: '#220944' }} />
-                    <span className="font-semibold">365-Day Guarantee</span>
+                  {/* Divider */}
+                  <div className="w-px bg-purple-100 my-2"></div>
+                  {/* Badge 2 */}
+                  <div className="flex-1 flex flex-col items-center py-2 px-1">
+                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3" stroke="#4B176A" strokeWidth="1.5" fill="none"/><path d="M7 10h10" stroke="#4B176A" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                    <span className="text-[10px] font-medium text-purple-900 mt-1">365d Guarantee</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-gray-600">
-                    <MapPin className="w-4 h-4" style={{ color: '#220944' }} />
-                    <span className="font-semibold">Morocco Delivery 🇲🇦</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs text-gray-600">
-                    <Lock className="w-4 h-4" style={{ color: '#220944' }} />
-                    <span className="font-semibold">Secure Ordering</span>
+                  {/* Divider */}
+                  <div className="w-px bg-purple-100 my-2"></div>
+                  {/* Badge 3 */}
+                  <div className="flex-1 flex flex-col items-center py-2 px-1">
+                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="8" rx="2" stroke="#4B176A" strokeWidth="1.5" fill="none"/><path d="M12 14v-2" stroke="#4B176A" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                    <span className="text-[10px] font-medium text-purple-900 mt-1">Secure</span>
                   </div>
                 </div>
+              </div>
 
+              {/* Trust badges - responsive positioning (desktop only) */}
+              <div className="absolute left-1/2 -translate-x-1/2 hidden md:block" style={{ bottom: 'calc(2rem - 50px)' }}>
                 {/* Desktop version - horizontal */}
-                <div className="hidden md:flex bg-white/40 backdrop-blur-md rounded-full shadow-2xl overflow-hidden">
+                <div className="flex bg-white/40 backdrop-blur-md rounded-full shadow-2xl overflow-hidden">
                   <div className="flex items-center gap-3 px-4 lg:px-8 py-3 lg:py-5 bg-white/80 hover:bg-gray-100 transition-colors duration-200 first:rounded-l-full text-sm lg:text-base text-gray-500">
                     <RotateCcw className="w-5 lg:w-6 h-5 lg:h-6" style={{ color: '#220944' }} />
                     <span className="font-semibold whitespace-nowrap">30-Day Free Return</span>
