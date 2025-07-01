@@ -13,56 +13,56 @@ const TrendingFrames = () => {
       id: 1,
       name: "Margot",
       price: "£53",
-      image: "public/mockupphotos/imgi_148_1487257371233468_resize_680_340.jpg",
+      image: "/mockupphotos/imgi_148_1487257371233468_resize_680_340.jpg",
       colors: ["brown", "blue"]
     },
     {
       id: 2,
       name: "Corey",
       price: "£39",
-      image: "public/mockupphotos/imgi_151_1687258212854351_resize_680_340.jpg",
+      image: "/mockupphotos/imgi_151_1687258212854351_resize_680_340.jpg",
       colors: ["black", "brown", "gray"]
     },
     {
       id: 3,
       name: "Billie",
       price: "£39",
-      image: "public/mockupphotos/imgi_61_1467033542799571_resize_680_340.webp",
+      image: "/mockupphotos/imgi_61_1467033542799571_resize_680_340.webp",
       colors: ["brown", "black", "purple"]
     },
     {
       id: 4,
       name: "Classic Square",
       price: "£45",
-      image: "public/mockupphotos/imgi_64_1487257371233468_resize_680_340.webp",
+      image: "/mockupphotos/imgi_64_1487257371233468_resize_680_340.webp",
       colors: ["black", "tortoise"]
     },
     {
       id: 5,
       name: "Modern Round",
       price: "£42",
-      image: "public/mockupphotos/imgi_65_1686908083580558_resize_680_340.webp",
+      image: "/mockupphotos/imgi_65_1686908083580558_resize_680_340.webp",
       colors: ["blue", "black", "brown"]
     },
     {
       id: 6,
       name: "Vintage Cat",
       price: "£48",
-      image: "/public/mockupphotos/imgi_67_1687258212854351_resize_680_340.webp",
+      image: "/mockupphotos/imgi_67_1687258212854351_resize_680_340.webp",
       colors: ["brown", "black"]
     },
     {
       id: 7,
       name: "Sport Style",
       price: "£52",
-      image: "public/mockupphotos/imgi_68_1467204059555909_resize_680_340.webp",
+      image: "/mockupphotos/imgi_68_1467204059555909_resize_680_340.webp",
       colors: ["black", "gray", "blue"]
     }
   ];
 
   const itemsPerView = 3;
-  const displayFrames = frames.slice(0, 3);
-  const maxDisplayIndex = Math.max(0, displayFrames.length - itemsPerView);
+  const maxDisplayIndex = Math.max(0, frames.length - itemsPerView);
+  const displayFrames = frames.slice(currentIndex, currentIndex + itemsPerView);
 
   // Auto-scroll functionality
   useEffect(() => {
@@ -123,16 +123,13 @@ const TrendingFrames = () => {
           <div className="flex items-center justify-center">
             <div 
               className="flex transition-transform duration-500 ease-in-out gap-6 px-12"
-              style={{ 
-                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
-                width: `${(displayFrames.length / itemsPerView) * 100}%`
-              }}
+              style={{ width: '100%' }}
             >
               {displayFrames.map((frame) => (
                 <div 
                   key={frame.id} 
                   className="flex-shrink-0"
-                  style={{ width: `${100 / displayFrames.length}%` }}
+                  style={{ width: `${100 / itemsPerView}%` }}
                 >
                   <div className="max-w-[350px] mx-auto">
                     <ProductCard
