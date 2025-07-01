@@ -6,8 +6,10 @@ const Hero = () => {
   return (
     <section className="bg-white h-[500px]">
       <div className="max-w-[1440px] mx-auto relative overflow-hidden h-full bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500">
-        {/* Background banner image */}
-        <div className="absolute inset-0">
+        {/* Decorative gradient overlay */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="w-full h-full bg-gradient-to-tr from-blue-200/60 via-transparent to-blue-400/40"></div>
+        </div> <div className="absolute inset-0">
           <img 
             src="/attached_images/banner2.png" 
             alt="Hero banner" 
