@@ -40,3 +40,17 @@
 .read-the-docs {
   color: #888;
 }
+
+@keyframes morocco-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.morocco-animate {
+  background: linear-gradient(90deg, #e3342f, #38a169, #e3342f);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: morocco-gradient 2s linear infinite;
+}
