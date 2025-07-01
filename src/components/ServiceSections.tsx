@@ -1,3 +1,4 @@
+
 const ServiceSections = () => {
   const services = [
     {
@@ -23,30 +24,30 @@ const ServiceSections = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-[1440px] mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+    <section className="py-8 md:py-16 bg-white">
+      <div className="max-w-[1200px] mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-16">
           {services.map((service, index) => (
             <div key={index} className="relative group cursor-pointer overflow-hidden rounded-lg">
               <div className={`aspect-[4/3] bg-gradient-to-br ${service.bgColor}`}></div>
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end">
-                <div className="p-4 text-white">
-                  <h3 className="text-lg font-bold mb-1">{service.title}</h3>
-                  <p className="text-sm">{service.subtitle}</p>
+                <div className="p-3 md:p-4 text-white">
+                  <h3 className="text-sm md:text-lg font-bold mb-1">{service.title}</h3>
+                  <p className="text-xs md:text-sm">{service.subtitle}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {/* Iconic Brands */}
           <div className="relative group cursor-pointer overflow-hidden rounded-lg">
             <div className="aspect-[2/1] bg-gradient-to-br from-gray-800 to-gray-900"></div>
             <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-              <div className="text-center text-white">
-                <h3 className="text-3xl font-bold mb-2">Iconic Brands</h3>
-                <p className="text-lg">Shop the latest iconic eyewear</p>
+              <div className="text-center text-white px-4">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2">Iconic Brands</h3>
+                <p className="text-base md:text-lg">Shop the latest iconic eyewear</p>
               </div>
             </div>
           </div>
@@ -55,9 +56,9 @@ const ServiceSections = () => {
           <div className="relative group cursor-pointer overflow-hidden rounded-lg">
             <div className="aspect-[2/1] bg-gradient-to-br from-gray-200 to-gray-300"></div>
             <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-              <div className="text-center text-white">
-                <h3 className="text-3xl font-bold mb-2">Reuse your Eyewear</h3>
-                <p className="text-lg max-w-xs">Replace your glasses and help us add another pair to those 1000 we've already saved from landfill.</p>
+              <div className="text-center text-white px-4">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2">Reuse your Eyewear</h3>
+                <p className="text-sm md:text-lg max-w-xs">Replace your glasses and help us add another pair to those 1000 we've already saved from landfill.</p>
               </div>
             </div>
           </div>
