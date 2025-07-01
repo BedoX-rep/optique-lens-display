@@ -5,25 +5,25 @@ const BuyProcess = () => {
   const steps = [
     {
       id: 1,
-      icon: "/public/iconscustomize/imgi_20_X_Frame_icon.png",
+      icon: "/iconscustomize/imgi_20_X_Frame_icon.png",
       title: "Find your pair",
       description: "Discover our designer eyewear and select your favorite frame."
     },
     {
       id: 2,
-      icon: "/public/iconscustomize/imgi_21_X_Lenses_icon.png",
+      icon: "/iconscustomize/imgi_21_X_Lenses_icon.png",
       title: "Select your lenses",
       description: "Choose your vision need and add your prescription."
     },
     {
       id: 3,
-      icon: "/public/iconscustomize/imgi_22_X_Personalize_icon.png",
+      icon: "/iconscustomize/imgi_22_X_Personalize_icon.png",
       title: "Personalize your lenses",
       description: "Select lens type and thickness, then add specialized treatments."
     },
     {
       id: 4,
-      icon: "/public/iconscustomize/imgi_23_X_Shipping_icon.png",
+      icon: "/iconscustomize/imgi_23_X_Shipping_icon.png",
       title: "Complete your purchase",
       description: "We ensure 100% satisfaction with our 30 day happiness guarantee."
     }
