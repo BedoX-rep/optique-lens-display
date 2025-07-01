@@ -13,49 +13,49 @@ const TrendingFrames = () => {
       id: 1,
       name: "Margot",
       price: "£53",
-      image: "/optique-lens-display/public/mockupphotos/imgi_148_1487257371233468_resize_680_340.jpg",
+      image: "public/mockupphotos/imgi_148_1487257371233468_resize_680_340.jpg",
       colors: ["brown", "blue"]
     },
     {
       id: 2,
       name: "Corey",
       price: "£39",
-      image: "/optique-lens-display/public/mockupphotos/imgi_151_1687258212854351_resize_680_340.jpg",
+      image: "public/mockupphotos/imgi_151_1687258212854351_resize_680_340.jpg",
       colors: ["black", "brown", "gray"]
     },
     {
       id: 3,
       name: "Billie",
       price: "£39",
-      image: "/optique-lens-display/public/mockupphotos/imgi_61_1467033542799571_resize_680_340.webp",
+      image: "public/mockupphotos/imgi_61_1467033542799571_resize_680_340.webp",
       colors: ["brown", "black", "purple"]
     },
     {
       id: 4,
       name: "Classic Square",
       price: "£45",
-      image: "/optique-lens-display/public/mockupphotos/imgi_64_1487257371233468_resize_680_340.webp",
+      image: "public/mockupphotos/imgi_64_1487257371233468_resize_680_340.webp",
       colors: ["black", "tortoise"]
     },
     {
       id: 5,
       name: "Modern Round",
       price: "£42",
-      image: "/optique-lens-display/public/mockupphotos/imgi_65_1686908083580558_resize_680_340.webp",
+      image: "public/mockupphotos/imgi_65_1686908083580558_resize_680_340.webp",
       colors: ["blue", "black", "brown"]
     },
     {
       id: 6,
       name: "Vintage Cat",
       price: "£48",
-      image: "/optique-lens-display/public/mockupphotos/imgi_67_1687258212854351_resize_680_340.webp",
+      image: "/public/mockupphotos/imgi_67_1687258212854351_resize_680_340.webp",
       colors: ["brown", "black"]
     },
     {
       id: 7,
       name: "Sport Style",
       price: "£52",
-      image: "/optique-lens-display/public/mockupphotos/imgi_68_1467204059555909_resize_680_340.webp",
+      image: "public/mockupphotos/imgi_68_1467204059555909_resize_680_340.webp",
       colors: ["black", "gray", "blue"]
     }
   ];
@@ -90,39 +90,39 @@ const TrendingFrames = () => {
   };
 
   return (
-    <section className="py-12 bg-white">
+    <section className="pt-5 pb-12 bg-white">
       <div className="max-w-[1440px] mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3 tracking-tight">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight bg-gradient-to-r from-purple-800 via-blue-700 to-purple-800 bg-clip-text text-transparent">
             Current trending frames
           </h2>
-          <p className="text-base text-gray-600 font-normal">
+          <p className="text-lg text-gray-600 font-medium italic">
             Frames to suit every budget, select yours today.
           </p>
         </div>
 
-        {/* Carousel Container with fixed height */}
-        <div className="relative h-[426px] bg-gray-50 rounded-2xl p-8 overflow-hidden">
+        {/* Carousel Container */}
+        <div className="relative bg-white p-6 overflow-hidden">
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
           >
-            <ChevronLeft className="w-6 h-6 text-gray-600" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
           
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
           >
-            <ChevronRight className="w-6 h-6 text-gray-600" />
+            <ChevronRight className="w-5 h-5" />
           </button>
 
           {/* Carousel Track */}
-          <div className="flex h-full items-center">
+          <div className="flex items-center justify-center">
             <div 
-              className="flex transition-transform duration-500 ease-in-out gap-6"
+              className="flex transition-transform duration-500 ease-in-out gap-6 px-12"
               style={{ 
                 transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
                 width: `${(displayFrames.length / itemsPerView) * 100}%`
@@ -134,7 +134,7 @@ const TrendingFrames = () => {
                   className="flex-shrink-0"
                   style={{ width: `${100 / displayFrames.length}%` }}
                 >
-                  <div className="max-w-[320px] mx-auto">
+                  <div className="max-w-[350px] mx-auto">
                     <ProductCard
                       {...frame}
                       isLiked={likedProducts.includes(frame.id)}
@@ -147,18 +147,10 @@ const TrendingFrames = () => {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex justify-center gap-4 mt-8">
-          <Button className="bg-purple-800 hover:bg-purple-900 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 h-[52px]">
-            Shop Glasses
-          </Button>
-          <Button className="bg-purple-800 hover:bg-purple-900 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 h-[52px]">
-            Shop Sunglasses
-          </Button>
-        </div>
+        
 
         {/* Dots Indicator */}
-        <div className="flex justify-center space-x-2 mt-6">
+        <div className="flex justify-center space-x-2 mt-8">
           {Array.from({ length: maxDisplayIndex + 1 }).map((_, index) => (
             <button
               key={index}

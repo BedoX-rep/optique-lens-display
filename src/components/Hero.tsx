@@ -46,7 +46,7 @@ const Hero = () => {
                 </div>
                 <div className="flex items-center bg-white bg-opacity-10 px-4 py-3 rounded backdrop-blur-sm border border-white border-opacity-20">
                   <MapPin className="mr-2 w-4 h-4" />
-                  <span className="font-light">Made in Morocco</span>
+                  <span className="font-light">Delivery within all of Morocco 🇲🇦</span>
                 </div>
                 <div className="flex items-center bg-white bg-opacity-10 px-4 py-3 rounded backdrop-blur-sm border border-white border-opacity-20">
                   <Lock className="mr-2 w-4 h-4" />

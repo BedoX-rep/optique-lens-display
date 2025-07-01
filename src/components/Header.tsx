@@ -4,18 +4,34 @@ import { Search, Heart, User, ShoppingBag } from "lucide-react";
 const Header = () => {
   return (
     <header className="bg-white shadow-sm">
-      {/* Top bar with reviews and contact */}
-      <div className="bg-gray-50 py-2 text-xs">
-        <div className="max-w-[1440px] mx-auto px-4 flex justify-between items-center">
-          <div className="flex items-center space-x-6">
-            <span className="flex items-center text-green-600 font-medium">
-              ★ Over 40,000 Reviews
-            </span>
-            <span className="text-gray-600">Rated Great on Trustpilot</span>
-          </div>
-          <div className="flex items-center space-x-6">
-            <span className="text-gray-600">📞 01493 307 345</span>
-            <span className="text-gray-600">💬 Online Chat</span>
+      {/* Top bar with store finder and language switcher */}
+      <div className="flex justify-center bg-white">
+        <div className="bg-gray-50 text-xs h-[44px] flex items-center max-w-[1440px] w-full">
+          <div className="w-full px-4 flex justify-between items-center h-full">
+            <div className="flex items-center space-x-6 h-full">
+              <span className="text-gray-600 hover:text-blue-600 cursor-pointer flex items-center h-full text-[11px] font-medium">
+                📍 Find Our Store
+              </span>
+              <div className="flex items-center space-x-2 h-full">
+                <div className="flex items-center space-x-1 bg-white rounded-md px-2 py-1 shadow-sm border border-gray-200 hover:border-blue-300 transition-colors">
+                  <svg className="w-3 h-3 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd" />
+                  </svg>
+                  <select className="bg-transparent text-gray-600 text-[11px] border-none outline-none cursor-pointer hover:text-blue-600 font-medium pr-1">
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-6 h-full">
+              <span className="text-gray-600 hover:text-blue-600 cursor-pointer flex items-center h-full text-[11px] font-medium">
+                📞 01493 307 345
+              </span>
+              <span className="text-gray-600 hover:text-blue-600 cursor-pointer flex items-center h-full text-[11px] font-medium">
+                💬 Online Chat
+              </span>
+            </div>
           </div>
         </div>
       </div>
