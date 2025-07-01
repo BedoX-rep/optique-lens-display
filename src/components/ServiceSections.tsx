@@ -1,4 +1,3 @@
-
 const ServiceSections = () => {
   const services = [
     {
@@ -25,7 +24,7 @@ const ServiceSections = () => {
 
   return (
     <section className="py-16 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-[1440px] mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {services.map((service, index) => (
             <div key={index} className="relative group cursor-pointer overflow-hidden rounded-lg">

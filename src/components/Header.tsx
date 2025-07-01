@@ -1,51 +1,67 @@
 
-import { Search, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Search, Heart, User, ShoppingBag } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="bg-white border-b border-gray-200">
+    <header className="bg-white shadow-sm">
       {/* Top bar with reviews and contact */}
-      <div className="bg-gray-50 py-2">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center text-sm">
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center">
-              <span className="text-green-600 mr-1">★</span>
-              Over 15,000 Reviews
+      <div className="bg-gray-50 py-2 text-xs">
+        <div className="max-w-[1440px] mx-auto px-4 flex justify-between items-center">
+          <div className="flex items-center space-x-6">
+            <span className="flex items-center text-green-600 font-medium">
+              ★ Over 40,000 Reviews
             </span>
-            <span>Rated 5★ on Trustpilot</span>
+            <span className="text-gray-600">Rated Great on Trustpilot</span>
           </div>
-          <div className="flex items-center space-x-4">
-            <span>0800 328 248</span>
-            <span>Online Chat</span>
+          <div className="flex items-center space-x-6">
+            <span className="text-gray-600">📞 01493 307 345</span>
+            <span className="text-gray-600">💬 Online Chat</span>
           </div>
         </div>
       </div>
 
       {/* Main header */}
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
-          {/* Logo */}
-          <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-gray-900">OptiqueLens</h1>
-          </div>
-
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-700 hover:text-gray-900">GLASSES</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">SUNGLASSES</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">CONTACT LENSES</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">HEARING</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">ABOUT US</a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">BLOG</a>
+      <div className="max-w-[1440px] mx-auto px-4 h-[70px]">
+        <div className="flex items-center justify-between h-full">
+          {/* Left Navigation */}
+          <nav className="flex items-center space-x-8">
+            <a href="#" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide">Glasses</a>
+            <a href="#" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide">Sunglasses</a>
+            <a href="#" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide">Designer Brands</a>
+            <a href="#" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide">Reglaze</a>
           </nav>
 
-          {/* Right side icons */}
-          <div className="flex items-center space-x-4">
-            <Search className="w-5 h-5 text-gray-600" />
-            <div className="w-5 h-5 bg-gray-300 rounded"></div>
-            <div className="w-5 h-5 bg-gray-300 rounded"></div>
-            <div className="w-5 h-5 bg-gray-300 rounded"></div>
+          {/* Center Logo */}
+          <div className="flex items-center absolute left-1/2 transform -translate-x-1/2">
+            <h1 className="text-2xl font-bold text-gray-900 tracking-wider">
+              OPTIQUE<span className="font-light">LENS</span>
+            </h1>
+          </div>
+
+          {/* Right side navigation and icons */}
+          <div className="flex items-center space-x-8">
+            <nav className="flex items-center space-x-8">
+              <a href="#" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide">About Us</a>
+              <a href="#" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide">Explore</a>
+            </nav>
+            <div className="flex items-center space-x-4">
+              <div className="flex flex-col items-center cursor-pointer group">
+                <Search className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+                <span className="text-gray-600 text-xs mt-1 group-hover:text-blue-600">Search</span>
+              </div>
+              <div className="flex flex-col items-center cursor-pointer group">
+                <Heart className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+                <span className="text-gray-600 text-xs mt-1 group-hover:text-blue-600">Favourites</span>
+              </div>
+              <div className="flex flex-col items-center cursor-pointer group">
+                <User className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+                <span className="text-gray-600 text-xs mt-1 group-hover:text-blue-600">Account</span>
+              </div>
+              <div className="flex flex-col items-center cursor-pointer group">
+                <ShoppingBag className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+                <span className="text-gray-600 text-xs mt-1 group-hover:text-blue-600">Basket</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
