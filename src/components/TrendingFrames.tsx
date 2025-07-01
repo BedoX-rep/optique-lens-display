@@ -1,106 +1,173 @@
 
-
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ProductCard from "./ProductCard";
 
 const TrendingFrames = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [likedProducts, setLikedProducts] = useState<number[]>([]);
+
   const frames = [
     {
       id: 1,
-      name: "Classic Round",
-      price: "£89",
-      originalPrice: "£120",
-      image: "/optique-lens-display/public/placeholder.svg",
-      colors: ["black", "brown", "gold"]
+      name: "Margot",
+      price: "£53",
+      image: "/optique-lens-display/public/mockupphotos/imgi_148_1487257371233468_resize_680_340.jpg",
+      colors: ["brown", "blue"]
     },
     {
       id: 2,
-      name: "Modern Square",
-      price: "£95",
-      originalPrice: "£130",
-      image: "/optique-lens-display/public/placeholder.svg",
-      colors: ["black", "blue", "silver"]
+      name: "Corey",
+      price: "£39",
+      image: "/optique-lens-display/public/mockupphotos/imgi_151_1687258212854351_resize_680_340.jpg",
+      colors: ["black", "brown", "gray"]
     },
     {
       id: 3,
-      name: "Vintage Cat Eye",
-      price: "£79",
-      originalPrice: "£110",
-      image: "/optique-lens-display/public/placeholder.svg",
-      colors: ["red", "black", "tortoise"]
+      name: "Billie",
+      price: "£39",
+      image: "/optique-lens-display/public/mockupphotos/imgi_61_1467033542799571_resize_680_340.webp",
+      colors: ["brown", "black", "purple"]
     },
     {
       id: 4,
-      name: "Sport Wrap",
-      price: "£105",
-      originalPrice: "£140",
-      image: "/optique-lens-display/public/placeholder.svg",
+      name: "Classic Square",
+      price: "£45",
+      image: "/optique-lens-display/public/mockupphotos/imgi_64_1487257371233468_resize_680_340.webp",
+      colors: ["black", "tortoise"]
+    },
+    {
+      id: 5,
+      name: "Modern Round",
+      price: "£42",
+      image: "/optique-lens-display/public/mockupphotos/imgi_65_1686908083580558_resize_680_340.webp",
+      colors: ["blue", "black", "brown"]
+    },
+    {
+      id: 6,
+      name: "Vintage Cat",
+      price: "£48",
+      image: "/optique-lens-display/public/mockupphotos/imgi_67_1687258212854351_resize_680_340.webp",
+      colors: ["brown", "black"]
+    },
+    {
+      id: 7,
+      name: "Sport Style",
+      price: "£52",
+      image: "/optique-lens-display/public/mockupphotos/imgi_68_1467204059555909_resize_680_340.webp",
       colors: ["black", "gray", "blue"]
     }
   ];
 
+  const itemsPerView = 3;
+  const displayFrames = frames.slice(0, 3);
+  const maxDisplayIndex = Math.max(0, displayFrames.length - itemsPerView);
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => (prev >= maxDisplayIndex ? 0 : prev + 1));
+    }, 4000); // Auto-scroll every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [maxDisplayIndex]);
+
+  const goToPrevious = () => {
+    setCurrentIndex(prev => (prev <= 0 ? maxDisplayIndex : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex(prev => (prev >= maxDisplayIndex ? 0 : prev + 1));
+  };
+
+  const toggleLike = (productId: number) => {
+    setLikedProducts(prev => 
+      prev.includes(productId) 
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId]
+    );
+  };
+
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 bg-white">
       <div className="max-w-[1440px] mx-auto px-4">
-        {/* Section with contained background */}
-        <div className="bg-gray-50 rounded-2xl px-8 lg:px-16 py-16">
-          {/* Header Section */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-light text-gray-900 mb-6 tracking-wide">
-              Trending Frames
-            </h2>
-            <p className="text-xl lg:text-2xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
-              Discover our most popular frames, loved by customers worldwide for their style and quality
-            </p>
-          </div>
+        {/* Header Section */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl lg:text-3xl font-semibold text-gray-900 mb-3 tracking-tight">
+            Current trending frames
+          </h2>
+          <p className="text-base text-gray-600 font-normal">
+            Frames to suit every budget, select yours today.
+          </p>
+        </div>
 
-          {/* Frames Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {frames.map((frame) => (
-              <div key={frame.id} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300 group">
-                <div className="aspect-square bg-gray-100 flex items-center justify-center group-hover:bg-gray-50 transition-colors">
-                  <img 
-                    src={frame.image} 
-                    alt={frame.name}
-                    className="w-32 h-32 object-cover transition-transform group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3 tracking-wide">{frame.name}</h3>
-                  <div className="flex items-center space-x-3 mb-4">
-                    <span className="text-2xl font-light text-purple-800">{frame.price}</span>
-                    <span className="text-sm text-gray-500 line-through font-light">{frame.originalPrice}</span>
-                  </div>
-                  <div className="flex items-center space-x-2 mb-6">
-                    {frame.colors.map((color, index) => (
-                      <div 
-                        key={index}
-                        className={`w-5 h-5 rounded-full border-2 border-gray-200 shadow-sm ${
-                          color === 'black' ? 'bg-black' :
-                          color === 'brown' ? 'bg-amber-800' :
-                          color === 'gold' ? 'bg-yellow-400' :
-                          color === 'blue' ? 'bg-blue-600' :
-                          color === 'silver' ? 'bg-gray-400' :
-                          color === 'red' ? 'bg-red-600' :
-                          color === 'tortoise' ? 'bg-amber-600' :
-                          color === 'gray' ? 'bg-gray-500' : 'bg-gray-300'
-                        }`}
-                      ></div>
-                    ))}
-                  </div>
-                  <Button className="w-full bg-purple-800 hover:bg-purple-900 text-white font-light py-3 rounded-lg transition-colors">
-                    View Details
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Carousel Container with fixed height */}
+        <div className="relative h-[426px] bg-gray-50 rounded-2xl p-8 overflow-hidden">
+          {/* Navigation Arrows */}
+          <button
+            onClick={goToPrevious}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+          >
+            <ChevronLeft className="w-6 h-6 text-gray-600" />
+          </button>
+          
+          <button
+            onClick={goToNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+          >
+            <ChevronRight className="w-6 h-6 text-gray-600" />
+          </button>
 
-          {/* Call to Action */}
-          <div className="text-center mt-16">
-            <Button className="bg-purple-800 hover:bg-purple-900 text-white font-light px-12 py-4 text-lg rounded-lg transition-colors">
-              View All Frames
-            </Button>
+          {/* Carousel Track */}
+          <div className="flex h-full items-center">
+            <div 
+              className="flex transition-transform duration-500 ease-in-out gap-6"
+              style={{ 
+                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
+                width: `${(displayFrames.length / itemsPerView) * 100}%`
+              }}
+            >
+              {displayFrames.map((frame) => (
+                <div 
+                  key={frame.id} 
+                  className="flex-shrink-0"
+                  style={{ width: `${100 / displayFrames.length}%` }}
+                >
+                  <div className="max-w-[320px] mx-auto">
+                    <ProductCard
+                      {...frame}
+                      isLiked={likedProducts.includes(frame.id)}
+                      onLike={() => toggleLike(frame.id)}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-center gap-4 mt-8">
+          <Button className="bg-purple-800 hover:bg-purple-900 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 h-[52px]">
+            Shop Glasses
+          </Button>
+          <Button className="bg-purple-800 hover:bg-purple-900 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 h-[52px]">
+            Shop Sunglasses
+          </Button>
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center space-x-2 mt-6">
+          {Array.from({ length: maxDisplayIndex + 1 }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex ? 'bg-purple-800 w-6' : 'bg-gray-300'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -108,4 +175,3 @@ const TrendingFrames = () => {
 };
 
 export default TrendingFrames;
-

@@ -9,7 +9,7 @@ const Hero = () => {
         {/* Background banner image */}
         <div className="absolute inset-0">
           <img 
-            src="https://i.ibb.co/S4YPmRrq/imgi-243-banner-background.webp" 
+            src="/attached_images/banner.webp" 
             alt="Hero banner" 
             className="w-full h-full object-cover"
           />

@@ -2,53 +2,69 @@
 import { Button } from "@/components/ui/button";
 
 const ProductCategories = () => {
-  const categories = [
-    {
-      title: "PRESCRIPTION GLASSES",
-      image: "/optique-lens-display/public/placeholder.svg",
-      bgColor: "bg-blue-50"
-    },
-    {
-      title: "SUNGLASSES",
-      image: "/optique-lens-display/public/placeholder.svg",
-      bgColor: "bg-yellow-50"
-    },
-    {
-      title: "CONTACT LENSES",
-      image: "/optique-lens-display/public/placeholder.svg",
-      bgColor: "bg-purple-50"
-    }
-  ];
-
   return (
     <section className="py-20 bg-white">
       <div className="max-w-[1440px] mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-light text-gray-900 mb-6 tracking-wide">
-            Shop by Category
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-wide">
+            Ordering your glasses online just got easier
           </h2>
           <p className="text-xl lg:text-2xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
-            Find the perfect eyewear for your needs with our comprehensive range of prescription glasses, sunglasses, and contact lenses
+            Shop thousands of sunglasses and glasses with prescription glasses and frames starting from just 200 DH!
           </p>
         </div>
 
         {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          {categories.map((category, index) => (
-            <div key={index} className="group cursor-pointer">
-              <div className={`${category.bgColor} rounded-lg aspect-[4/3] flex items-center justify-center transition-transform group-hover:scale-105 shadow-sm hover:shadow-md`}>
-                <img 
-                  src={category.image} 
-                  alt={category.title}
-                  className="w-32 h-32 object-cover"
-                />
-              </div>
-              <div className="text-center mt-6">
-                <h3 className="text-lg font-medium text-gray-900 tracking-wider uppercase">{category.title}</h3>
+          {/* Glasses for Women */}
+          <div className="group cursor-pointer">
+            <div className="relative rounded-lg overflow-hidden w-[450px] h-[378px] mx-auto shadow-lg">
+              <img 
+                src="/attached_images/female.jpg" 
+                alt="Glasses for Women"
+                className="w-full h-full object-cover transition-transform group-hover:scale-105"
+              />
+              <div className="absolute bottom-0 left-0 right-0 h-[20%] flex flex-col items-center justify-center text-white bg-black bg-opacity-50">
+                <h3 className="text-2xl font-bold mb-1 uppercase tracking-wide drop-shadow-lg">GLASSES FOR WOMEN</h3>
+                <p className="text-md font-medium drop-shadow-md">Order today, get tomorrow!</p>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Get 15% OFF Promotion */}
+          <div className="group cursor-pointer">
+            <div className="relative rounded-lg overflow-hidden w-[450px] h-[378px] mx-auto shadow-lg">
+              <img 
+                src="/attached_images/malefemale.webp" 
+                alt="Special Offer"
+                className="w-full h-full object-cover transition-transform group-hover:scale-105"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center bg-white bg-opacity-75 backdrop-blur-sm p-6 rounded-lg shadow-lg max-w-xs">
+                  <div className="bg-red-600 px-6 py-2 rounded-full mb-3 shadow-md">
+                    <span className="text-2xl font-bold text-white">GET 15% OFF</span>
+                  </div>
+                  <p className="text-lg font-medium text-gray-800 leading-tight">with two or more pair of glasses or sunglasses</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Glasses for Men */}
+          <div className="group cursor-pointer">
+            <div className="relative rounded-lg overflow-hidden w-[450px] h-[378px] mx-auto shadow-lg">
+              <img 
+                src="/attached_images/male.jpg" 
+                alt="Glasses for Men"
+                className="w-full h-full object-cover transition-transform group-hover:scale-105"
+              />
+              <div className="absolute bottom-0 left-0 right-0 h-[20%] flex flex-col items-center justify-center text-white bg-black bg-opacity-50">
+                <h3 className="text-2xl font-bold mb-1 uppercase tracking-wide drop-shadow-lg">GLASSES FOR MEN</h3>
+                <p className="text-md font-medium drop-shadow-md">Order today, get tomorrow!</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
