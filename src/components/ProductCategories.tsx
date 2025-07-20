@@ -4,19 +4,14 @@ import { Button } from "@/components/ui/button";
 const ProductCategories = () => {
   return (
     <section className="pt-10 md:pt-20 pb-5 bg-white">
-      <div
-        className="w-full max-w-[1440px] mx-auto px-[10px]"
-        style={{ boxSizing: 'border-box' }}
-      >
+      <div className="max-w-[1200px] mx-auto px-4">
         {/* Categories Grid */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Glasses for Women */}
           <div className="group cursor-pointer">
-            <div className="relative rounded-lg overflow-hidden w-full h-[250px] md:h-[300px] lg:h-[378px] shadow-lg">
-              <img
-                src="/attached_images/female.jpg"
+            <div className="relative rounded-lg overflow-hidden w-full max-w-[450px] h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
+              <img 
+                src="/attached_images/female.jpg" 
                 alt="Glasses for Women"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
@@ -29,9 +24,9 @@ const ProductCategories = () => {
 
           {/* Get 20% OFF Promotion */}
           <div className="group cursor-pointer">
-            <div className="relative rounded-lg overflow-hidden w-full h-[250px] md:h-[300px] lg:h-[378px] shadow-lg">
-              <img
-                src="/attached_images/malefemale.webp"
+            <div className="relative rounded-lg overflow-hidden w-full max-w-[450px] h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
+              <img 
+                src="/attached_images/malefemale.webp" 
                 alt="Special Offer"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
@@ -48,9 +43,9 @@ const ProductCategories = () => {
 
           {/* Glasses for Men */}
           <div className="group cursor-pointer">
-            <div className="relative rounded-lg overflow-hidden w-full h-[250px] md:h-[300px] lg:h-[378px] shadow-lg">
-              <img
-                src="/attached_images/male.jpg"
+            <div className="relative rounded-lg overflow-hidden w-full max-w-[450px] h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
+              <img 
+                src="/attached_images/male.jpg" 
                 alt="Glasses for Men"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
