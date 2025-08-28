@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProductCard from "./ProductCard";
 import MobileProductCard from "./MobileProductCard";
+import { Link } from "react-router-dom";
 
 const TrendingFrames = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -184,7 +185,12 @@ const TrendingFrames = () => {
           </div>
         </div>
 
-        
+        {/* View All Button */}
+        <div className="text-center mt-8">
+          <Button asChild className="bg-primary hover:bg-primary-light text-white px-8 py-3 rounded-full text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300">
+            <Link to="/products">View All Frames</Link>
+          </Button>
+        </div>
 
         {/* Dots Indicator */}
         <div className="flex justify-center space-x-2 mt-8">
