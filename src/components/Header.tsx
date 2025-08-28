@@ -93,7 +93,7 @@ const Header = () => {
           {leftNav.map((item) => (
             <a
               key={item}
-              href={item === 'Glasses' ? '/products' : '#'}
+              href="#"
               className="hover:text-[#6d28d9] transition-colors h-full flex items-center px-2"
               style={{ fontFamily: 'Inter, Arial, sans-serif', fontWeight: 500, letterSpacing: '0.02em', textTransform: 'capitalize' }}
             >

@@ -1,7 +1,6 @@
 
 import { Button } from "@/components/ui/button";
 import { RotateCcw, Shield, MapPin, Lock } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -50,8 +49,8 @@ const Hero = () => {
               </p>
               {/* Hide Shop button on mobile */}
               <div className="hidden md:block">
-                <Button asChild className="bg-primary hover:bg-primary-light text-white px-6 md:px-8 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold uppercase tracking-wide shadow-md transition-all duration-200 hover:shadow-lg mb-2">
-                  <Link to="/products">Shop now</Link>
+                <Button className="bg-black hover:bg-gray-900 text-white px-6 md:px-8 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold uppercase tracking-wide shadow-md transition-all duration-200 hover:shadow-lg mb-2">
+                  Shop now
                 </Button>
               </div>
 

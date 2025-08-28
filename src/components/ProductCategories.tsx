@@ -1,6 +1,5 @@
 
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 const ProductCategories = () => {
   return (
@@ -9,7 +8,7 @@ const ProductCategories = () => {
         {/* Categories Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Glasses for Women */}
-          <Link to="/products" className="group cursor-pointer block">
+          <div className="group cursor-pointer">
             <div className="relative rounded-lg overflow-hidden w-full max-w-[450px] h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
               <img 
                 src="/attached_images/female.jpg" 
@@ -21,10 +20,10 @@ const ProductCategories = () => {
                 <p className="text-sm md:text-md font-medium drop-shadow-md">Order today, get tomorrow!</p>
               </div>
             </div>
-          </Link>
+          </div>
 
           {/* Get 20% OFF Promotion */}
-          <Link to="/products" className="group cursor-pointer block">
+          <div className="group cursor-pointer">
             <div className="relative rounded-lg overflow-hidden w-full max-w-[450px] h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
               <img 
                 src="/attached_images/malefemale.webp" 
@@ -40,10 +39,10 @@ const ProductCategories = () => {
                 </div>
               </div>
             </div>
-          </Link>
+          </div>
 
           {/* Glasses for Men */}
-          <Link to="/products" className="group cursor-pointer block">
+          <div className="group cursor-pointer">
             <div className="relative rounded-lg overflow-hidden w-full max-w-[450px] h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
               <img 
                 src="/attached_images/male.jpg" 
@@ -55,7 +54,7 @@ const ProductCategories = () => {
                 <p className="text-sm md:text-md font-medium drop-shadow-md">Order today, get tomorrow!</p>
               </div>
             </div>
-          </Link>
+          </div>
         </div>
       </div>
     </section>
