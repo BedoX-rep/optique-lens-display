@@ -1,6 +1,9 @@
 
 import { Button } from "@/components/ui/button";
 import "../styles/brand-system.css";
+import womenGlassesImage from "@assets/generated_images/Cool_woman_wearing_glasses_1e8db1d1.png";
+import menGlassesImage from "@assets/generated_images/Cool_man_wearing_glasses_42815e12.png";
+import coupleGlassesImage from "@assets/generated_images/Stylish_couple_wearing_glasses_751eb959.png";
 
 const ProductCategories = () => {
   return (
@@ -12,7 +15,7 @@ const ProductCategories = () => {
           <div className="group cursor-pointer">
             <div className="relative rounded-lg overflow-hidden w-full h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
               <img 
-                src="/attached_images/female.jpg" 
+                src={womenGlassesImage} 
                 alt="Glasses for Women"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
@@ -27,10 +30,11 @@ const ProductCategories = () => {
           <div className="group cursor-pointer">
             <div className="relative rounded-lg overflow-hidden w-full h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
               <img 
-                src="/attached_images/malefemale.webp" 
+                src={coupleGlassesImage} 
                 alt="Special Offer"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-4">
                 <div className="text-center bg-white bg-opacity-90 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-lg max-w-xs mx-4">
                   <div className="brand-bg-primary px-4 md:px-6 py-2 rounded-full mb-3 shadow-md">
@@ -46,7 +50,7 @@ const ProductCategories = () => {
           <div className="group cursor-pointer">
             <div className="relative rounded-lg overflow-hidden w-full h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
               <img 
-                src="/attached_images/male.jpg" 
+                src={menGlassesImage} 
                 alt="Glasses for Men"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
