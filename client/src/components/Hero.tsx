@@ -1,28 +1,24 @@
 
 import { Button } from "@/components/ui/button";
 import { RotateCcw, Shield, MapPin, Lock } from "lucide-react";
+import "../styles/brand-system.css";
 
 const Hero = () => {
   return (
-    <section className="bg-white h-[310px] md:h-[500px] relative">
+    <section className="bg-white" style={{ height: '390px', maxHeight: '390px' }} data-hero-section="true">
       <div className="max-w-[1440px] mx-auto relative overflow-hidden h-full bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500">
         {/* Decorative gradient overlay */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="w-full h-full bg-gradient-to-tr from-blue-200/60 via-transparent to-blue-400/40"></div>
         </div>
-        {/* Responsive hero image: use a different image for mobile */}
+        {/* Hero banner image */}
         <div className="absolute inset-0">
           <img 
-            src="/attached_images/imgi_241_banner_background.webp" 
-            alt="Hero banner mobile" 
-            className="w-full h-full object-cover block md:hidden"
+            src="/attached_images/eyeglasses-hero-banner.png" 
+            alt="Eyeglasses collection banner" 
+            className="w-full h-full object-cover"
           />
-          <img 
-            src="/attached_images/banner2.png" 
-            alt="Hero banner desktop" 
-            className="w-full h-full object-cover hidden md:block"
-          />
-          <div className="absolute inset-0 bg-blue-400 bg-opacity-30"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
         </div>
 
         <div className="px-4 py-8 relative z-10 h-full">
@@ -30,26 +26,16 @@ const Hero = () => {
             {/* Hero content - Center */}
             <div className="w-full flex flex-col items-center justify-center text-center h-full relative">
 
-              <h1
-                className="text-xl md:text-2xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 leading-tight tracking-tight px-4 hero-title-mt"
-                style={{ marginTop: '50px' }}
-              >
-                <style>{`
-                  @media (max-width: 767px) {
-                    .hero-title-mt {
-                      margin-top: 77px !important;
-                    }
-                  }
-                `}</style>
-                <span className="block font-bold" style={{ color: '#220944' }}>Shop Prescription Glasses</span>
-                <span className="block font-semibold text-white">& Sunglasses Online</span>
+              <h1 className="brand-font-heading text-2xl md:text-4xl xl:text-5xl text-white mb-4 leading-tight tracking-tight px-4 text-center">
+                <span className="block font-bold text-white drop-shadow-lg">Shop Prescription Glasses</span>
+                <span className="block font-semibold brand-text-accent drop-shadow-lg">& Sunglasses Online</span>
               </h1>
-              <p className="text-sm md:text-base lg:text-xl text-black mb-6 max-w-2xl mx-auto leading-relaxed font-medium italic tracking-wide px-4">
+              <p className="brand-font-primary text-sm md:text-base lg:text-xl text-white mb-6 max-w-2xl mx-auto leading-relaxed font-medium tracking-wide px-4 drop-shadow-md">
                 Free Lenses Included With Every Frame.<br className="block md:hidden" /> Delivered Across <span className="morocco-animate">Morocco</span>
               </p>
-              {/* Hide Shop button on mobile */}
+              {/* Shop button */}
               <div className="hidden md:block">
-                <Button className="bg-black hover:bg-gray-900 text-white px-6 md:px-8 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold uppercase tracking-wide shadow-md transition-all duration-200 hover:shadow-lg mb-2">
+                <Button className="brand-button-primary shadow-md transition-all duration-200 hover:shadow-lg mb-2">
                   Shop now
                 </Button>
               </div>

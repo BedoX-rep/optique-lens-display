@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import "../styles/brand-system.css";
 import {
   Sheet,
   SheetContent,
@@ -53,17 +54,17 @@ const Header = () => {
             <SheetContent side="left" className="w-[90vw] max-w-xs p-0">
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between px-4 py-4 border-b">
-                  <span className="text-2xl font-bold tracking-widest select-none">
-                    <span className="text-[#220944]">OPTIQUE</span>
+                  <span className="brand-font-heading text-2xl tracking-widest select-none">
+                    <span className="brand-text-primary">OPTIQUE</span>
                     <span className="text-gray-500">LENS</span>
                   </span>
                   <button className="p-1"><X className="h-7 w-7 text-[#220944]" /></button>
                 </div>
-                <div className="text-center text-xs font-semibold text-[#220944] py-2 border-b bg-white">Glasses From 99 MAD Including Prescription Lenses</div>
+                <div className="text-center text-xs brand-font-primary font-semibold brand-text-primary py-2 border-b bg-white">Glasses From 99 MAD Including Prescription Lenses</div>
                 <nav className="flex-1 overflow-y-auto">
                   {['Glasses', 'Sunglasses', 'Designer Brands', 'Lenses', 'Reglaze', 'Help'].map((item) => (
                     <div key={item} className="border-b">
-                      <button className="w-full flex items-center justify-between px-4 py-4 text-base font-medium text-[#220944] focus:outline-none">
+                      <button className="w-full flex items-center justify-between px-4 py-4 text-base brand-font-primary font-medium brand-text-primary focus:outline-none">
                         {item}
                         <span className="ml-2">&#9662;</span>
                       </button>
