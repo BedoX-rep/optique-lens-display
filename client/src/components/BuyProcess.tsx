@@ -30,28 +30,28 @@ const BuyProcess = () => {
   ];
 
   return (
-    <section className="bg-gray-50 py-8" style={{ height: '130px' }}>
+    <section className="py-8" style={{ height: '130px' }}>
       <div className="max-w-7xl mx-auto px-4 h-full">
         <div className="grid grid-cols-4 gap-8 h-full items-center">
           {steps.map((step, index) => (
-            <div key={step.id} className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-200">
+            <div key={step.id} className="flex items-center gap-6">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-lg">
                 <img 
                   src={step.icon} 
                   alt={step.title}
-                  className="w-6 h-6 object-contain"
+                  className="w-8 h-8 object-contain filter brightness-0 invert"
                 />
               </div>
               <div className="flex-1">
-                <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                <h3 className="text-base font-bold text-gray-900 mb-1">
                   {step.title}
                 </h3>
-                <p className="text-xs text-gray-600">
+                <p className="text-sm text-gray-700">
                   {step.description}
                 </p>
               </div>
               {index < steps.length - 1 && (
-                <div className="hidden lg:block w-8 h-0.5 bg-gray-300 ml-4"></div>
+                <div className="hidden lg:block w-12 h-1 bg-gradient-to-r from-teal-300 to-teal-400 rounded-full ml-4"></div>
               )}
             </div>
           ))}
