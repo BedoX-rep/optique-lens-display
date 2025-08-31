@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProductCard from "./ProductCard";
 import MobileProductCard from "./MobileProductCard";
+import "../styles/brand-system.css";
 
 const TrendingFrames = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

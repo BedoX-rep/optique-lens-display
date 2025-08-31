@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import "../styles/brand-system.css";
 
 const BuyProcess = () => {
   const steps = [
@@ -61,17 +62,17 @@ const BuyProcess = () => {
                 <div key={step.id} className="flex items-start relative z-10 mb-6 last:mb-0">
                   {/* Icon centered on the line */}
                   <div className="flex flex-col items-center mr-3 relative z-10">
-                    <div className="w-10 h-10 rounded-full bg-white border-2 border-purple-100 flex items-center justify-center shadow-sm" style={{ zIndex: 2 }}>
+                    <div className="w-10 h-10 rounded-full bg-white border-2 border-teal-100 flex items-center justify-center shadow-sm" style={{ zIndex: 2 }}>
                       <img src={step.icon} alt={step.title} className="w-6 h-6 object-contain" />
                     </div>
                   </div>
                   {/* Step Content */}
                   <div className="flex-1">
-                    <h3 className="text-base font-semibold text-gray-900 mb-1">
-                      <span className="font-bold text-purple-900 mr-1">{step.id}</span>
+                    <h3 className="brand-font-heading text-base mb-1">
+                      <span className="font-bold brand-text-primary mr-1">{step.id}</span>
                       <span className="font-bold text-gray-900">|</span> {step.title}
                     </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
+                    <p className="brand-font-primary text-sm text-gray-600 leading-relaxed">
                       {step.description}
                     </p>
                   </div>
@@ -111,7 +112,7 @@ const BuyProcess = () => {
                     <h3 className="text-lg font-semibold text-gray-900">
                       {step.id} | {step.title}
                     </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
+                    <p className="brand-font-primary text-sm text-gray-600 leading-relaxed">
                       {step.description}
                     </p>
                   </div>
