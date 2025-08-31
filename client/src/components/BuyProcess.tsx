@@ -39,7 +39,7 @@ const BuyProcess = () => {
                 <img 
                   src={step.icon} 
                   alt={step.title}
-                  className="w-8 h-8 object-contain filter brightness-0 invert"
+                  className="w-8 h-8 object-contain"
                 />
               </div>
               <div className="flex-1">
