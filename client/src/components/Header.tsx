@@ -20,8 +20,8 @@ const Header = () => {
   return (
     <header className="w-full bg-white shadow-sm">
       {/* Top Header - Inspired by DirectSight design */}
-      <div className="w-full flex justify-center text-sm py-3">
-        <div className="w-full max-w-[1440px] bg-blue-50 px-4 flex items-center justify-between">
+      <div className="w-full flex justify-center text-sm" style={{ height: '40px' }}>
+        <div className="w-full max-w-[1440px] bg-blue-50 px-4 flex items-center justify-between h-full">
           <div className="flex items-center gap-1">
             <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -39,7 +39,7 @@ const Header = () => {
         </div>
       </div>
       {/* Main Navigation */}
-      <div className="w-full max-w-7xl mx-auto py-3 px-4 bg-white flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto py-4 px-4 bg-white flex items-center justify-between md:grid md:grid-cols-3 md:items-center">
         {/* Mobile Hamburger & Logo */}
         <div className="flex items-center md:hidden w-full justify-between">
           <Sheet>
@@ -90,7 +90,7 @@ const Header = () => {
             <a
               key={item}
               href="#"
-              className="hover:text-gray-900 transition-colors py-2 px-[5px]"
+              className="hover:text-gray-900 transition-colors py-2 px-[3px]"
             >
               {item}
             </a>
@@ -112,26 +112,26 @@ const Header = () => {
               <a
                 key={item}
                 href="#"
-                className="hover:text-gray-900 transition-colors py-2 px-[5px]"
+                className="hover:text-gray-900 transition-colors py-2 px-[3px]"
               >
                 {item}
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-6">
-            <button className="p-1 hover:text-gray-900 transition-colors px-[5px]">
+            <button className="p-1 hover:text-gray-900 transition-colors px-[3px]">
               <Search className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Search</span>
             </button>
-            <button className="p-1 hover:text-gray-900 transition-colors px-[5px]">
+            <button className="p-1 hover:text-gray-900 transition-colors px-[3px]">
               <User className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Favourites</span>
             </button>
-            <button className="p-1 hover:text-gray-900 transition-colors px-[5px]">
+            <button className="p-1 hover:text-gray-900 transition-colors px-[3px]">
               <User className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Account</span>
             </button>
-            <button className="p-1 hover:text-gray-900 transition-colors px-[5px]">
+            <button className="p-1 hover:text-gray-900 transition-colors px-[3px]">
               <ShoppingCart className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Basket</span>
             </button>
