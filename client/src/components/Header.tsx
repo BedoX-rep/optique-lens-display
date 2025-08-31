@@ -90,7 +90,7 @@ const Header = () => {
             <a
               key={item}
               href="#"
-              className="hover:text-gray-900 transition-colors py-2 px-[3px]"
+              className="hover:text-gray-900 transition-colors py-2"
             >
               {item}
             </a>
@@ -112,26 +112,26 @@ const Header = () => {
               <a
                 key={item}
                 href="#"
-                className="hover:text-gray-900 transition-colors py-2 px-[3px]"
+                className="hover:text-gray-900 transition-colors py-2"
               >
                 {item}
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-6">
-            <button className="p-1 hover:text-gray-900 transition-colors px-[3px]">
+            <button className="p-1 hover:text-gray-900 transition-colors">
               <Search className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Search</span>
             </button>
-            <button className="p-1 hover:text-gray-900 transition-colors px-[3px]">
+            <button className="p-1 hover:text-gray-900 transition-colors">
               <User className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Favourites</span>
             </button>
-            <button className="p-1 hover:text-gray-900 transition-colors px-[3px]">
+            <button className="p-1 hover:text-gray-900 transition-colors">
               <User className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Account</span>
             </button>
-            <button className="p-1 hover:text-gray-900 transition-colors px-[3px]">
+            <button className="p-1 hover:text-gray-900 transition-colors">
               <ShoppingCart className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Basket</span>
             </button>
