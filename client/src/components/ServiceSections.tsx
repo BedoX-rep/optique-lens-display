@@ -1,6 +1,8 @@
 import "../styles/brand-system.css";
-import sunglassesImage from "@assets/generated_images/Premium_sunglasses_collection_display_972f8bd4.png";
-import varifocalsImage from "@assets/generated_images/Varifocal_prescription_glasses_display_8f7aaa15.png";
+import sunglassesImage from "@assets/generated_images/Woman_wearing_stylish_sunglasses_f496508c.png";
+import varifocalsImage from "@assets/generated_images/Professional_wearing_varifocal_glasses_f10f2f93.png";
+import blueLightImage from "@assets/generated_images/Person_wearing_blue_light_blocking_glasses_9fab8022.png";
+import transitionsImage from "@assets/generated_images/Person_wearing_transition_lenses_2ae86d8c.png";
 
 const ServiceSections = () => {
   const services = [
@@ -19,12 +21,14 @@ const ServiceSections = () => {
     {
       title: "BLUE LIGHT BLOCKING",
       subtitle: "Protect your eyes for only £20",
-      bgColor: "from-teal-600 to-cyan-500"
+      bgColor: "from-teal-600 to-cyan-500",
+      image: blueLightImage
     },
     {
       title: "TRANSITIONS",
       subtitle: "Lenses on offer from £60",
-      bgColor: "from-cyan-400 to-teal-500"
+      bgColor: "from-cyan-400 to-teal-500",
+      image: transitionsImage
     }
   ];
 

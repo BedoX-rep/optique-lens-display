@@ -27,14 +27,14 @@ const Hero = () => {
 
               <h1 className="brand-font-heading text-xl md:text-3xl xl:text-4xl text-white mb-3 leading-tight tracking-tight px-4 text-center">
                 <span className="block font-bold text-white drop-shadow-lg">Shop Prescription Glasses</span>
-                <span className="block font-semibold brand-text-accent drop-shadow-lg">& Sunglasses Online</span>
+                <span className="block font-semibold text-white drop-shadow-lg">& Sunglasses Online</span>
               </h1>
               <p className="brand-font-primary text-xs md:text-sm lg:text-base text-white mb-4 max-w-2xl mx-auto leading-relaxed font-medium tracking-wide px-4 drop-shadow-md">
                 Free Lenses Included With Every Frame.<br className="block md:hidden" /> Delivered Across <span className="morocco-animate">Morocco</span>
               </p>
               {/* Shop button */}
               <div className="hidden md:block">
-                <Button className="brand-button-primary shadow-md transition-all duration-200 hover:shadow-lg mb-2">
+                <Button className="brand-button-circular shadow-md transition-all duration-200 hover:shadow-lg mb-2">
                   Shop now
                 </Button>
               </div>
@@ -44,21 +44,21 @@ const Hero = () => {
                 <div className="flex w-full max-w-xs bg-white rounded-2xl shadow border border-teal-100 overflow-hidden">
                   {/* Badge 1 */}
                   <div className="flex-1 flex flex-col items-center py-2 px-1">
-                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#0F766E" strokeWidth="1.5" fill="none"/><path d="M7 13c0-2.5 2-5 5-5s5 2.5 5 5" stroke="#0F766E" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#097969" strokeWidth="1.5" fill="none"/><path d="M7 13c0-2.5 2-5 5-5s5 2.5 5 5" stroke="#097969" strokeWidth="1.2" strokeLinecap="round"/></svg>
                     <span className="text-[9px] font-medium text-teal-800 mt-1">30d Return</span>
                   </div>
                   {/* Divider */}
                   <div className="w-px bg-teal-100 my-2"></div>
                   {/* Badge 2 */}
                   <div className="flex-1 flex flex-col items-center py-2 px-1">
-                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3" stroke="#0F766E" strokeWidth="1.5" fill="none"/><path d="M7 10h10" stroke="#0F766E" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3" stroke="#097969" strokeWidth="1.5" fill="none"/><path d="M7 10h10" stroke="#097969" strokeWidth="1.2" strokeLinecap="round"/></svg>
                     <span className="text-[9px] font-medium text-teal-800 mt-1">365d Guarantee</span>
                   </div>
                   {/* Divider */}
                   <div className="w-px bg-teal-100 my-2"></div>
                   {/* Badge 3 */}
                   <div className="flex-1 flex flex-col items-center py-2 px-1">
-                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="8" rx="2" stroke="#0F766E" strokeWidth="1.5" fill="none"/><path d="M12 14v-2" stroke="#0F766E" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="8" rx="2" stroke="#097969" strokeWidth="1.5" fill="none"/><path d="M12 14v-2" stroke="#097969" strokeWidth="1.2" strokeLinecap="round"/></svg>
                     <span className="text-[9px] font-medium text-teal-800 mt-1">Secure</span>
                   </div>
                 </div>
@@ -69,30 +69,30 @@ const Hero = () => {
                 {/* Desktop version - horizontal */}
                 <div className="flex bg-white/40 backdrop-blur-md rounded-full shadow-xl overflow-hidden">
                   <div className="flex items-center gap-2 px-3 lg:px-6 py-2 lg:py-3 bg-white/80 hover:bg-gray-100 transition-colors duration-200 first:rounded-l-full text-xs lg:text-sm text-gray-600">
-                    <RotateCcw className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#0F766E' }} />
+                    <RotateCcw className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#097969' }} />
                     <span className="font-medium whitespace-nowrap">30-Day Free Return</span>
                   </div>
                   <div className="flex items-center" style={{background: 'rgba(255,255,255,0.8)'}}>
-                    <div style={{width: '1px', height: '20px', background: '#0F766E', borderRadius: '1px'}} />
+                    <div style={{width: '1px', height: '20px', background: '#097969', borderRadius: '1px'}} />
                   </div>
                   <div className="flex items-center gap-2 px-3 lg:px-6 py-2 lg:py-3 bg-white/80 hover:bg-gray-100 transition-colors duration-200 text-xs lg:text-sm text-gray-600">
-                    <Shield className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#0F766E' }} />
+                    <Shield className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#097969' }} />
                     <span className="font-medium whitespace-nowrap">365-Day Guarantee</span>
                   </div>
                   <div className="flex items-center" style={{background: 'rgba(255,255,255,0.8)'}}>
-                    <div style={{width: '1px', height: '20px', background: '#0F766E', borderRadius: '1px'}} />
+                    <div style={{width: '1px', height: '20px', background: '#097969', borderRadius: '1px'}} />
                   </div>
                   <div className="flex items-center gap-2 px-3 lg:px-6 py-2 lg:py-3 bg-white/80 hover:bg-gray-100 transition-colors duration-200 text-xs lg:text-sm text-gray-600">
-                    <MapPin className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#0F766E' }} />
+                    <MapPin className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#097969' }} />
                     <span className="font-medium whitespace-nowrap">
                       Delivery in <span className="morocco-animate">Morocco</span> 🇲🇦
                     </span>
                   </div>
                   <div className="flex items-center" style={{background: 'rgba(255,255,255,0.8)'}}>
-                    <div style={{width: '1px', height: '20px', background: '#0F766E', borderRadius: '1px'}} />
+                    <div style={{width: '1px', height: '20px', background: '#097969', borderRadius: '1px'}} />
                   </div>
                   <div className="flex items-center gap-2 px-3 lg:px-6 py-2 lg:py-3 bg-white/80 hover:bg-gray-100 transition-colors duration-200 last:rounded-r-full text-xs lg:text-sm text-gray-600">
-                    <Lock className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#0F766E' }} />
+                    <Lock className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#097969' }} />
                     <span className="font-medium whitespace-nowrap">Secure Online Ordering</span>
                   </div>
                 </div>

@@ -104,10 +104,10 @@ const TrendingFrames = () => {
       <div className="max-w-[1440px] mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 tracking-tight bg-gradient-to-r from-purple-800 via-blue-700 to-purple-800 bg-clip-text text-transparent">
+          <h2 className="brand-font-heading text-3xl lg:text-4xl mb-4 tracking-tight" style={{ color: '#097969' }}>
             Current trending frames
           </h2>
-          <p className="text-lg text-gray-600 font-medium italic">
+          <p className="brand-font-primary text-lg text-gray-600 font-medium italic">
             Frames to suit every budget, select yours today.
           </p>
         </div>
@@ -117,14 +117,20 @@ const TrendingFrames = () => {
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#097969'; e.currentTarget.style.color = 'white'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; e.currentTarget.style.color = 'black'; }}
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           
           <button
             onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-600 hover:text-white border border-gray-200"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#097969'; e.currentTarget.style.color = 'white'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; e.currentTarget.style.color = 'black'; }}
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -153,15 +159,18 @@ const TrendingFrames = () => {
                         style={{ maxWidth: '90%', maxHeight: '140px', minHeight: '100px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
                       />
                       <div className="w-full flex flex-col items-center gap-2">
-                        <span className="text-lg font-bold text-gray-900 text-center leading-tight">{frame.name}</span>
+                        <span className="brand-font-heading text-lg text-gray-900 text-center leading-tight">{frame.name}</span>
                         <div className="flex flex-row items-center gap-2 mt-1 mb-1">
                           {frame.colors.map((color) => (
                             <span key={color} className="w-5 h-5 rounded-full border border-gray-300" style={{ backgroundColor: color }} title={color}></span>
                           ))}
                         </div>
-                        <span className="text-base font-semibold text-purple-700 mt-1">{frame.price}</span>
+                        <span className="brand-font-primary text-base font-semibold mt-1" style={{ color: '#097969' }}>{frame.price}</span>
                         <button
-                          className={`mt-3 px-3 py-1 rounded-full border text-xs font-medium transition-colors ${likedProducts.includes(frame.id) ? 'bg-purple-100 text-purple-700 border-purple-400' : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-purple-50 hover:text-purple-700'}`}
+                          className={`brand-font-primary mt-3 px-3 py-1 rounded-full border text-xs font-medium transition-colors ${likedProducts.includes(frame.id) ? 'border-teal-400' : 'bg-gray-100 text-gray-600 border-gray-300'}`}
+                          style={likedProducts.includes(frame.id) ? { backgroundColor: '#097969', color: 'white' } : { backgroundColor: 'rgba(156, 163, 175, 0.1)' }}
+                          onMouseEnter={(e) => { if (!likedProducts.includes(frame.id)) { e.currentTarget.style.backgroundColor = 'rgba(9, 121, 105, 0.1)'; e.currentTarget.style.color = '#097969'; } }}
+                          onMouseLeave={(e) => { if (!likedProducts.includes(frame.id)) { e.currentTarget.style.backgroundColor = 'rgba(156, 163, 175, 0.1)'; e.currentTarget.style.color = 'rgb(75, 85, 99)'; } }}
                           onClick={() => toggleLike(frame.id)}
                         >
                           {likedProducts.includes(frame.id) ? '♥ Liked' : '♡ Like'}
