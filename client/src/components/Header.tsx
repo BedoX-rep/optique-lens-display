@@ -39,7 +39,8 @@ const Header = () => {
         </div>
       </div>
       {/* Main Navigation */}
-      <div className="w-full max-w-7xl mx-auto py-4 px-4 bg-white flex items-center justify-between md:grid md:grid-cols-3 md:items-center">
+      <div className="w-full bg-white py-4 flex justify-center">
+        <div className="w-full max-w-[1440px] px-[10px] flex items-center justify-between md:grid md:grid-cols-3 md:items-center">
         {/* Mobile Hamburger & Logo */}
         <div className="flex items-center md:hidden w-full justify-between">
           <Sheet>
@@ -136,6 +137,7 @@ const Header = () => {
               <span className="sr-only">Basket</span>
             </button>
           </div>
+        </div>
         </div>
       </div>
     </header>
