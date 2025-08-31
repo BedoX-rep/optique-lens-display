@@ -34,7 +34,7 @@ const Hero = () => {
               </p>
               {/* Shop button */}
               <div className="hidden md:block">
-                <Button className="brand-button-circular shadow-md transition-all duration-200 hover:shadow-lg mb-2">
+                <Button className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-full shadow-md transition-all duration-200 hover:shadow-lg mb-2 font-semibold text-base">
                   Shop now
                 </Button>
               </div>
