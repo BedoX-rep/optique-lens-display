@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import "../styles/brand-system.css";
 import womenGlassesImage from "@assets/generated_images/Cool_woman_wearing_glasses_1e8db1d1.png";
