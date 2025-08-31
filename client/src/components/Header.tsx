@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <header className="w-full bg-white shadow-sm">
       {/* Top Header - Inspired by DirectSight design */}
-      <div className="w-full bg-gray-50 text-sm py-2">
+      <div className="w-full bg-blue-50 text-sm py-2">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center gap-1">
             <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
