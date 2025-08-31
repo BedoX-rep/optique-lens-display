@@ -104,7 +104,7 @@ const TrendingFrames = () => {
       <div className="max-w-[1440px] mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-8">
-          <h2 className="brand-font-heading text-3xl lg:text-4xl mb-4 tracking-tight" style={{ color: '#097969' }}>
+          <h2 className="brand-font-heading text-3xl lg:text-4xl mb-4 tracking-tight" style={{ color: '#220944' }}>
             Current trending frames
           </h2>
           <p className="brand-font-primary text-lg text-gray-600 font-medium italic">
