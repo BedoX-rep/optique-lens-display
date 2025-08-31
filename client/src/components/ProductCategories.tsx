@@ -33,14 +33,9 @@ const ProductCategories = () => {
                 alt="Special Offer"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-4">
-                <div className="text-center bg-white bg-opacity-90 backdrop-blur-sm p-4 md:p-6 rounded-lg shadow-lg max-w-xs mx-4">
-                  <div className="brand-bg-primary px-4 md:px-6 py-2 rounded-full mb-3 shadow-md">
-                    <span className="brand-font-heading text-lg md:text-2xl text-white">GET 20% OFF</span>
-                  </div>
-                  <p className="brand-font-primary text-sm md:text-lg font-medium brand-text-primary leading-tight">with two or more pair of glasses or sunglasses</p>
-                </div>
+              <div className="absolute bottom-0 left-0 right-0 h-[25%] md:h-[20%] flex flex-col items-center justify-center text-white bg-gradient-to-t from-black/80 to-transparent">
+                <h3 className="brand-font-heading text-lg md:text-2xl mb-1 uppercase tracking-wide drop-shadow-lg">GET 20% OFF</h3>
+                <p className="brand-font-primary text-sm md:text-md font-medium drop-shadow-md">with two or more pair of glasses or sunglasses</p>
               </div>
             </div>
           </div>
