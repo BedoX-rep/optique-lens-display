@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <header className="w-full bg-white shadow-sm">
       {/* Top Header - Inspired by DirectSight design */}
-      <div className="w-full flex justify-center text-sm py-2">
+      <div className="w-full flex justify-center text-sm py-3">
         <div className="w-full max-w-[1440px] bg-blue-50 px-4 flex items-center justify-between">
           <div className="flex items-center gap-1">
             <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
@@ -85,12 +85,12 @@ const Header = () => {
         </div>
 
         {/* Desktop Navigation - DirectSight Style */}
-        <nav className="hidden md:flex gap-8 text-gray-700 text-sm font-medium items-center">
+        <nav className="hidden md:flex gap-8 text-gray-700 text-base font-medium items-center">
           {leftNav.map((item) => (
             <a
               key={item}
               href="#"
-              className="hover:text-gray-900 transition-colors py-2 px-[10px]"
+              className="hover:text-gray-900 transition-colors py-2 px-[5px]"
             >
               {item}
             </a>
@@ -107,31 +107,31 @@ const Header = () => {
         
         {/* Right Navigation and Icons */}
         <div className="hidden md:flex items-center justify-end">
-          <nav className="flex gap-8 text-gray-700 text-sm font-medium items-center mr-8">
+          <nav className="flex gap-8 text-gray-700 text-base font-medium items-center mr-8">
             {rightNav.map((item) => (
               <a
                 key={item}
                 href="#"
-                className="hover:text-gray-900 transition-colors py-2 px-[10px]"
+                className="hover:text-gray-900 transition-colors py-2 px-[5px]"
               >
                 {item}
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-6">
-            <button className="p-1 hover:text-gray-900 transition-colors px-[10px]">
+            <button className="p-1 hover:text-gray-900 transition-colors px-[5px]">
               <Search className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Search</span>
             </button>
-            <button className="p-1 hover:text-gray-900 transition-colors px-[10px]">
+            <button className="p-1 hover:text-gray-900 transition-colors px-[5px]">
               <User className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Favourites</span>
             </button>
-            <button className="p-1 hover:text-gray-900 transition-colors px-[10px]">
+            <button className="p-1 hover:text-gray-900 transition-colors px-[5px]">
               <User className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Account</span>
             </button>
-            <button className="p-1 hover:text-gray-900 transition-colors px-[10px]">
+            <button className="p-1 hover:text-gray-900 transition-colors px-[5px]">
               <ShoppingCart className="h-5 w-5 text-gray-600" />
               <span className="sr-only">Basket</span>
             </button>
