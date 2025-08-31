@@ -97,10 +97,10 @@
 .brand-bg-secondary { background-color: var(--brand-secondary); }
 .brand-bg-accent { background-color: var(--brand-accent); }
 
-/* Morocco Animation - Red and Green */
+/* Morocco Animation - Red Only */
 @keyframes moroccoGlow {
   0% { color: #DC2626; text-shadow: 0 0 5px rgba(220, 38, 38, 0.4); }
-  50% { color: #16A34A; text-shadow: 0 0 8px rgba(22, 163, 74, 0.5); }
+  50% { color: #EF4444; text-shadow: 0 0 8px rgba(239, 68, 68, 0.5); }
   100% { color: #DC2626; text-shadow: 0 0 5px rgba(220, 38, 38, 0.4); }
 }
 

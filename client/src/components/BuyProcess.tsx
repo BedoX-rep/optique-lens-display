@@ -36,8 +36,8 @@ const BuyProcess = () => {
         <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-200">
           {/* Main Title */}
           <div className="text-center mb-12">
-            <h2 className="brand-font-heading text-2xl lg:text-3xl uppercase tracking-wide leading-tight" style={{ color: '#220944' }}>
-              CUSTOMIZING YOUR GLASSES HAS NEVER BEEN SO EASY
+            <h2 className="brand-font-heading text-3xl lg:text-4xl mb-4 tracking-tight" style={{ color: '#220944' }}>
+              Customizing your glasses has never been so easy
             </h2>
           </div>
 
