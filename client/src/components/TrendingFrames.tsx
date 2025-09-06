@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProductCard from "./ProductCard";
@@ -7,6 +8,7 @@ import MobileProductCard from "./MobileProductCard";
 import "../styles/brand-system.css";
 
 const TrendingFrames = () => {
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
 
@@ -151,7 +153,11 @@ const TrendingFrames = () => {
                   style={{ width: itemsPerView === 1 ? '100%' : `${100 / itemsPerView}%` }}
                 >
                   {itemsPerView === 1 ? (
-                    <div className="p-4 bg-white rounded-2xl shadow-lg border border-gray-200 flex flex-col items-center justify-center max-w-xs min-h-[370px] w-full mx-auto">
+                    <div 
+                      className="p-4 bg-white rounded-2xl shadow-lg border border-gray-200 flex flex-col items-center justify-center max-w-xs min-h-[370px] w-full mx-auto cursor-pointer hover:shadow-xl transition-shadow"
+                      onClick={() => navigate(`/product/${frame.id}`)}
+                      data-testid={`card-frame-${frame.id}`}
+                    >
                       <img 
                         src={frame.image} 
                         alt={frame.name} 
@@ -171,7 +177,11 @@ const TrendingFrames = () => {
                           style={likedProducts.includes(frame.id) ? { backgroundColor: '#097969', color: 'white' } : { backgroundColor: 'rgba(156, 163, 175, 0.1)' }}
                           onMouseEnter={(e) => { if (!likedProducts.includes(frame.id)) { e.currentTarget.style.backgroundColor = 'rgba(9, 121, 105, 0.1)'; e.currentTarget.style.color = '#097969'; } }}
                           onMouseLeave={(e) => { if (!likedProducts.includes(frame.id)) { e.currentTarget.style.backgroundColor = 'rgba(156, 163, 175, 0.1)'; e.currentTarget.style.color = 'rgb(75, 85, 99)'; } }}
-                          onClick={() => toggleLike(frame.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleLike(frame.id);
+                          }}
+                          data-testid={`button-like-${frame.id}`}
                         >
                           {likedProducts.includes(frame.id) ? '♥ Liked' : '♡ Like'}
                         </button>
@@ -179,11 +189,18 @@ const TrendingFrames = () => {
                     </div>
                   ) : (
                     <div className="flex justify-center items-center w-full">
-                      <div className="max-w-[350px] w-full mx-auto flex justify-center items-center">
+                      <div 
+                        className="max-w-[350px] w-full mx-auto flex justify-center items-center cursor-pointer"
+                        onClick={() => navigate(`/product/${frame.id}`)}
+                        data-testid={`card-frame-desktop-${frame.id}`}
+                      >
                         <ProductCard
                           {...frame}
                           isLiked={likedProducts.includes(frame.id)}
-                          onLike={() => toggleLike(frame.id)}
+                          onLike={(e) => {
+                            e?.stopPropagation();
+                            toggleLike(frame.id);
+                          }}
                         />
                       </div>
                     </div>
