@@ -214,7 +214,7 @@ const ProductsPage = () => {
                 </div>
 
                 {/* Product Info - Below Image */}
-                <div className="mt-3 text-left ml-[18px]">
+                <div className="mt-3 text-left ml-[28px]">
                   <h3 className="brand-font-heading text-base sm:text-lg font-medium text-gray-800 mb-1">
                     {product.name}
                   </h3>
