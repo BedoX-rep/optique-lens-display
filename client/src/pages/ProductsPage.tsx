@@ -180,8 +180,8 @@ const ProductsPage = () => {
                 className="group cursor-pointer"
                 onClick={() => navigate(`/product/${product.id}`)}
               >
-                {/* Product Image Container - Responsive sizing */}
-                <div className="relative bg-gray-50 rounded-lg p-4 sm:p-6 mb-4 aspect-[4/3] sm:aspect-[393/235] flex items-center justify-center group-hover:shadow-lg transition-shadow w-full max-w-[300px] sm:max-w-[350px] lg:max-w-[393px] mx-auto">
+                {/* Product Image Container with info overlay - Responsive sizing */}
+                <div className="relative bg-gray-50 rounded-lg p-4 sm:p-6 aspect-[4/3] sm:aspect-[393/235] flex items-center justify-center group-hover:shadow-lg transition-shadow w-full max-w-[300px] sm:max-w-[350px] lg:max-w-[393px] mx-auto">
                   <img 
                     src={product.image} 
                     alt={product.name}
@@ -211,26 +211,26 @@ const ProductsPage = () => {
                       </Badge>
                     </div>
                   )}
-                </div>
 
-                {/* Product Info */}
-                <div className="text-center px-2">
-                  <h3 className="brand-font-heading text-base sm:text-lg font-medium text-gray-800 mb-2">
-                    {product.name}
-                  </h3>
-                  <p className="brand-font-heading text-lg sm:text-xl font-bold text-gray-900 mb-3">
-                    £{product.price}
-                  </p>
+                  {/* Product Info - Bottom Left Overlay */}
+                  <div className="absolute bottom-3 left-3 bg-white rounded-lg shadow-md p-3 max-w-[calc(100%-1.5rem)]">
+                    <h3 className="brand-font-heading text-sm sm:text-base font-medium text-gray-800 mb-1 leading-tight">
+                      {product.name}
+                    </h3>
+                    <p className="brand-font-heading text-base sm:text-lg font-bold text-gray-900 mb-2">
+                      £{product.price}
+                    </p>
 
-                  {/* Color Options */}
-                  <div className="flex justify-center gap-2">
-                    {product.colors.map((color, index) => (
-                      <div
-                        key={index}
-                        className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-gray-300"
-                        style={{ backgroundColor: color }}
-                      />
-                    ))}
+                    {/* Color Options */}
+                    <div className="flex gap-1">
+                      {product.colors.map((color, index) => (
+                        <div
+                          key={index}
+                          className="w-3 h-3 sm:w-4 sm:h-4 rounded-full border border-gray-300"
+                          style={{ backgroundColor: color }}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
