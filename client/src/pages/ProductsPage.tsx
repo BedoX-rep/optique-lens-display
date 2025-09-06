@@ -101,16 +101,16 @@ const ProductsPage = () => {
       {/* Banner Section - Following 1440px standard */}
       <div className="w-full flex justify-center bg-gray-50">
         <div className="w-full max-w-[1440px] relative">
-          <div className="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] overflow-hidden">
+          <div className="w-full h-[310px] overflow-hidden">
             <img 
               src="/attached_images/products-banner1.png" 
               alt="Prescription Glasses Collection"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center text-white px-4 max-w-4xl">
-                <h1 className="brand-font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg">
+            <div className="absolute inset-0 flex items-center justify-start pl-8">
+              <div className="text-left text-white px-4 max-w-[50%]">
+                <h1 className="brand-font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-black drop-shadow-lg">
                   Buy Prescription Glasses
                 </h1>
                 <p className="brand-font-primary text-sm sm:text-base md:text-lg font-medium drop-shadow-md leading-relaxed">
