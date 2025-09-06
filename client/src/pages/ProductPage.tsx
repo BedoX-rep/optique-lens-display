@@ -346,8 +346,13 @@ const ProductPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedProducts.map((relatedProduct) => (
-              <div key={relatedProduct.id} className="text-center group cursor-pointer" data-testid={`card-related-${relatedProduct.id}`}>
-                <div className="bg-gray-50 rounded-lg p-6 mb-4 group-hover:shadow-lg transition-shadow">
+              <div 
+                key={relatedProduct.id} 
+                className="text-center group cursor-pointer" 
+                data-testid={`card-related-${relatedProduct.id}`}
+                onClick={() => navigate(`/product/${relatedProduct.id}`)}
+              >
+                <div className="relative bg-gray-50 rounded-lg p-6 mb-4 group-hover:shadow-lg transition-shadow">
                   <img 
                     src={relatedProduct.image} 
                     alt={relatedProduct.name}
@@ -363,8 +368,15 @@ const ProductPage = () => {
                   {relatedProduct.colors.map((color) => (
                     <div
                       key={color}
-                      className="w-4 h-4 rounded-full border border-gray-300"
-                      style={{ backgroundColor: color }}
+                      className={`w-4 h-4 rounded-full border border-gray-300 ${
+                        color === 'clear' ? 'bg-gray-100' :
+                        color === 'gold' ? 'bg-yellow-500' :
+                        color === 'tortoise' ? 'bg-amber-600' :
+                        color === 'green' ? 'bg-green-600' :
+                        color === 'brown' ? 'bg-amber-800' :
+                        color === 'black' ? 'bg-gray-900' :
+                        'bg-gray-300'
+                      }`}
                     />
                   ))}
                 </div>

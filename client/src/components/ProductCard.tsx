@@ -55,6 +55,9 @@ const ProductCard = ({ name, price, image, colors, isLiked = false, onLike }: Pr
                   color === 'purple' ? 'bg-purple-600' :
                   color === 'gray' ? 'bg-gray-500' :
                   color === 'tortoise' ? 'bg-amber-600' :
+                  color === 'clear' ? 'bg-gray-100 border-gray-300' :
+                  color === 'gold' ? 'bg-yellow-500' :
+                  color === 'green' ? 'bg-green-600' :
                   'bg-gray-300'
                 }`}
                 title={color}
