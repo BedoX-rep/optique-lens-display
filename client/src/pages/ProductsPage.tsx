@@ -103,7 +103,7 @@ const ProductsPage = () => {
         <div className="w-full max-w-[1440px] relative">
           <div className="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] overflow-hidden">
             <img 
-              src="/attached_images/products-banner.png" 
+              src="/attached_images/products-banner1.png" 
               alt="Prescription Glasses Collection"
               className="w-full h-full object-cover"
             />
