@@ -114,20 +114,47 @@ const ProductPage = () => {
         </div>
 
         {/* Product Section - Responsive Layout */}
-        <div className="flex flex-col xl:grid xl:grid-cols-2 xl:gap-12 mb-12">
+        <div className="bg-gray-100 -mx-4 px-4 py-8 mb-12">
+          <div className="flex flex-col xl:grid xl:grid-cols-2 xl:gap-16 2xl:gap-24">
           {/* Product Images */}
-          <div className="flex flex-col items-center mb-8 xl:mb-0">
-            <div className="w-full max-w-md bg-gray-50 rounded-lg p-8 mb-4">
+          <div className="flex flex-col items-center mb-8 xl:mb-0 xl:pr-8">
+            <div className="w-full max-w-lg xl:max-w-2xl bg-white rounded-lg p-8 mb-6 shadow-sm">
               <img 
                 src={images[currentImageIndex]} 
                 alt={product.name}
                 className="w-full h-auto object-contain"
+                style={{ minHeight: '300px', maxHeight: '400px' }}
                 data-testid="img-product-main"
               />
             </div>
             
+            {/* Thumbnail Images */}
+            <div className="flex gap-3 mb-4">
+              {images.concat([
+                "/test-frames/test1.png",
+                "/test-frames/test2.png", 
+                "/test-frames/test3.png",
+                "/mockupphotos/imgi_148_1487257371233468_resize_680_340.jpg"
+              ]).slice(0, 5).map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(0)}
+                  className={`w-16 h-16 bg-white rounded-lg p-2 border-2 ${
+                    index === 0 ? 'border-purple-800' : 'border-gray-200'
+                  } hover:border-purple-600 transition-colors`}
+                  data-testid={`button-thumbnail-${index}`}
+                >
+                  <img 
+                    src={image}
+                    alt={`View ${index + 1}`}
+                    className="w-full h-full object-contain"
+                  />
+                </button>
+              ))}
+            </div>
+            
             {/* Image Dots */}
-            <div className="flex gap-2 mb-6">
+            <div className="flex gap-2">
               {images.map((_, index) => (
                 <button
                   key={index}
@@ -142,7 +169,7 @@ const ProductPage = () => {
           </div>
 
           {/* Product Details */}
-          <div className="flex flex-col xl:pl-8">
+          <div className="flex flex-col xl:pl-8 bg-white xl:bg-transparent xl:py-8">
             {/* Product Name and Heart */}
             <div className="flex items-center gap-3 mb-2">
               <h1 className="brand-font-heading text-2xl text-gray-800" data-testid="text-product-name">
@@ -231,6 +258,7 @@ const ProductPage = () => {
               <strong>Standard Protection</strong> - 7 working days (Not Incl. on sales orders)
               Standard lens, tint and non-tinted frame only fees range.
             </div>
+          </div>
           </div>
         </div>
 
