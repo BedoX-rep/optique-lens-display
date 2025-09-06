@@ -197,10 +197,7 @@ const TrendingFrames = () => {
                         <ProductCard
                           {...frame}
                           isLiked={likedProducts.includes(frame.id)}
-                          onLike={(e) => {
-                            e?.stopPropagation();
-                            toggleLike(frame.id);
-                          }}
+                          onLike={() => toggleLike(frame.id)}
                         />
                       </div>
                     </div>
