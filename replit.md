@@ -4,6 +4,16 @@ This is a full-stack e-commerce web application for an eyewear store called "Opt
 
 The application serves as an online eyewear retailer with product browsing, user management capabilities, and a responsive design optimized for both desktop and mobile experiences.
 
+# Recent Changes
+
+- **September 06, 2025**: Added comprehensive products listing page with advanced filtering capabilities
+  - Clean left sidebar with category, color, material, shape, and price range filters
+  - Responsive grid layout: 3 products per row when filters shown, 4 when filters minimized
+  - Square product images with consistent light gray background matching existing design
+  - Filter toggle functionality with collapsible sidebar
+  - Navigation integration through header "Glasses" link
+  - Route: `/products` - accessible via main navigation
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
