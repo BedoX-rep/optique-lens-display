@@ -169,7 +169,7 @@ const ProductPage = () => {
           </div>
 
           {/* Product Details */}
-          <div className="flex flex-col xl:pl-8 bg-white xl:bg-transparent xl:py-8">
+          <div className="flex flex-col xl:pl-8 bg-white xl:bg-transparent xl:py-8 p-6 xl:p-0 mx-4 xl:mx-0 rounded-lg xl:rounded-none shadow-sm xl:shadow-none mb-4 xl:mb-0">
             {/* Product Name and Heart */}
             <div className="flex items-center gap-3 mb-2">
               <h1 className="brand-font-heading text-2xl text-gray-800" data-testid="text-product-name">
