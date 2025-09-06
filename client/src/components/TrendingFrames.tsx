@@ -15,52 +15,31 @@ const TrendingFrames = () => {
   const frames = [
     {
       id: 1,
-      name: "Margot",
-      price: "£53",
-      image: "/mockupphotos/imgi_148_1487257371233468_resize_680_340.jpg",
-      colors: ["brown", "blue"]
+      name: "Crystal Clear",
+      price: "£29",
+      image: "/test-frames/test1.png",
+      colors: ["clear", "gold"]
     },
     {
       id: 2,
-      name: "Corey",
-      price: "£39",
-      image: "/mockupphotos/imgi_151_1687258212854351_resize_680_340.jpg",
-      colors: ["black", "brown", "gray"]
+      name: "Tortoise Classic",
+      price: "£29",
+      image: "/test-frames/test2.png",
+      colors: ["tortoise", "brown"]
     },
     {
       id: 3,
-      name: "Billie",
-      price: "£39",
-      image: "/mockupphotos/imgi_61_1467033542799571_resize_680_340.webp",
-      colors: ["brown", "black", "purple"]
+      name: "Sage Green",
+      price: "£29",
+      image: "/test-frames/test3.png",
+      colors: ["green", "gold"]
     },
     {
       id: 4,
-      name: "Classic Square",
-      price: "£45",
-      image: "/mockupphotos/imgi_64_1487257371233468_resize_680_340.webp",
-      colors: ["black", "tortoise"]
-    },
-    {
-      id: 5,
-      name: "Modern Round",
-      price: "£42",
-      image: "/mockupphotos/imgi_65_1686908083580558_resize_680_340.webp",
-      colors: ["blue", "black", "brown"]
-    },
-    {
-      id: 6,
-      name: "Vintage Cat",
-      price: "£48",
-      image: "/mockupphotos/imgi_67_1687258212854351_resize_680_340.webp",
-      colors: ["brown", "black"]
-    },
-    {
-      id: 7,
-      name: "Sport Style",
-      price: "£52",
-      image: "/mockupphotos/imgi_68_1467204059555909_resize_680_340.webp",
-      colors: ["black", "gray", "blue"]
+      name: "Clear Vision",
+      price: "£29",
+      image: "/test-frames/test4.png",
+      colors: ["clear", "gold"]
     }
   ];
 
