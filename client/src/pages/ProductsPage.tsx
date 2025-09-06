@@ -109,12 +109,12 @@ const ProductsPage = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center text-white px-4">
-                <h1 className="brand-font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 drop-shadow-lg">
-                  Premium Prescription Glasses
+              <div className="text-center text-white px-4 max-w-4xl">
+                <h1 className="brand-font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg">
+                  Buy Prescription Glasses
                 </h1>
-                <p className="brand-font-primary text-sm sm:text-base md:text-lg font-medium drop-shadow-md">
-                  Find Your Perfect Frame Style
+                <p className="brand-font-primary text-sm sm:text-base md:text-lg font-medium drop-shadow-md leading-relaxed">
+                  Here at OptiqueLens we offer a huge selection of glasses for men and glasses for women. High quality eyewear at affordable prices. Browse our range frames including styles such as Wayfarer™, Clubmaster™ and Aviator. You will find our own brand and Designer Frames from the likes of Ray-ban® and Oakley®.
                 </p>
               </div>
             </div>
@@ -180,7 +180,7 @@ const ProductsPage = () => {
                 className="group cursor-pointer"
                 onClick={() => navigate(`/product/${product.id}`)}
               >
-                {/* Product Image Container with info overlay - Responsive sizing */}
+                {/* Product Image Container - Responsive sizing */}
                 <div className="relative bg-gray-50 rounded-lg p-4 sm:p-6 aspect-[4/3] sm:aspect-[393/235] flex items-center justify-center group-hover:shadow-lg transition-shadow w-full max-w-[300px] sm:max-w-[350px] lg:max-w-[393px] mx-auto">
                   <img 
                     src={product.image} 
@@ -211,26 +211,26 @@ const ProductsPage = () => {
                       </Badge>
                     </div>
                   )}
+                </div>
 
-                  {/* Product Info - Bottom Left Overlay */}
-                  <div className="absolute bottom-3 left-3 bg-white rounded-lg shadow-md p-3 max-w-[calc(100%-1.5rem)]">
-                    <h3 className="brand-font-heading text-sm sm:text-base font-medium text-gray-800 mb-1 leading-tight">
-                      {product.name}
-                    </h3>
-                    <p className="brand-font-heading text-base sm:text-lg font-bold text-gray-900 mb-2">
-                      £{product.price}
-                    </p>
+                {/* Product Info - Below Image */}
+                <div className="mt-3 text-left">
+                  <h3 className="brand-font-heading text-base sm:text-lg font-medium text-gray-800 mb-1">
+                    {product.name}
+                  </h3>
+                  <p className="brand-font-heading text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                    £{product.price}
+                  </p>
 
-                    {/* Color Options */}
-                    <div className="flex gap-1">
-                      {product.colors.map((color, index) => (
-                        <div
-                          key={index}
-                          className="w-3 h-3 sm:w-4 sm:h-4 rounded-full border border-gray-300"
-                          style={{ backgroundColor: color }}
-                        />
-                      ))}
-                    </div>
+                  {/* Color Options */}
+                  <div className="flex gap-2">
+                    {product.colors.map((color, index) => (
+                      <div
+                        key={index}
+                        className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-gray-300"
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
