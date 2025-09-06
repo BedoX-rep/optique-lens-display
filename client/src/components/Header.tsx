@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import "../styles/brand-system.css";
 import {
   Sheet,
@@ -75,10 +76,10 @@ const Header = () => {
               </div>
             </SheetContent>
           </Sheet>
-          <span className="text-2xl font-bold tracking-wider select-none mx-auto">
+          <Link to="/" className="text-2xl font-bold tracking-wider select-none mx-auto">
             <span className="text-gray-800">OPTIQUE</span>
             <span className="text-gray-500">LENS</span>
-          </span>
+          </Link>
           <div className="flex items-center gap-4">
             <button><Search className="h-6 w-6 text-[#220944]" /></button>
             <button><ShoppingCart className="h-6 w-6 text-[#220944]" /></button>
@@ -87,7 +88,13 @@ const Header = () => {
 
         {/* Desktop Navigation - DirectSight Style */}
         <nav className="hidden md:flex gap-8 text-gray-700 text-base font-medium items-center">
-          {leftNav.map((item) => (
+          <Link
+            to="/products"
+            className="hover:text-gray-900 transition-colors py-2"
+          >
+            Glasses
+          </Link>
+          {leftNav.slice(1).map((item) => (
             <a
               key={item}
               href="#"
@@ -100,10 +107,10 @@ const Header = () => {
         
         {/* Center Logo */}
         <div className="hidden md:flex justify-center">
-          <span className="text-3xl font-bold tracking-wider select-none">
+          <Link to="/" className="text-3xl font-bold tracking-wider select-none">
             <span className="text-gray-800">OPTIQUE</span>
             <span className="text-gray-500">LENS</span>
-          </span>
+          </Link>
         </div>
         
         {/* Right Navigation and Icons */}
