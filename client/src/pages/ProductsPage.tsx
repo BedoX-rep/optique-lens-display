@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart, ChevronDown, Filter } from 'lucide-react';
@@ -86,9 +87,9 @@ const ProductsPage = () => {
 
   const FilterDropdown = ({ label, options }: { label: string, options: string[] }) => (
     <div className="relative group">
-      <button className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors">
+      <button className="flex items-center gap-1 px-0 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors">
         {label}
-        <ChevronDown className="w-4 h-4" />
+        <ChevronDown className="w-3 h-3" />
       </button>
     </div>
   );
@@ -97,39 +98,37 @@ const ProductsPage = () => {
     <div className="min-h-screen bg-white">
       <Header />
 
-      {/* Page Content */}
+      {/* Page Content - Following homepage pattern */}
       <div className="w-full flex justify-center">
         <div className="w-full max-w-[1440px] px-4 py-6">
 
-          {/* Filter Bar */}
-          <div className="bg-gray-50 border-b border-gray-200 -mx-4 px-4 py-4 mb-8">
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              {/* Filter Options */}
-              <div className="flex items-center gap-1">
-                <div className="flex items-center gap-2 mr-4">
-                  <Filter className="w-4 h-4 text-gray-600" />
-                  <span className="text-sm font-medium text-gray-800">FILTER BY</span>
-                </div>
-
-                {Object.entries(filterOptions).map(([label, options]) => (
-                  <FilterDropdown key={label} label={label} options={options} />
-                ))}
-
-                <button className="text-sm text-gray-600 hover:text-gray-800 ml-4">
-                  Clear Filters
-                </button>
+          {/* Filter Bar - Matching the provided design */}
+          <div className="bg-white border-b border-gray-200 pb-4 mb-8">
+            {/* First Row - Filter Options */}
+            <div className="flex items-center justify-start flex-wrap gap-6 mb-4">
+              <div className="flex items-center gap-2">
+                <Filter className="w-4 h-4 text-gray-600" />
+                <span className="text-sm font-medium text-gray-800 uppercase tracking-wide">FILTER BY</span>
               </div>
+
+              {Object.entries(filterOptions).map(([label, options]) => (
+                <FilterDropdown key={label} label={label} options={options} />
+              ))}
+
+              <button className="text-sm text-gray-600 hover:text-gray-800 ml-auto">
+                Clear Filters
+              </button>
             </div>
 
-            {/* Second Row */}
-            <div className="flex items-center justify-between mt-4">
+            {/* Second Row - Show as Sunglasses and Sort */}
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input 
                     type="checkbox" 
                     checked={showAsSunglasses}
                     onChange={(e) => setShowAsSunglasses(e.target.checked)}
-                    className="rounded border-gray-300"
+                    className="w-4 h-4 rounded border-gray-300"
                   />
                   <span className="text-sm text-gray-600">Show as Sunglasses</span>
                 </label>
@@ -138,7 +137,7 @@ const ProductsPage = () => {
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-600">Sort by:</span>
                 <div className="relative">
-                  <button className="flex items-center gap-2 px-3 py-1 text-sm font-medium text-gray-800 hover:text-gray-600">
+                  <button className="flex items-center gap-1 px-0 py-1 text-sm font-medium text-gray-800 hover:text-gray-600">
                     {sortBy}
                     <ChevronDown className="w-4 h-4" />
                   </button>
@@ -155,12 +154,12 @@ const ProductsPage = () => {
                 className="group cursor-pointer"
                 onClick={() => navigate(`/product/${product.id}`)}
               >
-                {/* Product Image Container */}
-                <div className="relative bg-gray-50 rounded-lg p-8 mb-4 aspect-square flex items-center justify-center group-hover:shadow-lg transition-shadow">
+                {/* Product Image Container - Adjusted size */}
+                <div className="relative bg-gray-50 rounded-lg p-6 mb-4 aspect-[393/235] flex items-center justify-center group-hover:shadow-lg transition-shadow max-w-[393px] max-h-[235px] mx-auto">
                   <img 
                     src={product.image} 
                     alt={product.name}
-                    className="w-full h-auto max-h-[200px] object-contain group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-auto max-h-[180px] object-contain group-hover:scale-105 transition-transform duration-300"
                   />
 
                   {/* Heart Icon */}
