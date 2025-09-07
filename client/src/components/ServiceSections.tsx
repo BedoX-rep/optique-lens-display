@@ -111,71 +111,40 @@ const ServiceSections = () => {
           </div>
         </div>
 
-        {/* Frame Finder Section */}
-        <div className="max-h-[600px] overflow-hidden">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center h-[600px]" data-testid="section-ai-frame-finder">
-            {/* GIF Side */}
-            <div className="order-2 lg:order-1 h-full flex items-center justify-center">
-              <div className="w-full max-w-md">
-                <img 
-                  src="/attached_assets/1210777b-d1c7f439_1757213679821.gif"
-                  alt="Virtual try-on technology demonstration"
-                  className="w-full h-auto max-h-[500px] object-contain rounded-2xl shadow-xl"
-                />
-              </div>
-            </div>
-            
-            {/* Content Side */}
-            <div className="order-1 lg:order-2 h-full flex items-center">
-              <div className="max-w-lg">
-                <h3 className="brand-font-heading text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-6 leading-tight">
-                  Find your perfect frames instantly
-                </h3>
-                
-                <p className="brand-font-primary text-xl md:text-2xl text-gray-700 leading-relaxed mb-10">
-                  Experience our virtual try-on technology and get personalized recommendations tailored to your unique style.
-                </p>
-                
-                {/* Streamlined Features */}
-                <div className="space-y-6 mb-10">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl">📱</span>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 text-lg">Virtual Try-On</h4>
-                      <p className="text-gray-600">See frames on your face in real-time</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl">🎯</span>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 text-lg">Smart Matching</h4>
-                      <p className="text-gray-600">Personalized recommendations for your face shape</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl">⚡</span>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 text-lg">Instant Results</h4>
-                      <p className="text-gray-600">Find your match in seconds</p>
-                    </div>
-                  </div>
+        {/* AI Frame Finder Section */}
+        <div>
+          <div className="bg-white rounded-2xl overflow-hidden" data-testid="section-ai-frame-finder">
+            <div className="grid lg:grid-cols-2 gap-0 items-center">
+              {/* Image Side */}
+              <div className="order-2 lg:order-1">
+                <div className="aspect-[4/3] lg:aspect-square lg:h-[500px]">
+                  <img 
+                    src={aiFittingImage} 
+                    alt="AI eyewear fitting technology"
+                    className="w-full h-full object-cover object-center"
+                  />
                 </div>
-                
-                {/* CTA Button */}
-                <button className="bg-teal-600 hover:bg-teal-700 text-white px-10 py-5 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl group" data-testid="button-try-ai-finder">
-                  <span className="flex items-center justify-center space-x-3">
-                    <span>Try Virtual Frame Finder</span>
-                    <span className="group-hover:translate-x-1 transition-transform text-xl">→</span>
-                  </span>
-                </button>
+              </div>
+              
+              {/* Content Side */}
+              <div className="order-1 lg:order-2 p-8 md:p-12 lg:p-16">
+                <div className="max-w-lg">
+                  <h3 className="font-light text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 leading-[1.1] tracking-tight">
+                    Curated frame picks, at your fingertips with AI
+                  </h3>
+                  
+                  <p className="font-normal text-lg md:text-xl text-gray-500 leading-relaxed mb-10 tracking-wide">
+                    Virtually try on frames and get personalized recommendations with our ai technology
+                  </p>
+                  
+                  {/* CTA Button */}
+                  <button className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium text-base transition-colors duration-300 group" data-testid="button-try-ai-finder">
+                    <span className="flex items-center justify-center space-x-3">
+                      <span>Try AI Frame Finder</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
