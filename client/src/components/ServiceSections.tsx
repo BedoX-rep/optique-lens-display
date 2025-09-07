@@ -113,54 +113,27 @@ const ServiceSections = () => {
 
         {/* AI Frame Finder Section */}
         <div>
-          <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm" data-testid="section-ai-frame-finder">
-            <div className="text-center py-16 md:py-20 px-8 md:px-12">
-              <div className="max-w-4xl mx-auto">
-                <div className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium mb-8">
-                  🤖 AI Technology
+          <div className="bg-white rounded-2xl overflow-hidden" data-testid="section-ai-frame-finder">
+            <div className="grid md:grid-cols-2 gap-0 items-center">
+              {/* Image Side */}
+              <div className="order-1">
+                <img 
+                  src={aiFittingImage} 
+                  alt="AI eyewear fitting technology"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              {/* Content Side */}
+              <div className="p-8 md:p-12 lg:p-16 order-2">
+                <div className="max-w-lg">
+                  <h3 className="brand-font-heading text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 leading-tight">
+                    Curated frame picks, at your fingertips with AI
+                  </h3>
+                  <p className="brand-font-primary text-lg md:text-xl text-gray-600 leading-relaxed">
+                    Virtually try on frames and get personalized recommendations with our ai technology
+                  </p>
                 </div>
-                <h3 className="brand-font-heading text-4xl md:text-5xl text-gray-900 mb-6 leading-tight">
-                  AI Frame Finder
-                </h3>
-                <p className="brand-font-primary text-lg md:text-xl text-gray-600 mb-16 leading-relaxed max-w-2xl mx-auto">
-                  Let our advanced AI technology analyze your face shape and recommend the perfect frames for you.
-                </p>
-                
-                <div className="grid md:grid-cols-3 gap-12 mb-16">
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <span className="text-3xl">📸</span>
-                    </div>
-                    <h4 className="text-gray-900 font-semibold text-lg mb-3">Face Analysis</h4>
-                    <p className="text-gray-500">Advanced facial recognition technology</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <span className="text-3xl">🎯</span>
-                    </div>
-                    <h4 className="text-gray-900 font-semibold text-lg mb-3">Smart Matching</h4>
-                    <p className="text-gray-500">Intelligent frame recommendations</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                      <span className="text-3xl">✨</span>
-                    </div>
-                    <h4 className="text-gray-900 font-semibold text-lg mb-3">Personalized</h4>
-                    <p className="text-gray-500">Tailored to your unique style</p>
-                  </div>
-                </div>
-                
-                <div className="mb-12">
-                  <img 
-                    src={aiFittingImage} 
-                    alt="AI eyewear fitting technology"
-                    className="w-full max-w-2xl mx-auto rounded-xl shadow-md"
-                  />
-                </div>
-                
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors">
-                  Try AI Frame Finder
-                </button>
               </div>
             </div>
           </div>
