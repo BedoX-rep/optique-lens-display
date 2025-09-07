@@ -62,10 +62,10 @@ const ServiceSections = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {/* Visit Our Store */}
+        {/* Visit Our Store Section */}
+        <div className="mb-8 md:mb-16">
           <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg transition-transform hover:scale-[1.02]" data-testid="section-visit-store">
-            <div className="aspect-[2/1] relative">
+            <div className="aspect-[3/1] md:aspect-[4/1] relative">
               <img 
                 src={storeInteriorImage} 
                 alt="Modern optical store interior"
@@ -75,20 +75,22 @@ const ServiceSections = () => {
             </div>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center text-white px-4 md:px-6">
-                <h3 className="brand-font-heading text-2xl md:text-3xl mb-2 md:mb-3">Visit Our Store</h3>
-                <p className="brand-font-primary text-sm md:text-lg opacity-90 max-w-sm mx-auto leading-relaxed">
+                <h3 className="brand-font-heading text-3xl md:text-4xl mb-3 md:mb-4">Visit Our Store</h3>
+                <p className="brand-font-primary text-base md:text-xl opacity-90 max-w-2xl mx-auto leading-relaxed">
                   Experience personalized service and try on hundreds of frames in our modern boutique location
                 </p>
-                <div className="mt-3 md:mt-4 text-xs md:text-sm opacity-80">
+                <div className="mt-4 md:mt-6 text-sm md:text-base opacity-80">
                   📍 Expert consultations • Premium brands • Professional fittings
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* AI Frame Finder */}
+        {/* AI Frame Finder Section */}
+        <div>
           <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg transition-transform hover:scale-[1.02]" data-testid="section-ai-frame-finder">
-            <div className="aspect-[2/1] relative">
+            <div className="aspect-[3/1] md:aspect-[4/1] relative">
               <img 
                 src={aiFittingImage} 
                 alt="AI eyewear fitting technology"
@@ -98,11 +100,11 @@ const ServiceSections = () => {
             </div>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center text-white px-4 md:px-6">
-                <h3 className="brand-font-heading text-2xl md:text-3xl mb-2 md:mb-3">AI Frame Finder</h3>
-                <p className="brand-font-primary text-sm md:text-lg opacity-90 max-w-sm mx-auto leading-relaxed">
+                <h3 className="brand-font-heading text-3xl md:text-4xl mb-3 md:mb-4">AI Frame Finder</h3>
+                <p className="brand-font-primary text-base md:text-xl opacity-90 max-w-2xl mx-auto leading-relaxed">
                   Let our AI technology analyze your face shape and recommend the perfect frames for you
                 </p>
-                <div className="mt-3 md:mt-4 text-xs md:text-sm opacity-80">
+                <div className="mt-4 md:mt-6 text-sm md:text-base opacity-80">
                   🤖 Smart matching • Face analysis • Personalized recommendations
                 </div>
               </div>
