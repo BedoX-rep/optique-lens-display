@@ -111,87 +111,97 @@ const ServiceSections = () => {
           </div>
         </div>
 
-        {/* AI Frame Finder Section */}
+        {/* Smart Frame Finder Section */}
         <div>
-          <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl overflow-hidden shadow-lg border border-blue-100/50" data-testid="section-ai-frame-finder">
-            <div className="grid lg:grid-cols-2 gap-0 items-center min-h-[500px]">
-              {/* Image Side */}
-              <div className="order-2 lg:order-1 h-64 lg:h-full">
-                <div className="relative h-full group">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center py-8 lg:py-16" data-testid="section-ai-frame-finder">
+            {/* Image Side */}
+            <div className="order-2 lg:order-1">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 to-purple-400/20 rounded-3xl blur-2xl transform -rotate-3 scale-105"></div>
+                <div className="relative bg-white rounded-2xl p-6 shadow-2xl border border-gray-100 transform hover:scale-105 transition-transform duration-500">
                   <img 
                     src={aiFittingImage} 
-                    alt="AI eyewear fitting technology"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    alt="Smart eyewear fitting technology"
+                    className="w-full h-64 md:h-80 object-cover rounded-xl"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10"></div>
                   
-                  {/* Floating AI Badge */}
-                  <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+                  {/* Floating Feature Cards */}
+                  <div className="absolute -top-4 -right-4 bg-teal-500 text-white px-4 py-2 rounded-xl shadow-lg transform rotate-3">
                     <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-medium text-gray-700">AI Powered</span>
+                      <span className="text-sm font-semibold">Smart Matching</span>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute -bottom-4 -left-4 bg-purple-500 text-white px-4 py-2 rounded-xl shadow-lg transform -rotate-3">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm font-semibold">Virtual Try-On</span>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              {/* Content Side */}
-              <div className="order-1 lg:order-2 p-6 md:p-8 lg:p-12 xl:p-16">
-                <div className="max-w-lg lg:max-w-none">
-                  {/* Small Badge */}
-                  <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-6">
-                    <span className="text-xs">🤖</span>
-                    <span>AI Technology</span>
-                  </div>
-                  
-                  <h3 className="brand-font-heading text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-gray-900 mb-4 md:mb-6 leading-tight">
-                    Curated frame picks, at your fingertips with AI
-                  </h3>
-                  
-                  <p className="brand-font-primary text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed mb-8 lg:mb-10">
-                    Virtually try on frames and get personalized recommendations with our ai technology
-                  </p>
-                  
-                  {/* Features List */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3 mb-8 lg:mb-10">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm">📱</span>
-                      </div>
-                      <span className="text-sm text-gray-600">Virtual try-on</span>
+            </div>
+            
+            {/* Content Side */}
+            <div className="order-1 lg:order-2">
+              <div className="max-w-lg">
+                {/* Badge */}
+                <div className="inline-flex items-center space-x-2 bg-teal-100 text-teal-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                  <span className="text-sm">✨</span>
+                  <span>Smart Technology</span>
+                </div>
+                
+                <h3 className="brand-font-heading text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 leading-tight">
+                  Find your perfect frames instantly
+                </h3>
+                
+                <p className="brand-font-primary text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+                  Get personalized recommendations and virtually try on hundreds of frames using our intelligent matching system.
+                </p>
+                
+                {/* Enhanced Features */}
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl hover:bg-teal-50 transition-colors">
+                    <div className="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-lg">📸</span>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm">🎯</span>
-                      </div>
-                      <span className="text-sm text-gray-600">Smart recommendations</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm">⚡</span>
-                      </div>
-                      <span className="text-sm text-gray-600">Instant results</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm">✨</span>
-                      </div>
-                      <span className="text-sm text-gray-600">Personalized</span>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">Virtual Try-On</h4>
+                      <p className="text-sm text-gray-600">See how frames look on you instantly with camera technology</p>
                     </div>
                   </div>
                   
-                  {/* CTA Button */}
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group" data-testid="button-try-ai-finder">
-                      <span className="flex items-center justify-center space-x-2">
-                        <span>Try AI Frame Finder</span>
-                        <span className="group-hover:translate-x-1 transition-transform">→</span>
-                      </span>
-                    </button>
-                    <button className="border-2 border-gray-200 hover:border-blue-300 text-gray-700 hover:text-blue-700 px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 hover:bg-blue-50" data-testid="button-learn-more">
-                      Learn More
-                    </button>
+                  <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl hover:bg-purple-50 transition-colors">
+                    <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-lg">🎯</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">Personalized Recommendations</h4>
+                      <p className="text-sm text-gray-600">Curated selections based on your face shape and style preferences</p>
+                    </div>
                   </div>
+                  
+                  <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl hover:bg-green-50 transition-colors">
+                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-lg">⚡</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">Instant Results</h4>
+                      <p className="text-sm text-gray-600">Find your perfect match in seconds, not hours</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group" data-testid="button-try-ai-finder">
+                    <span className="flex items-center justify-center space-x-2">
+                      <span>Try Smart Frame Finder</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                  </button>
+                  <button className="border-2 border-gray-300 hover:border-teal-500 text-gray-700 hover:text-teal-700 px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:bg-teal-50" data-testid="button-learn-more">
+                    Learn More
+                  </button>
                 </div>
               </div>
             </div>
