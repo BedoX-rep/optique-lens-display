@@ -119,9 +119,9 @@ const ServiceSections = () => {
               <div className="order-2 lg:order-1">
                 <div className="aspect-[4/3] lg:aspect-square lg:h-[500px]">
                   <img 
-                    src={aiFittingImage} 
-                    alt="AI eyewear fitting technology"
-                    className="w-full h-full object-cover object-center"
+                    src="/attached_images/1210777b-d1c7f439.gif" 
+                    alt="Virtual try-on technology demonstration"
+                    className="w-full h-full object-contain object-center"
                   />
                 </div>
               </div>
