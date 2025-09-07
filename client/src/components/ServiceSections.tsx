@@ -113,57 +113,53 @@ const ServiceSections = () => {
 
         {/* AI Frame Finder Section */}
         <div>
-          <div className="relative bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 rounded-2xl overflow-hidden shadow-xl" data-testid="section-ai-frame-finder">
-            {/* Background Image with Overlay */}
-            <div className="absolute inset-0">
-              <img 
-                src={aiFittingImage} 
-                alt="AI eyewear fitting technology"
-                className="w-full h-full object-cover opacity-20"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-slate-800/90 to-gray-900/90"></div>
-            </div>
-            
-            {/* Content */}
-            <div className="relative z-10 text-center py-16 md:py-24 px-8 md:px-12">
+          <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm" data-testid="section-ai-frame-finder">
+            <div className="text-center py-16 md:py-20 px-8 md:px-12">
               <div className="max-w-4xl mx-auto">
-                <div className="inline-flex items-center px-4 py-2 bg-blue-500/20 text-blue-300 rounded-full text-sm font-medium mb-8 border border-blue-400/30">
+                <div className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium mb-8">
                   🤖 AI Technology
                 </div>
-                <h3 className="brand-font-heading text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-tight">
+                <h3 className="brand-font-heading text-4xl md:text-5xl text-gray-900 mb-6 leading-tight">
                   AI Frame Finder
                 </h3>
-                <p className="brand-font-primary text-lg md:text-xl text-gray-300 mb-12 leading-relaxed max-w-3xl mx-auto">
-                  Let our advanced AI technology analyze your face shape, skin tone, and personal style to recommend the perfect frames that complement your unique features.
+                <p className="brand-font-primary text-lg md:text-xl text-gray-600 mb-16 leading-relaxed max-w-2xl mx-auto">
+                  Let our advanced AI technology analyze your face shape and recommend the perfect frames for you.
                 </p>
                 
-                <div className="grid md:grid-cols-3 gap-8 mb-12">
+                <div className="grid md:grid-cols-3 gap-12 mb-16">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-400/30">
-                      <span className="text-2xl">📸</span>
+                    <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                      <span className="text-3xl">📸</span>
                     </div>
-                    <h4 className="text-white font-semibold mb-2">Face Analysis</h4>
-                    <p className="text-gray-400 text-sm">Advanced facial recognition technology</p>
+                    <h4 className="text-gray-900 font-semibold text-lg mb-3">Face Analysis</h4>
+                    <p className="text-gray-500">Advanced facial recognition technology</p>
                   </div>
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-400/30">
-                      <span className="text-2xl">🎯</span>
+                    <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                      <span className="text-3xl">🎯</span>
                     </div>
-                    <h4 className="text-white font-semibold mb-2">Smart Matching</h4>
-                    <p className="text-gray-400 text-sm">Intelligent frame recommendations</p>
+                    <h4 className="text-gray-900 font-semibold text-lg mb-3">Smart Matching</h4>
+                    <p className="text-gray-500">Intelligent frame recommendations</p>
                   </div>
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-400/30">
-                      <span className="text-2xl">✨</span>
+                    <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                      <span className="text-3xl">✨</span>
                     </div>
-                    <h4 className="text-white font-semibold mb-2">Personalized</h4>
-                    <p className="text-gray-400 text-sm">Tailored to your unique style</p>
+                    <h4 className="text-gray-900 font-semibold text-lg mb-3">Personalized</h4>
+                    <p className="text-gray-500">Tailored to your unique style</p>
                   </div>
                 </div>
                 
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                <div className="mb-12">
+                  <img 
+                    src={aiFittingImage} 
+                    alt="AI eyewear fitting technology"
+                    className="w-full max-w-2xl mx-auto rounded-xl shadow-md"
+                  />
+                </div>
+                
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors">
                   Try AI Frame Finder
-                  <span className="ml-3 text-xl">🚀</span>
                 </button>
               </div>
             </div>
