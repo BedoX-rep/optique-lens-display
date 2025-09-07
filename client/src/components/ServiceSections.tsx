@@ -63,38 +63,51 @@ const ServiceSections = () => {
         </div>
 
         {/* AI Frame Finder Section */}
-        <div className="mb-12 md:mb-20">
-          <div className="bg-white rounded-2xl overflow-hidden" data-testid="section-ai-frame-finder">
-            <div className="grid lg:grid-cols-2 gap-0 items-center">
+        <div className="mb-16 md:mb-24">
+          <div className="relative bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 rounded-3xl overflow-hidden shadow-lg border border-gray-100" data-testid="section-ai-frame-finder">
+            {/* Decorative Elements */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-teal-200/30 to-cyan-200/30 rounded-full blur-2xl"></div>
+            
+            <div className="relative grid lg:grid-cols-2 gap-0 items-center min-h-[500px]">
               {/* Image Side */}
-              <div className="order-2 lg:order-1">
-                <div className="aspect-[4/3] lg:aspect-square lg:h-[500px]">
+              <div className="order-2 lg:order-1 p-8 lg:p-12">
+                <div className="relative bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
                   <img 
                     src="/attached_images/1210777b-d1c7f439.gif" 
                     alt="Virtual try-on technology demonstration"
-                    className="w-full h-full object-contain object-center"
+                    className="w-full h-auto max-h-[400px] object-contain mx-auto rounded-xl"
                   />
+                  <div className="absolute -top-3 -right-3 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+                    ✨ AI Powered
+                  </div>
                 </div>
               </div>
               
               {/* Content Side */}
               <div className="order-1 lg:order-2 p-8 md:p-12 lg:p-16">
                 <div className="max-w-lg">
-                  <h3 className="font-light text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 leading-[1.1] tracking-tight">
+                  <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-blue-700 mb-6 shadow-sm border border-blue-100">
+                    <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                    <span>Advanced AI Technology</span>
+                  </div>
+                  
+                  <h3 className="brand-font-heading text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 leading-tight font-medium">
                     Curated frame picks, at your fingertips with AI
                   </h3>
                   
-                  <p className="font-normal text-lg md:text-xl text-gray-500 leading-relaxed mb-10 tracking-wide">
+                  <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
                     Virtually try on frames and get personalized recommendations with our ai technology
                   </p>
                   
-                  {/* CTA Button */}
-                  <button className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium text-base transition-colors duration-300 group" data-testid="button-try-ai-finder">
-                    <span className="flex items-center justify-center space-x-3">
-                      <span>Try AI Frame Finder</span>
-                      <span className="group-hover:translate-x-1 transition-transform">→</span>
-                    </span>
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group" data-testid="button-try-ai-finder">
+                      <span className="flex items-center justify-center space-x-2">
+                        <span>Try AI Frame Finder</span>
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                      </span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -103,37 +116,65 @@ const ServiceSections = () => {
 
         {/* Visit Our Store Section */}
         <div>
-          <div className="bg-white rounded-2xl overflow-hidden" data-testid="section-visit-store">
-            <div className="grid lg:grid-cols-2 gap-0 items-center">
+          <div className="relative bg-gradient-to-br from-teal-50 via-cyan-50 to-emerald-50 rounded-3xl overflow-hidden shadow-lg border border-teal-100" data-testid="section-visit-store">
+            {/* Decorative Elements */}
+            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-teal-200/30 to-emerald-200/30 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-cyan-200/30 to-teal-200/30 rounded-full blur-2xl"></div>
+            
+            <div className="relative grid lg:grid-cols-2 gap-0 items-center min-h-[500px]">
               {/* Content Side */}
               <div className="order-1 lg:order-1 p-8 md:p-12 lg:p-16">
                 <div className="max-w-lg">
-                  <h3 className="font-light text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 leading-[1.1] tracking-tight">
+                  <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-teal-700 mb-6 shadow-sm border border-teal-100">
+                    <span>📍</span>
+                    <span>Physical Location</span>
+                  </div>
+                  
+                  <h3 className="brand-font-heading text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 leading-tight font-medium">
                     Visit Our Store
                   </h3>
                   
-                  <p className="font-normal text-lg md:text-xl text-gray-500 leading-relaxed mb-10 tracking-wide">
+                  <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-6">
                     Experience personalized service and try on hundreds of frames in our modern boutique location
                   </p>
                   
-                  {/* CTA Button */}
-                  <button className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-lg font-medium text-base transition-colors duration-300 group" data-testid="button-visit-store">
-                    <span className="flex items-center justify-center space-x-3">
-                      <span>Find Our Location</span>
-                      <span className="group-hover:translate-x-1 transition-transform">→</span>
-                    </span>
-                  </button>
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-center space-x-3 text-gray-600">
+                      <div className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center">
+                        <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
+                      </div>
+                      <span>Expert consultations & professional fittings</span>
+                    </div>
+                    <div className="flex items-center space-x-3 text-gray-600">
+                      <div className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center">
+                        <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
+                      </div>
+                      <span>Premium brands & exclusive collections</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group" data-testid="button-visit-store">
+                      <span className="flex items-center justify-center space-x-2">
+                        <span>Find Our Location</span>
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                      </span>
+                    </button>
+                  </div>
                 </div>
               </div>
               
               {/* Image Side */}
-              <div className="order-2 lg:order-2">
-                <div className="aspect-[4/3] lg:aspect-square lg:h-[500px]">
+              <div className="order-2 lg:order-2 p-8 lg:p-12">
+                <div className="relative bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
                   <img 
                     src={storeInteriorImage} 
                     alt="Modern optical store interior"
-                    className="w-full h-full object-contain object-center"
+                    className="w-full h-auto max-h-[400px] object-contain mx-auto rounded-xl"
                   />
+                  <div className="absolute -top-3 -left-3 bg-teal-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+                    🏪 Premium Store
+                  </div>
                 </div>
               </div>
             </div>
