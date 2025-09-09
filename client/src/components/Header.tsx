@@ -63,7 +63,7 @@ const Header = () => {
               <img 
                 src="/attached_images/logotrans.png" 
                 alt="OptiqueLens Logo" 
-                className="h-8 w-auto"
+                className="h-12 w-auto"
               />
             </Link>
           </div>
@@ -143,7 +143,7 @@ const Header = () => {
                     <img 
                       src="/attached_images/logotrans.png" 
                       alt="OptiqueLens Logo" 
-                      className="h-6 w-auto"
+                      className="h-10 w-auto"
                     />
                   </div>
                   <nav className="flex-1 overflow-y-auto py-4">
