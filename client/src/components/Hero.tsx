@@ -14,7 +14,7 @@ const Hero = () => {
         {/* Hero banner image */}
         <div className="absolute inset-0">
           <img 
-            src="/attached_images/eyeglasses-hero-banner4.png" 
+            src="/attached_images/finalbannerimg.png" 
             alt="Eyeglasses collection banner" 
             className="w-full h-full object-cover"
           />
