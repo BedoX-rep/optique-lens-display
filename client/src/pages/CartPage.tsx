@@ -70,6 +70,8 @@ const CartPage = () => {
   useEffect(() => {
     if (!isLoading) {
       localStorage.setItem('cart', JSON.stringify(cartItems));
+      // Dispatch custom event to update header cart count
+      window.dispatchEvent(new CustomEvent('cartUpdated'));
     }
   }, [cartItems, isLoading]);
 

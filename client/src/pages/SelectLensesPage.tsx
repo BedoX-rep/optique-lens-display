@@ -180,6 +180,9 @@ const SelectLensesPage = () => {
     const updatedCart = [...existingCart, cartItem];
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     
+    // Dispatch custom event to update header cart count
+    window.dispatchEvent(new CustomEvent('cartUpdated'));
+    
     navigate('/cart');
   };
 

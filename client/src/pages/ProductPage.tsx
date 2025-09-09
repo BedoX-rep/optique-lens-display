@@ -237,6 +237,15 @@ const ProductPage = () => {
             {/* Action Buttons */}
             <div className="space-y-4 mb-8">
               <Button 
+                onClick={() => navigate(`/select-lenses/${product.id}`, { 
+                  state: { product: { 
+                    id: product.id, 
+                    name: product.name, 
+                    price: product.price, 
+                    image: product.images[0], 
+                    color: product.color 
+                  } } 
+                })}
                 className="w-full bg-purple-800 hover:bg-purple-900 text-white py-3 rounded-lg brand-font-primary font-medium"
                 data-testid="button-choose-lenses"
               >

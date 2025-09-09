@@ -1,8 +1,8 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Search, ShoppingCart, User, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/brand-system.css";
 import {
   Sheet,
@@ -14,6 +14,41 @@ import {
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [cartItemCount, setCartItemCount] = useState(0);
+  const navigate = useNavigate();
+
+  // Update cart count when localStorage changes
+  useEffect(() => {
+    const updateCartCount = () => {
+      try {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const totalItems = cart.reduce((total: number, item: any) => total + (item.quantity || 1), 0);
+        setCartItemCount(totalItems);
+      } catch (error) {
+        setCartItemCount(0);
+      }
+    };
+
+    updateCartCount();
+    
+    // Listen for storage changes
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'cart') {
+        updateCartCount();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also listen for custom cart update events
+    const handleCartUpdate = () => updateCartCount();
+    window.addEventListener('cartUpdated', handleCartUpdate);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+    };
+  }, []);
 
   const navigationItems = ["Eyeglasses", "Sunglasses", "Contacts", "Accessories", "Eye exams", "Find a store"];
 
@@ -78,10 +113,16 @@ const Header = () => {
               </button>
               
               <button 
-                className="p-1 hover:text-gray-900 transition-colors"
+                onClick={() => navigate('/cart')}
+                className="p-1 hover:text-gray-900 transition-colors relative"
                 data-testid="button-cart"
               >
                 <ShoppingCart className="h-5 w-5 text-gray-600" />
+                {cartItemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-purple-800 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                    {cartItemCount > 9 ? '9+' : cartItemCount}
+                  </span>
+                )}
                 <span className="sr-only">Cart</span>
               </button>
             </div>
