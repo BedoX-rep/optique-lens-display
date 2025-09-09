@@ -103,17 +103,17 @@ const ProductsPage = () => {
         <div className="w-full max-w-[1440px] relative">
           <div className="w-full h-[310px] overflow-hidden">
             <img 
-              src="/attached_images/products-banner1.png" 
+              src="/attached_assets/imgi_213_banner-about_1757426645307.png" 
               alt="Prescription Glasses Collection"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
             <div className="absolute inset-0 flex items-center justify-start pl-8">
-              <div className="text-left text-white px-4 max-w-[50%]">
-                <h1 className="brand-font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-black drop-shadow-lg">
+              <div className="text-left px-4 max-w-[50%]">
+                <h1 className="brand-font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-800 drop-shadow-lg">
                   Buy Prescription Glasses
                 </h1>
-                <p className="brand-font-primary text-sm sm:text-base md:text-lg font-medium drop-shadow-md leading-relaxed">
+                <p className="brand-font-primary text-sm sm:text-base md:text-lg font-medium drop-shadow-md leading-relaxed text-gray-600">
                   Here at OptiqueLens we offer a huge selection of glasses for men and glasses for women. High quality eyewear at affordable prices. Browse our range frames including styles such as Wayfarer™, Clubmaster™ and Aviator. You will find our own brand and Designer Frames from the likes of Ray-ban® and Oakley®.
                 </p>
               </div>
