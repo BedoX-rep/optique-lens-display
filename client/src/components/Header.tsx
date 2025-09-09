@@ -53,7 +53,7 @@ const Header = () => {
   const navigationItems = ["Eyeglasses", "Sunglasses", "Contacts", "Accessories", "Eye exams", "Find a store"];
 
   return (
-    <header className="w-full bg-white border-b border-gray-200">
+    <header className="w-full bg-white">
       {/* Main Navigation */}
       <div className="w-full bg-white py-4 flex justify-center">
         <div className="w-full max-w-[1440px] px-4 flex items-center justify-between">
