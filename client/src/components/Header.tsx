@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X, Search, ShoppingCart, User, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,7 +29,7 @@ const Header = () => {
     };
 
     updateCartCount();
-    
+
     // Listen for storage changes
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'cart') {
@@ -39,7 +38,7 @@ const Header = () => {
     };
 
     window.addEventListener('storage', handleStorageChange);
-    
+
     // Also listen for custom cart update events
     const handleCartUpdate = () => updateCartCount();
     window.addEventListener('cartUpdated', handleCartUpdate);
@@ -103,7 +102,7 @@ const Header = () => {
                 <Search className="h-5 w-5 text-gray-600" />
                 <span className="sr-only">Search</span>
               </button>
-              
+
               <button 
                 className="p-1 hover:text-gray-900 transition-colors"
                 data-testid="button-wishlist"
@@ -111,7 +110,7 @@ const Header = () => {
                 <Heart className="h-5 w-5 text-gray-600" />
                 <span className="sr-only">Wishlist</span>
               </button>
-              
+
               <button 
                 onClick={() => navigate('/cart')}
                 className="p-1 hover:text-gray-900 transition-colors relative"
@@ -163,6 +162,27 @@ const Header = () => {
                 </div>
               </SheetContent>
             </Sheet>
+          </div>
+        </div>
+      </div>
+      {/* Hero Banner */}
+      <div className="w-full h-[400px] overflow-hidden relative">
+        <img 
+            src="/attached_images/finalbannerimg.png" 
+            alt="Eyeglasses collection banner" 
+            className="w-full h-full object-cover"
+          />
+        <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center text-white">
+          <div className="text-center">
+            <h1 className="text-5xl font-bold mb-4">Discover Your Perfect Style</h1>
+            <p className="text-xl mb-8">Explore our latest collection of eyeglasses and sunglasses.</p>
+            <Button 
+              onClick={() => navigate('/products')}
+              className="px-8 py-3 text-lg font-semibold bg-teal-600 hover:bg-teal-700"
+              data-testid="shop-now-button"
+            >
+              Shop Now
+            </Button>
           </div>
         </div>
       </div>
