@@ -107,7 +107,6 @@ const ProductsPage = () => {
               alt="Prescription Glasses Collection"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
             <div className="absolute inset-0 flex items-center justify-start pl-8">
               <div className="text-left px-4 max-w-[50%]">
                 <h1 className="brand-font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-800 drop-shadow-lg">
