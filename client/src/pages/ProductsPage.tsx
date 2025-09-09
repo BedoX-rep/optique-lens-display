@@ -99,7 +99,7 @@ const ProductsPage = () => {
       <Header />
 
       {/* Banner Section - Following 1440px standard */}
-      <div className="w-full flex justify-center bg-gray-50">
+      <div className="w-full flex justify-center">
         <div className="w-full max-w-[1440px] relative">
           <div className="w-full h-[310px] overflow-hidden">
             <img 
