@@ -103,7 +103,7 @@ const ProductsPage = () => {
         <div className="w-full max-w-[1440px] relative">
           <div className="w-full h-[310px] overflow-hidden">
             <img 
-              src="/attached_assets/imgi_213_banner-about_1757426645307.png" 
+              src="/attached_images/products-banner.png" 
               alt="Prescription Glasses Collection"
               className="w-full h-full object-cover"
             />
@@ -124,18 +124,23 @@ const ProductsPage = () => {
 
       {/* Filter Bar - Directly below banner */}
       <div className="w-full bg-white border-b border-gray-200">
-        <div className="w-full max-w-[1440px] mx-auto px-4 py-6">
-          <div className="flex flex-wrap items-center gap-10">
+        <div className="w-full max-w-[1440px] mx-auto px-4 py-8">
+          <div className="flex flex-col items-center gap-6">
+            {/* Filter BY header */}
             <div className="flex items-center gap-3">
               <Filter className="w-5 h-5 text-gray-600" />
               <span className="text-base font-medium text-gray-800 uppercase tracking-wide">FILTER BY</span>
             </div>
 
-            {Object.entries(filterOptions).map(([label, options]) => (
-              <FilterDropdown key={label} label={label} options={options} />
-            ))}
+            {/* Filter options centered */}
+            <div className="flex flex-wrap items-center justify-center gap-12 lg:gap-16">
+              {Object.entries(filterOptions).map(([label, options]) => (
+                <FilterDropdown key={label} label={label} options={options} />
+              ))}
+            </div>
 
-            <button className="text-base text-gray-600 hover:text-gray-800 transition-colors ml-auto">
+            {/* Clear filters button */}
+            <button className="text-base text-gray-600 hover:text-gray-800 transition-colors">
               Clear Filters
             </button>
           </div>
