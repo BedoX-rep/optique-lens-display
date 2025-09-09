@@ -7,10 +7,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div>
-            <h3 className="brand-font-heading text-2xl mb-6 text-gray-900">
-              <span className="text-teal-600">OPTIQUE</span>
-              <span className="font-normal">LENS</span>
-            </h3>
+            <div className="mb-6">
+              <img 
+                src="/attached_images/logotrans.png" 
+                alt="OptiqueLens Logo" 
+                className="h-8 w-auto"
+              />
+            </div>
             <p className="brand-font-primary text-gray-600 mb-6 leading-relaxed">
               Your trusted online destination for prescription glasses, sunglasses, and eye care solutions.
             </p>

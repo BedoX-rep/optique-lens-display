@@ -59,9 +59,12 @@ const Header = () => {
         <div className="w-full max-w-[1440px] px-4 flex items-center justify-between">
           {/* Left Logo */}
           <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold tracking-wider select-none" data-testid="logo-optique">
-              <span className="text-teal-600">OPTIQUE</span>
-              <span className="text-gray-900">LENS</span>
+            <Link to="/" className="flex items-center" data-testid="logo-optique">
+              <img 
+                src="/attached_images/logotrans.png" 
+                alt="OptiqueLens Logo" 
+                className="h-8 w-auto"
+              />
             </Link>
           </div>
 
@@ -137,10 +140,11 @@ const Header = () => {
               <SheetContent side="right" className="w-[300px] p-0">
                 <div className="flex flex-col h-full">
                   <div className="flex items-center justify-between px-6 py-4 border-b">
-                    <span className="text-xl font-bold tracking-wider select-none">
-                      <span className="text-teal-600">OPTIQUE</span>
-                      <span className="text-gray-900">LENS</span>
-                    </span>
+                    <img 
+                      src="/attached_images/logotrans.png" 
+                      alt="OptiqueLens Logo" 
+                      className="h-6 w-auto"
+                    />
                   </div>
                   <nav className="flex-1 overflow-y-auto py-4">
                     <div className="px-6 py-3 border-b">
