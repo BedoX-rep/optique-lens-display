@@ -11,6 +11,7 @@ const TrendingFrames = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const frames = [
     {
@@ -40,6 +41,20 @@ const TrendingFrames = () => {
       price: "£29",
       image: "/test-frames/test4.png",
       colors: ["clear", "gold"]
+    },
+    {
+      id: 5,
+      name: "Ocean Blue",
+      price: "£29",
+      image: "/test-frames/test1.png",
+      colors: ["blue", "silver"]
+    },
+    {
+      id: 6,
+      name: "Forest Frame",
+      price: "£29",
+      image: "/test-frames/test2.png",
+      colors: ["green", "gold"]
     }
   ];
 
@@ -53,23 +68,36 @@ const TrendingFrames = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const maxDisplayIndex = Math.max(0, frames.length - itemsPerView);
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality - moves one frame at a time
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex(prev => (prev >= maxDisplayIndex ? 0 : prev + 1));
-    }, 4000); // Auto-scroll every 4 seconds
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentIndex(prev => (prev + 1) % frames.length);
+        setIsTransitioning(false);
+      }, 150);
+    }, 3500);
 
     return () => clearInterval(interval);
-  }, [maxDisplayIndex]);
+  }, [frames.length]);
 
   const goToPrevious = () => {
-    setCurrentIndex(prev => (prev <= 0 ? maxDisplayIndex : prev - 1));
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex(prev => (prev - 1 + frames.length) % frames.length);
+      setIsTransitioning(false);
+    }, 150);
   };
 
   const goToNext = () => {
-    setCurrentIndex(prev => (prev >= maxDisplayIndex ? 0 : prev + 1));
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex(prev => (prev + 1) % frames.length);
+      setIsTransitioning(false);
+    }, 150);
   };
 
   const toggleLike = (productId: number) => {
@@ -80,38 +108,49 @@ const TrendingFrames = () => {
     );
   };
 
+  // Get visible frames based on current index and items per view
+  const getVisibleFrames = () => {
+    const visibleFrames = [];
+    for (let i = 0; i < itemsPerView; i++) {
+      const frameIndex = (currentIndex + i) % frames.length;
+      visibleFrames.push(frames[frameIndex]);
+    }
+    return visibleFrames;
+  };
+
+  const visibleFrames = getVisibleFrames();
+
   return (
-    <section className="pt-5 pb-12 bg-white">
+    <section className="pt-8 pb-16 bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50">
       <div className="max-w-[1440px] mx-auto px-4">
         {/* Header Section */}
-        <div className="text-center mb-8">
-          <h2 className="brand-font-heading text-3xl lg:text-4xl mb-4 tracking-tight" style={{ color: '#220944' }}>
+        <div className="text-center mb-12">
+          <h2 className="brand-font-heading text-3xl lg:text-4xl mb-4 tracking-tight bg-gradient-to-r from-teal-700 via-emerald-600 to-green-700 bg-clip-text text-transparent font-bold">
             Current trending frames
           </h2>
-          <p className="brand-font-primary text-lg text-gray-600 font-medium italic">
+          <p className="brand-font-primary text-lg text-teal-700 font-medium italic">
             Frames to suit every budget, select yours today.
           </p>
         </div>
 
         {/* Carousel Container */}
-        <div className="relative bg-white p-6 overflow-hidden">
+        <div className="relative bg-gradient-to-r from-white/80 to-teal-50/80 backdrop-blur-sm p-8 rounded-3xl shadow-2xl border border-teal-100/50 overflow-hidden">
+          {/* Background Decoration */}
+          <div className="absolute inset-0 bg-gradient-to-r from-teal-100/20 via-transparent to-emerald-100/20 pointer-events-none"></div>
+          
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
-            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#097969'; e.currentTarget.style.color = 'white'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; e.currentTarget.style.color = 'black'; }}
+            disabled={isTransitioning}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-gradient-to-r from-teal-500 to-emerald-500 text-white rounded-full p-4 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border border-teal-300 disabled:opacity-50 disabled:cursor-not-allowed hover:from-teal-600 hover:to-emerald-600"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           
           <button
             onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
-            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#097969'; e.currentTarget.style.color = 'white'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; e.currentTarget.style.color = 'black'; }}
+            disabled={isTransitioning}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-gradient-to-r from-teal-500 to-emerald-500 text-white rounded-full p-4 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border border-teal-300 disabled:opacity-50 disabled:cursor-not-allowed hover:from-teal-600 hover:to-emerald-600"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -119,43 +158,55 @@ const TrendingFrames = () => {
           {/* Carousel Track */}
           <div className="flex items-center justify-center">
             <div 
-              className={`flex transition-transform duration-500 ease-in-out gap-6 px-0 md:px-12 ${itemsPerView === 1 ? 'w-full' : ''}`}
+              className={`flex gap-6 px-0 md:px-12 transition-all duration-700 ease-in-out ${
+                isTransitioning ? 'transform scale-95 opacity-90' : 'transform scale-100 opacity-100'
+              }`}
               style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
-                width: itemsPerView === 1 ? '100%' : `${(frames.length / itemsPerView) * 100}%`
+                width: itemsPerView === 1 ? '100%' : 'auto'
               }}
             >
-              {frames.map((frame) => (
+              {visibleFrames.map((frame, index) => (
                 <div 
-                  key={frame.id}
-                  className="flex-shrink-0"
-                  style={{ width: itemsPerView === 1 ? '100%' : `${100 / itemsPerView}%` }}
+                  key={`${frame.id}-${currentIndex}-${index}`}
+                  className={`flex-shrink-0 transition-all duration-700 ease-in-out transform ${
+                    isTransitioning ? 'scale-95 opacity-80' : 'scale-100 opacity-100'
+                  }`}
+                  style={{ 
+                    width: itemsPerView === 1 ? '100%' : '320px',
+                    animation: isTransitioning ? 'none' : 'slideInFade 0.7s ease-out'
+                  }}
                 >
                   {itemsPerView === 1 ? (
                     <div 
-                      className="p-4 bg-white rounded-2xl shadow-lg border border-gray-200 flex flex-col items-center justify-center max-w-xs min-h-[370px] w-full mx-auto cursor-pointer hover:shadow-xl transition-shadow"
+                      className="p-6 bg-gradient-to-br from-white to-teal-50/50 rounded-2xl shadow-xl border border-teal-200/50 flex flex-col items-center justify-center max-w-xs min-h-[400px] w-full mx-auto cursor-pointer hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:border-teal-300"
                       onClick={() => navigate(`/product/${frame.id}`)}
                       data-testid={`card-frame-${frame.id}`}
                     >
                       <img 
                         src={frame.image} 
                         alt={frame.name} 
-                        className="mb-4 object-contain rounded-xl"
+                        className="mb-6 object-contain rounded-xl transition-transform duration-300 hover:scale-110"
                         style={{ maxWidth: '90%', maxHeight: '140px', minHeight: '100px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
                       />
-                      <div className="w-full flex flex-col items-center gap-2">
-                        <span className="brand-font-heading text-lg text-gray-900 text-center leading-tight">{frame.name}</span>
-                        <div className="flex flex-row items-center gap-2 mt-1 mb-1">
+                      <div className="w-full flex flex-col items-center gap-3">
+                        <span className="brand-font-heading text-lg text-teal-800 text-center leading-tight font-semibold">{frame.name}</span>
+                        <div className="flex flex-row items-center gap-2 mt-1 mb-2">
                           {frame.colors.map((color) => (
-                            <span key={color} className="w-5 h-5 rounded-full border border-gray-300" style={{ backgroundColor: color }} title={color}></span>
+                            <span 
+                              key={color} 
+                              className="w-5 h-5 rounded-full border-2 border-teal-300 shadow-sm hover:scale-125 transition-transform" 
+                              style={{ backgroundColor: color }} 
+                              title={color}
+                            ></span>
                           ))}
                         </div>
-                        <span className="brand-font-primary text-base font-semibold mt-1" style={{ color: '#097969' }}>{frame.price}</span>
+                        <span className="brand-font-primary text-xl font-bold text-teal-600">{frame.price}</span>
                         <button
-                          className={`brand-font-primary mt-3 px-3 py-1 rounded-full border text-xs font-medium transition-colors ${likedProducts.includes(frame.id) ? 'border-teal-400' : 'bg-gray-100 text-gray-600 border-gray-300'}`}
-                          style={likedProducts.includes(frame.id) ? { backgroundColor: '#097969', color: 'white' } : { backgroundColor: 'rgba(156, 163, 175, 0.1)' }}
-                          onMouseEnter={(e) => { if (!likedProducts.includes(frame.id)) { e.currentTarget.style.backgroundColor = 'rgba(9, 121, 105, 0.1)'; e.currentTarget.style.color = '#097969'; } }}
-                          onMouseLeave={(e) => { if (!likedProducts.includes(frame.id)) { e.currentTarget.style.backgroundColor = 'rgba(156, 163, 175, 0.1)'; e.currentTarget.style.color = 'rgb(75, 85, 99)'; } }}
+                          className={`brand-font-primary mt-4 px-6 py-2 rounded-full border-2 text-sm font-semibold transition-all duration-300 hover:scale-105 ${
+                            likedProducts.includes(frame.id) 
+                              ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white border-teal-400 shadow-lg' 
+                              : 'bg-white/80 text-teal-700 border-teal-300 hover:bg-teal-50 hover:border-teal-400'
+                          }`}
                           onClick={(e) => {
                             e.stopPropagation();
                             toggleLike(frame.id);
@@ -169,15 +220,46 @@ const TrendingFrames = () => {
                   ) : (
                     <div className="flex justify-center items-center w-full">
                       <div 
-                        className="max-w-[350px] w-full mx-auto flex justify-center items-center cursor-pointer"
+                        className="max-w-[320px] w-full mx-auto flex justify-center items-center cursor-pointer transition-all duration-500 hover:scale-105"
                         onClick={() => navigate(`/product/${frame.id}`)}
                         data-testid={`card-frame-desktop-${frame.id}`}
                       >
-                        <ProductCard
-                          {...frame}
-                          isLiked={likedProducts.includes(frame.id)}
-                          onLike={() => toggleLike(frame.id)}
-                        />
+                        <div className="p-6 bg-gradient-to-br from-white to-teal-50/50 rounded-2xl shadow-xl border border-teal-200/50 hover:shadow-2xl transition-all duration-500 hover:border-teal-300 w-full">
+                          <img 
+                            src={frame.image} 
+                            alt={frame.name} 
+                            className="mb-6 object-contain rounded-xl w-full transition-transform duration-300 hover:scale-110"
+                            style={{ maxHeight: '160px', minHeight: '120px' }}
+                          />
+                          <div className="flex flex-col items-center gap-3">
+                            <span className="brand-font-heading text-lg text-teal-800 text-center leading-tight font-semibold">{frame.name}</span>
+                            <div className="flex flex-row items-center gap-2 mt-1 mb-2">
+                              {frame.colors.map((color) => (
+                                <span 
+                                  key={color} 
+                                  className="w-5 h-5 rounded-full border-2 border-teal-300 shadow-sm hover:scale-125 transition-transform" 
+                                  style={{ backgroundColor: color }} 
+                                  title={color}
+                                ></span>
+                              ))}
+                            </div>
+                            <span className="brand-font-primary text-xl font-bold text-teal-600">{frame.price}</span>
+                            <button
+                              className={`brand-font-primary mt-4 px-6 py-2 rounded-full border-2 text-sm font-semibold transition-all duration-300 hover:scale-105 ${
+                                likedProducts.includes(frame.id) 
+                                  ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white border-teal-400 shadow-lg' 
+                                  : 'bg-white/80 text-teal-700 border-teal-300 hover:bg-teal-50 hover:border-teal-400'
+                              }`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleLike(frame.id);
+                              }}
+                              data-testid={`button-like-${frame.id}`}
+                            >
+                              {likedProducts.includes(frame.id) ? '♥ Liked' : '♡ Like'}
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -187,21 +269,42 @@ const TrendingFrames = () => {
           </div>
         </div>
 
-        
-
         {/* Dots Indicator */}
-        <div className="flex justify-center space-x-2 mt-8">
-          {Array.from({ length: maxDisplayIndex + 1 }).map((_, index) => (
+        <div className="flex justify-center space-x-3 mt-10">
+          {frames.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex ? 'bg-purple-800 w-6' : 'bg-gray-300'
+              onClick={() => {
+                if (!isTransitioning) {
+                  setIsTransitioning(true);
+                  setTimeout(() => {
+                    setCurrentIndex(index);
+                    setIsTransitioning(false);
+                  }, 150);
+                }
+              }}
+              className={`h-3 rounded-full transition-all duration-500 hover:scale-125 ${
+                index === currentIndex 
+                  ? 'bg-gradient-to-r from-teal-500 to-emerald-500 w-8 shadow-lg' 
+                  : 'bg-teal-300 w-3 hover:bg-teal-400'
               }`}
             />
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes slideInFade {
+          0% {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+      `}</style>
     </section>
   );
 };
