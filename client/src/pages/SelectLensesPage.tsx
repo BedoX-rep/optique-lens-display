@@ -237,70 +237,72 @@ const SelectLensesPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="w-full max-w-[1440px] mx-auto px-4 py-6">
-        {/* Navigation */}
-        <div className="flex items-center justify-between mb-6">
-          <button 
-            onClick={handleBack}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
-            data-testid="button-back"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </button>
-          <button 
-            onClick={() => navigate('/products')}
-            className="text-gray-600 hover:text-gray-800"
-            data-testid="button-close"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+      <div className="w-full max-w-[1440px] mx-auto">
+        {/* Split Layout - Full Height */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-200px)]">
+          {/* Left Side - Product Image - Full Width and Height */}
+          <div className="lg:max-w-[720px] w-full relative bg-gray-50">
+            {/* Navigation Overlay */}
+            <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-6">
+              <button 
+                onClick={handleBack}
+                className="flex items-center gap-2 text-white bg-black bg-opacity-50 hover:bg-opacity-70 px-3 py-2 rounded-lg transition-all"
+                data-testid="button-back"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back
+              </button>
+              <button 
+                onClick={() => navigate('/products')}
+                className="text-white bg-black bg-opacity-50 hover:bg-opacity-70 p-2 rounded-lg transition-all"
+                data-testid="button-close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-        {/* Progress Indicators */}
-        <div className="flex justify-center mb-8">
-          <div className="flex items-center gap-2">
-            {[1, 2, 3].map((step) => (
-              <div
-                key={step}
-                className={`w-3 h-3 rounded-full ${
-                  step === currentStep
-                    ? 'bg-blue-600'
-                    : step < currentStep
-                    ? 'bg-blue-400'
-                    : 'bg-gray-300'
-                }`}
-                data-testid={`step-indicator-${step}`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-[1440px]">
-          {/* Left Side - Product Image */}
-          <div className="lg:max-w-[720px] flex justify-center">
-            <div className="w-full max-w-lg bg-gray-50 rounded-lg p-8">
-              <img 
-                src={product.image} 
-                alt={product.name}
-                className="w-full h-auto object-contain"
-                style={{ minHeight: '300px', maxHeight: '400px' }}
-                data-testid="img-product"
-              />
-              <div className="text-center mt-4">
-                <h3 className="brand-font-heading text-xl text-gray-800" data-testid="text-product-name">
-                  {product.name}
-                </h3>
-                <p className="brand-font-primary text-gray-600" data-testid="text-product-color">
-                  {product.color}
-                </p>
+            {/* Full Height Product Image Container */}
+            <div className="w-full h-full flex flex-col items-center justify-center p-8 lg:p-12">
+              <div className="w-full h-full flex flex-col items-center justify-center">
+                <img 
+                  src={product.image} 
+                  alt={product.name}
+                  className="w-full h-auto object-contain max-h-[60vh] mb-6"
+                  data-testid="img-product"
+                />
+                <div className="text-center">
+                  <h3 className="brand-font-heading text-2xl text-gray-800 mb-2" data-testid="text-product-name">
+                    {product.name}
+                  </h3>
+                  <p className="brand-font-primary text-lg text-gray-600" data-testid="text-product-color">
+                    {product.color}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Right Side - Lens Selection */}
-          <div className="lg:max-w-[720px]">
+          <div className="lg:max-w-[720px] p-6 lg:p-8 flex flex-col">
+            {/* Progress Indicators */}
+            <div className="flex justify-center mb-8">
+              <div className="flex items-center gap-2">
+                {[1, 2, 3].map((step) => (
+                  <div
+                    key={step}
+                    className={`w-3 h-3 rounded-full ${
+                      step === currentStep
+                        ? 'bg-blue-600'
+                        : step < currentStep
+                        ? 'bg-blue-400'
+                        : 'bg-gray-300'
+                    }`}
+                    data-testid={`step-indicator-${step}`}
+                  />
+                ))}
+              </div>
+            </div>
+
             <div className="mb-6">
               <h1 className="brand-font-heading text-2xl text-gray-900 mb-2" data-testid="text-step-title">
                 {getStepTitle()}
