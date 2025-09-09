@@ -123,24 +123,30 @@ const ProductsPage = () => {
       </div>
 
       {/* Filter Bar - Directly below banner */}
-      <div className="w-full bg-white border-b border-gray-200">
-        <div className="w-full max-w-[1440px] mx-auto px-4 py-8">
-          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
+      <div className="w-full bg-white">
+        <div className="w-full max-w-[1440px] mx-auto border-b border-gray-200">
+          <div className="flex items-center justify-between px-4 py-8">
             {/* Filter BY header */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 h-[40px]">
               <Filter className="w-5 h-5 text-gray-600" />
               <span className="text-base font-medium text-gray-800 uppercase tracking-wide">FILTER BY</span>
             </div>
 
-            {/* Filter options */}
-            {Object.entries(filterOptions).map(([label, options]) => (
-              <FilterDropdown key={label} label={label} options={options} />
-            ))}
+            {/* Filter options - distributed with flex-1 */}
+            <div className="flex items-center justify-evenly flex-1 px-8">
+              {Object.entries(filterOptions).map(([label, options]) => (
+                <div key={label} className="h-[37px] flex items-center">
+                  <FilterDropdown label={label} options={options} />
+                </div>
+              ))}
+            </div>
 
             {/* Clear filters button */}
-            <button className="text-base text-gray-600 hover:text-gray-800 transition-colors">
-              Clear Filters
-            </button>
+            <div className="h-[37px] flex items-center">
+              <button className="text-base text-gray-600 hover:text-gray-800 transition-colors">
+                Clear Filters
+              </button>
+            </div>
           </div>
         </div>
       </div>
