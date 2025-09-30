@@ -2,10 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { RotateCcw, Shield, MapPin, Lock } from "lucide-react";
 import "../styles/brand-system.css";
+import heroBannerImg from "@assets/upscalemedia-transformed (2)_1759267008280.png";
 
 const Hero = () => {
   return (
-    <section className="bg-white" style={{ height: '390px', maxHeight: '390px' }} data-hero-section="true">
+    <section className="bg-white" style={{ height: '410px', maxHeight: '410px' }} data-hero-section="true">
       <div className="max-w-[1440px] mx-auto relative overflow-hidden h-full bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500">
         {/* Decorative gradient overlay */}
         <div className="absolute inset-0 z-0 pointer-events-none">
@@ -14,7 +15,7 @@ const Hero = () => {
         {/* Hero banner image */}
         <div className="absolute inset-0">
           <img 
-            src="/attached_images/finalbannerimg.png" 
+            src={heroBannerImg} 
             alt="Eyeglasses collection banner" 
             className="w-full h-full object-cover"
           />
