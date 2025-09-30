@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { RotateCcw, Shield, MapPin, Lock } from "lucide-react";
 import "../styles/brand-system.css";
-import heroBannerImg from "@assets/upscalemedia-transformed (2)_1759267008280.png";
+import heroBannerImg from "@assets/coverimage_imgupscaler.ai_v2(Pro)_2K_1759268011540.png";
 
 const Hero = () => {
   return (
