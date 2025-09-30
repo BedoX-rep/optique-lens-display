@@ -101,13 +101,6 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Decorative elements - hidden on small screens */}
-          <div className="absolute inset-0 pointer-events-none hidden lg:block">
-            <div className="absolute top-8 right-8 w-20 h-20 border border-white border-opacity-30 rounded-full"></div>
-            <div className="absolute top-1/4 left-1/6 w-20 h-20 border border-white border-opacity-30 rounded-full"></div>
-            <div className="absolute bottom-1/4 right-1/6 w-24 h-24 border border-white border-opacity-20 rounded-full"></div>
-            <div className="absolute top-1/3 right-1/4 w-16 h-16 border border-white border-opacity-25 rounded-full"></div>
-          </div>
         </div>
       </div>
     </section>
