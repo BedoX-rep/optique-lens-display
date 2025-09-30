@@ -17,8 +17,10 @@ const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('frames');
 
   // Fetch products from WooCommerce API
-  const { data: products = [], isLoading } = useQuery<Product[]>({
+  const { data: products = [], isLoading, error } = useQuery<Product[]>({
     queryKey: ['/api/categories/frames/products'],
+    retry: 2,
+    retryDelay: 1000,
   });
 
   const handleLike = (productId: number) => {
@@ -167,6 +169,16 @@ const ProductsPage = () => {
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
               <p className="mt-4 text-gray-600">Loading products...</p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && !isLoading && (
+            <div className="text-center py-12">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+                <p className="text-red-800 font-medium mb-2">Unable to load products</p>
+                <p className="text-red-600 text-sm">Please check your WooCommerce connection settings.</p>
+              </div>
             </div>
           )}
 
