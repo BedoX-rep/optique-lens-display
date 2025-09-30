@@ -1,11 +1,12 @@
-
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { Heart, ChevronDown, Filter } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import type { Product } from '@shared/woocommerce-types';
 import '../styles/brand-system.css';
 
 const ProductsPage = () => {
@@ -13,69 +14,12 @@ const ProductsPage = () => {
   const [showAsSunglasses, setShowAsSunglasses] = useState(false);
   const [sortBy, setSortBy] = useState('Popularity');
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('frames');
 
-  // Sample product data matching the design
-  const products = [
-    {
-      id: 1,
-      name: 'Frances',
-      price: 29,
-      image: '/test-frames/test1.png',
-      colors: ['#8B4513', '#9932CC', '#000000'], // brown, purple, black
-      nextDay: true
-    },
-    {
-      id: 2,
-      name: 'Norman',
-      price: 15,
-      image: '/test-frames/test2.png',
-      colors: ['#4169E1', '#000000'], // blue, black
-      nextDay: true
-    },
-    {
-      id: 3,
-      name: 'Jamie',
-      price: 15,
-      image: '/test-frames/test3.png',
-      colors: ['#000000'], // black
-      nextDay: true
-    },
-    {
-      id: 4,
-      name: 'Clear Vision',
-      price: 29,
-      image: '/test-frames/test4.png',
-      colors: ['#FFD700', '#708090'], // gold, gray
-      nextDay: true
-    },
-    // Add more products to fill the grid
-    {
-      id: 5,
-      name: 'Classic',
-      price: 25,
-      image: '/test-frames/test1.png',
-      colors: ['#8B4513', '#000000'],
-      nextDay: false
-    },
-    {
-      id: 6,
-      name: 'Modern',
-      price: 35,
-      image: '/test-frames/test2.png',
-      colors: ['#4169E1', '#9932CC'],
-      nextDay: true
-    }
-  ];
-
-  const filterOptions = {
-    Gender: ['All', 'Men', 'Women', 'Unisex'],
-    Shape: ['All', 'Round', 'Square', 'Rectangle', 'Cat Eye', 'Aviator'],
-    'Frame Type': ['All', 'Full Rim', 'Half Rim', 'Rimless'],
-    'Lens Type': ['All', 'Single Vision', 'Bifocal', 'Progressive', 'Reading'],
-    Material: ['All', 'Plastic', 'Metal', 'Titanium', 'Acetate'],
-    Colour: ['All', 'Black', 'Brown', 'Blue', 'Clear', 'Tortoise'],
-    Brand: ['All', 'OptiqueLens', 'Designer', 'Premium']
-  };
+  // Fetch products from WooCommerce API
+  const { data: products = [], isLoading } = useQuery<Product[]>({
+    queryKey: ['/api/categories/frames/products'],
+  });
 
   const handleLike = (productId: number) => {
     setLikedProducts(prev => 
@@ -83,6 +27,25 @@ const ProductsPage = () => {
         ? prev.filter(id => id !== productId)
         : [...prev, productId]
     );
+  };
+
+  // Extract unique attribute values for filters
+  const getAttributeOptions = (attributeName: string): string[] => {
+    const options = new Set<string>();
+    products.forEach(product => {
+      const values = product.attributes[attributeName];
+      if (values) {
+        values.forEach(v => options.add(v));
+      }
+    });
+    return Array.from(options);
+  };
+
+  const filterOptions = {
+    Shape: ['All', ...getAttributeOptions('Shape')],
+    Material: ['All', ...getAttributeOptions('Material')],
+    Colour: ['All', ...getAttributeOptions('Color')],
+    Brand: ['All', ...getAttributeOptions('Brand')],
   };
 
   const FilterDropdown = ({ label, options }: { label: string, options: string[] }) => (
@@ -94,11 +57,33 @@ const ProductsPage = () => {
     </div>
   );
 
+  // Format price from cents to display
+  const formatPrice = (priceInCents: number) => {
+    return (priceInCents / 100).toFixed(2);
+  };
+
+  // Get color hex from color name
+  const getColorHex = (colorName: string): string => {
+    const colorMap: Record<string, string> = {
+      'black': '#000000',
+      'brown': '#8B4513',
+      'blue': '#4169E1',
+      'clear': '#F5F5F5',
+      'tortoise': '#D2691E',
+      'gold': '#FFD700',
+      'silver': '#C0C0C0',
+      'green': '#228B22',
+      'red': '#DC143C',
+      'pink': '#FFC0CB',
+    };
+    return colorMap[colorName.toLowerCase()] || '#808080';
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
 
-      {/* Banner Section - Following 1440px standard */}
+      {/* Banner Section */}
       <div className="w-full flex justify-center">
         <div className="w-full max-w-[1440px] relative">
           <div className="w-full h-[310px] overflow-hidden">
@@ -121,17 +106,15 @@ const ProductsPage = () => {
         </div>
       </div>
 
-      {/* Filter Bar - Directly below banner */}
+      {/* Filter Bar */}
       <div className="w-full bg-white">
         <div className="w-full max-w-[1440px] mx-auto border-b border-gray-200">
           <div className="flex items-center justify-between px-4 py-8">
-            {/* Filter BY header */}
             <div className="flex items-center gap-3 h-[40px]">
               <Filter className="w-5 h-5 text-gray-600" />
               <span className="text-base font-medium text-gray-800 uppercase tracking-wide">FILTER BY</span>
             </div>
 
-            {/* Filter options - distributed with flex-1 */}
             <div className="flex items-center justify-evenly flex-1 px-8">
               {Object.entries(filterOptions).map(([label, options]) => (
                 <div key={label} className="h-[37px] flex items-center">
@@ -140,7 +123,6 @@ const ProductsPage = () => {
               ))}
             </div>
 
-            {/* Clear filters button */}
             <div className="h-[37px] flex items-center">
               <button className="text-base text-gray-600 hover:text-gray-800 transition-colors">
                 Clear Filters
@@ -150,11 +132,11 @@ const ProductsPage = () => {
         </div>
       </div>
 
-      {/* Page Content - Following homepage pattern */}
+      {/* Page Content */}
       <div className="w-full flex justify-center">
         <div className="w-full max-w-[1440px] px-4 py-6 sm:py-8">
 
-          {/* Sort and Show as Sunglasses Options */}
+          {/* Sort Options */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div className="flex items-center gap-4">
               <label className="flex items-center gap-2 cursor-pointer">
@@ -163,6 +145,7 @@ const ProductsPage = () => {
                   checked={showAsSunglasses}
                   onChange={(e) => setShowAsSunglasses(e.target.checked)}
                   className="w-4 h-4 rounded border-gray-300"
+                  data-testid="checkbox-sunglasses"
                 />
                 <span className="text-sm text-gray-600">Show as Sunglasses</span>
               </label>
@@ -179,80 +162,93 @@ const ProductsPage = () => {
             </div>
           </div>
 
-          {/* Products Grid - Responsive with smaller images */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 lg:gap-8">
-            {products.map((product) => (
-              <div 
-                key={product.id} 
-                className="group cursor-pointer"
-                onClick={() => navigate(`/product/${product.id}`)}
-              >
-                {/* Product Image Container - Responsive sizing */}
-                <div className="relative bg-gray-50 rounded-lg p-4 sm:p-6 aspect-[4/3] sm:aspect-[393/235] flex items-center justify-center group-hover:shadow-lg transition-shadow w-full max-w-[300px] sm:max-w-[350px] lg:max-w-[393px] mx-auto">
-                  <img 
-                    src={product.image} 
-                    alt={product.name}
-                    className="w-full h-auto max-h-[120px] sm:max-h-[150px] lg:max-h-[180px] object-contain group-hover:scale-105 transition-transform duration-300"
-                  />
+          {/* Loading State */}
+          {isLoading && (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+              <p className="mt-4 text-gray-600">Loading products...</p>
+            </div>
+          )}
 
-                  {/* Heart Icon */}
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleLike(product.id);
-                    }}
-                    className={`absolute top-3 right-3 p-2 rounded-full transition-colors ${
-                      likedProducts.includes(product.id)
-                        ? 'text-red-500 bg-white shadow-md' 
-                        : 'text-gray-400 hover:text-red-500 bg-white/80 hover:bg-white shadow-sm'
-                    }`}
-                  >
-                    <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${likedProducts.includes(product.id) ? 'fill-current' : ''}`} />
-                  </button>
+          {/* Products Grid */}
+          {!isLoading && products.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 lg:gap-8">
+              {products.map((product) => (
+                <div 
+                  key={product.id} 
+                  className="group cursor-pointer"
+                  onClick={() => navigate(`/product/${product.slug}`)}
+                  data-testid={`card-product-${product.id}`}
+                >
+                  {/* Product Image Container */}
+                  <div className="relative bg-gray-50 rounded-lg p-4 sm:p-6 aspect-[4/3] sm:aspect-[393/235] flex items-center justify-center group-hover:shadow-lg transition-shadow w-full max-w-[300px] sm:max-w-[350px] lg:max-w-[393px] mx-auto">
+                    <img 
+                      src={product.images[0]?.src} 
+                      alt={product.name}
+                      className="w-full h-auto max-h-[120px] sm:max-h-[150px] lg:max-h-[180px] object-contain group-hover:scale-105 transition-transform duration-300"
+                      data-testid={`img-product-${product.id}`}
+                    />
 
-                  {/* Next Day Badge */}
-                  {product.nextDay && (
-                    <div className="absolute top-3 left-3">
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1">
-                        NEXT DAY Available
-                      </Badge>
-                    </div>
-                  )}
-                </div>
+                    {/* Heart Icon */}
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleLike(product.id);
+                      }}
+                      className={`absolute top-3 right-3 p-2 rounded-full transition-colors ${
+                        likedProducts.includes(product.id)
+                          ? 'text-red-500 bg-white shadow-md' 
+                          : 'text-gray-400 hover:text-red-500 bg-white/80 hover:bg-white shadow-sm'
+                      }`}
+                      data-testid={`button-like-${product.id}`}
+                    >
+                      <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${likedProducts.includes(product.id) ? 'fill-current' : ''}`} />
+                    </button>
 
-                {/* Product Info - Below Image */}
-                <div className="mt-3 text-left ml-[28px]">
-                  <h3 className="brand-font-heading text-base sm:text-lg font-medium text-gray-800 mb-1">
-                    {product.name}
-                  </h3>
-                  <p className="brand-font-heading text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                    £{product.price}
-                  </p>
+                    {/* Stock Badge */}
+                    {product.inStock && (
+                      <div className="absolute top-3 left-3">
+                        <Badge variant="secondary" className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1">
+                          NEXT DAY Available
+                        </Badge>
+                      </div>
+                    )}
+                  </div>
 
-                  {/* Color Options */}
-                  <div className="flex gap-2">
-                    {product.colors.map((color, index) => (
-                      <div
-                        key={index}
-                        className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-gray-300"
-                        style={{ backgroundColor: color }}
-                      />
-                    ))}
+                  {/* Product Info */}
+                  <div className="mt-3 text-left ml-[28px]">
+                    <h3 className="brand-font-heading text-base sm:text-lg font-medium text-gray-800 mb-1" data-testid={`text-name-${product.id}`}>
+                      {product.name}
+                    </h3>
+                    <p className="brand-font-heading text-lg sm:text-xl font-bold text-gray-900 mb-2" data-testid={`text-price-${product.id}`}>
+                      £{formatPrice(product.price)}
+                    </p>
+
+                    {/* Color Options */}
+                    {product.attributes['Color'] && (
+                      <div className="flex gap-2">
+                        {product.attributes['Color'].map((color, index) => (
+                          <div
+                            key={index}
+                            className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-gray-300"
+                            style={{ backgroundColor: getColorHex(color) }}
+                            data-testid={`color-${product.id}-${index}`}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
-          {/* Load More Button */}
-          <div className="text-center mt-12">
-            <Button 
-              variant="outline" 
-              className="px-8 py-3 border-gray-300 text-gray-700 hover:bg-gray-50"
-            >
-              Load More Products
-            </Button>
-          </div>
+          {/* No Products */}
+          {!isLoading && products.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-600">No products found.</p>
+            </div>
+          )}
         </div>
       </div>
 
