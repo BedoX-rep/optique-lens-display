@@ -5,12 +5,12 @@ import { getProducts, getProduct, getProductsByCategory } from "./woocommerce";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // WooCommerce Products API routes
-  
+
   // Get all products or products by category
   app.get("/api/products", async (req, res, next) => {
     try {
       const categorySlug = req.query.category as string | undefined;
-      
+
       let products;
       if (categorySlug) {
         products = await getProductsByCategory(categorySlug);
@@ -44,21 +44,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get products by category
-  app.get("/api/categories/:slug/products", async (req, res, next) => {
+  app.get("/api/categories/:categorySlug/products", async (req, res, next) => {
     try {
-      console.log(`[API] Fetching products for category: ${req.params.slug}`);
-      const { slug } = req.params;
-      const products = await getProductsByCategory(slug);
-
-      console.log(`[API] Found ${products.length} products`);
+      const { categorySlug } = req.params;
+      const products = await getProductsByCategory(categorySlug);
 
       // Filter out progressive lenses as requested
       const filteredProducts = products.filter(p => !p.name.toLowerCase().includes("progressive"));
 
+      console.log(`[API] Fetching products for category: ${categorySlug}`);
+      console.log(`[API] Found ${products.length} products`);
       console.log(`[API] After filtering: ${filteredProducts.length} products`);
+
       res.json(filteredProducts);
     } catch (error) {
-      console.error(`[API] Error fetching products:`, error);
+      next(error);
+    }
+  });
+
+  // Get trending frames (first 4 frame products)
+  app.get("/api/trending-frames", async (req, res, next) => {
+    try {
+      const products = await getProductsByCategory("frames");
+
+      // Filter out progressive lenses and get first 4 products
+      const trendingFrames = products
+        .filter(p => !p.name.toLowerCase().includes("progressive"))
+        .slice(0, 4);
+
+      console.log(`[API] Fetching trending frames`);
+      console.log(`[API] Found ${trendingFrames.length} trending products`);
+
+      res.json(trendingFrames);
+    } catch (error) {
       next(error);
     }
   });
