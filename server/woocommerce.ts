@@ -1,14 +1,24 @@
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import type { WooCommerceProduct, WooCommerceVariation, Product } from "@shared/woocommerce-types";
 
-// Initialize WooCommerce API
-// @ts-ignore - The package has a default export
-const api = new WooCommerceRestApi.default({
-  url: process.env.WOOCOMMERCE_URL || "",
-  consumerKey: process.env.WOOCOMMERCE_CONSUMER_KEY || "",
-  consumerSecret: process.env.WOOCOMMERCE_CONSUMER_SECRET || "",
-  version: "wc/v3",
-});
+// Check if WooCommerce credentials are configured
+const hasWooCommerceCredentials = !!(
+  process.env.WOOCOMMERCE_URL &&
+  process.env.WOOCOMMERCE_CONSUMER_KEY &&
+  process.env.WOOCOMMERCE_CONSUMER_SECRET
+);
+
+// Initialize WooCommerce API only if credentials are available
+let api: any = null;
+if (hasWooCommerceCredentials) {
+  // @ts-ignore - The package has a default export
+  api = new WooCommerceRestApi.default({
+    url: process.env.WOOCOMMERCE_URL,
+    consumerKey: process.env.WOOCOMMERCE_CONSUMER_KEY,
+    consumerSecret: process.env.WOOCOMMERCE_CONSUMER_SECRET,
+    version: "wc/v3",
+  });
+}
 
 // Convert price string to cents
 function priceToCents(priceString: string): number {
