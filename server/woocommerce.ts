@@ -11,13 +11,26 @@ const hasWooCommerceCredentials = !!(
 // Initialize WooCommerce API only if credentials are available
 let api: any = null;
 if (hasWooCommerceCredentials) {
-  // @ts-ignore - The package has a default export
-  api = new WooCommerceRestApi.default({
+  const config: any = {
     url: process.env.WOOCOMMERCE_URL,
     consumerKey: process.env.WOOCOMMERCE_CONSUMER_KEY,
     consumerSecret: process.env.WOOCOMMERCE_CONSUMER_SECRET,
     version: "wc/v3",
-  });
+    queryStringAuth: true, // Force query string auth for HTTPS
+  };
+
+  // Add site-level basic auth if LocalWP credentials are provided
+  if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
+    config.axiosConfig = {
+      auth: {
+        username: process.env.LOCALWP_USERNAME,
+        password: process.env.LOCALWP_PASSWORD,
+      },
+    };
+  }
+
+  // @ts-ignore - The package has a default export
+  api = new WooCommerceRestApi.default(config);
 }
 
 // Convert price string to cents

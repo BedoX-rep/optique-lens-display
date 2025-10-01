@@ -6,6 +6,13 @@ The application serves as an online eyewear retailer with product browsing, user
 
 # Recent Changes
 
+- **October 01, 2025**: Connected WooCommerce API to fetch real product data
+  - Configured WooCommerce REST API with query string authentication
+  - Added site-level basic authentication support for LocalWP Live Links
+  - Created missing queryClient.ts with default fetcher for React Query
+  - Successfully integrated products, attributes, variations, and filters from WooCommerce
+  - Confirmed progressive lenses are filtered out from product listings
+  
 - **September 06, 2025**: Created professional products listing page with modern optical website design
   - Integrated Header and Footer components for complete site consistency
   - Hero section with elegant typography and product description
@@ -52,10 +59,34 @@ Preferred communication style: Simple, everyday language.
 
 ## External Dependencies
 - **Database**: Neon PostgreSQL serverless database
+- **WooCommerce API**: Product data, attributes, variations, and inventory management
+  - API URL: Configured via `WOOCOMMERCE_URL` environment variable
+  - Authentication: Query string auth with consumer key and secret
+  - Site Protection: Supports LocalWP Live Link basic authentication
 - **UI Library**: Radix UI component primitives for accessibility
 - **Validation**: Zod for runtime type checking and schema validation
 - **State Management**: TanStack React Query for API data fetching and caching
 - **Styling**: Tailwind CSS with custom design system variables
 - **Development**: Replit-specific plugins for development environment integration
+
+## WooCommerce Integration
+The application fetches product data from a WooCommerce REST API:
+- **Products**: Frames (eyeglasses) and Lenses (single vision, protection)
+- **Attributes**: Color, Material, Frame Type, Gender, Treatment, Index
+- **Variations**: Product variations based on attributes (e.g., different colors, lens treatments)
+- **Filters**: Progressive lenses are automatically filtered out from product listings
+
+### Required Environment Variables
+- `WOOCOMMERCE_URL`: WooCommerce site URL
+- `WOOCOMMERCE_CONSUMER_KEY`: WooCommerce REST API consumer key
+- `WOOCOMMERCE_CONSUMER_SECRET`: WooCommerce REST API consumer secret
+- `LOCALWP_USERNAME`: (Optional) Basic auth username for LocalWP Live Links
+- `LOCALWP_PASSWORD`: (Optional) Basic auth password for LocalWP Live Links
+
+### Known Issues
+- **Image Loading**: If the WooCommerce site is password-protected (LocalWP Live Links), product images may fail to load in the browser with 401 errors. The browser cannot automatically pass basic auth credentials to image requests. Solutions:
+  1. Disable password protection on the LocalWP Live Link
+  2. Use a non-password-protected production/staging URL
+  3. Implement an image proxy endpoint on the backend that adds authentication
 
 The architecture follows a clean separation of concerns with shared types and schemas between frontend and backend, enabling type safety across the full stack. The application is designed for scalability with proper error handling, responsive design, and modern development practices.
