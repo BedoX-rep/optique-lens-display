@@ -84,6 +84,7 @@ export const productSchema = z.object({
     }).optional(),
     inStock: z.boolean(),
   })).optional(),
+  colorImages: z.record(z.string()).optional(),
 });
 
 export type Product = z.infer<typeof productSchema>;

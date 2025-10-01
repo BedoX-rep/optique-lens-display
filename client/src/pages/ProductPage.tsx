@@ -55,6 +55,22 @@ const ProductPage = () => {
     return product?.attributes?.Color || [];
   };
 
+  // Get the current image to display based on selected color
+  const getCurrentImage = () => {
+    if (!product) return "/placeholder.svg";
+    
+    // If a color is selected and we have color-specific images
+    if (selectedColor && product.colorImages) {
+      const colorImage = product.colorImages[selectedColor.toLowerCase()];
+      if (colorImage) {
+        return colorImage;
+      }
+    }
+    
+    // Fall back to the main product image
+    return product.images[currentImageIndex]?.src || "/placeholder.svg";
+  };
+
   // Get related products (excluding current product)
   const relatedProducts = allFrames.filter(p => p.id !== product?.id).slice(0, 3);
 
@@ -124,8 +140,8 @@ const ProductPage = () => {
           <div className="flex flex-col items-center mb-8 xl:mb-0 xl:pr-8">
             <div className="w-full max-w-lg xl:max-w-2xl bg-gray-100 rounded-lg p-8 mb-6">
               <img 
-                src={images[currentImageIndex]?.src || "/placeholder.svg"} 
-                alt={images[currentImageIndex]?.alt || product.name}
+                src={getCurrentImage()} 
+                alt={`${product.name} - ${selectedColor || 'default'}`}
                 className="w-full h-auto object-contain"
                 style={{ minHeight: '300px', maxHeight: '400px' }}
                 data-testid="img-product-main"

@@ -13,6 +13,7 @@ const TrendingFrames = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
+  const [selectedColors, setSelectedColors] = useState<Record<number, string>>({});
 
   // Fetch trending frames from WooCommerce API
   const { data: frames = [], isLoading, error } = useQuery<Product[]>({
@@ -34,6 +35,20 @@ const TrendingFrames = () => {
   }, []);
   
   const maxDisplayIndex = Math.max(0, frames.length - itemsPerView);
+
+  // Initialize default colors for each product
+  useEffect(() => {
+    if (frames.length > 0) {
+      const defaultColors: Record<number, string> = {};
+      frames.forEach(frame => {
+        const colors = getProductColors(frame);
+        if (colors.length > 0) {
+          defaultColors[frame.id] = colors[0];
+        }
+      });
+      setSelectedColors(defaultColors);
+    }
+  }, [frames]);
 
   // Auto-scroll functionality
   useEffect(() => {
@@ -70,6 +85,14 @@ const TrendingFrames = () => {
   // Extract color options from product attributes
   const getProductColors = (product: Product): string[] => {
     return product.attributes?.Color || ['black'];
+  };
+
+  // Get image for specific color variant
+  const getColorImage = (product: Product, color: string): string => {
+    if (product.colorImages && product.colorImages[color.toLowerCase()]) {
+      return product.colorImages[color.toLowerCase()];
+    }
+    return product.images[0]?.src || "/placeholder.svg";
   };
 
   // Loading state
@@ -169,8 +192,8 @@ const TrendingFrames = () => {
                       data-testid={`card-frame-${frame.id}`}
                     >
                       <img 
-                        src={frame.images[0]?.src || "/placeholder.svg"} 
-                        alt={frame.images[0]?.alt || frame.name} 
+                        src={getColorImage(frame, selectedColors[frame.id] || getProductColors(frame)[0])} 
+                        alt={`${frame.name} - ${selectedColors[frame.id] || 'default'}`} 
                         className="mb-4 object-contain rounded-xl"
                         style={{ maxWidth: '90%', maxHeight: '140px', minHeight: '100px', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
                       />
@@ -178,14 +201,20 @@ const TrendingFrames = () => {
                         <span className="brand-font-heading text-lg text-gray-900 text-center leading-tight">{frame.name}</span>
                         <div className="flex flex-row items-center gap-2 mt-1 mb-1">
                           {getProductColors(frame).map((color) => (
-                            <span 
+                            <button
                               key={color} 
-                              className="w-5 h-5 rounded-full border border-gray-300" 
+                              className={`w-5 h-5 rounded-full border-2 ${
+                                selectedColors[frame.id] === color ? 'border-gray-800' : 'border-gray-300'
+                              }`}
                               style={{ 
                                 backgroundColor: color === 'clear' || color === 'transparent' ? '#f3f4f6' : color 
                               }} 
                               title={color}
-                            ></span>
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedColors(prev => ({ ...prev, [frame.id]: color }));
+                              }}
+                            />
                           ))}
                         </div>
                         <span className="brand-font-primary text-base font-semibold mt-1" style={{ color: '#097969' }}>
@@ -221,6 +250,9 @@ const TrendingFrames = () => {
                           colors={getProductColors(frame)}
                           isLiked={likedProducts.includes(frame.id)}
                           onLike={() => toggleLike(frame.id)}
+                          selectedColor={selectedColors[frame.id]}
+                          onColorChange={(color) => setSelectedColors(prev => ({ ...prev, [frame.id]: color }))}
+                          colorImages={frame.colorImages}
                         />
                       </div>
                     </div>

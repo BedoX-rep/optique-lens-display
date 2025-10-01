@@ -45,6 +45,8 @@ export async function normalizeProduct(wcProduct: WooCommerceProduct): Promise<P
   
   // Fetch variations if product has them
   let variations;
+  let colorImages: Record<string, string> = {};
+  
   if (wcProduct.variations && wcProduct.variations.length > 0) {
     try {
       const variationsResponse = await api.get(`products/${wcProduct.id}/variations`, {
@@ -65,6 +67,14 @@ export async function normalizeProduct(wcProduct: WooCommerceProduct): Promise<P
         } : undefined,
         inStock: v.stock_status === "instock",
       }));
+
+      // Create color to image mapping
+      wcVariations.forEach((v) => {
+        const colorAttr = v.attributes.find(attr => attr.name.toLowerCase() === 'color');
+        if (colorAttr && v.image) {
+          colorImages[colorAttr.option.toLowerCase()] = v.image.src;
+        }
+      });
     } catch (error) {
       console.error(`Error fetching variations for product ${wcProduct.id}:`, error);
     }
@@ -96,6 +106,7 @@ export async function normalizeProduct(wcProduct: WooCommerceProduct): Promise<P
     })),
     attributes,
     variations,
+    colorImages,
   };
 }
 
