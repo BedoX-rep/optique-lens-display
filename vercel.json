@@ -5,6 +5,14 @@
   "framework": null,
   "rewrites": [
     {
+      "source": "/api/products/:id",
+      "destination": "/api/products/[id]"
+    },
+    {
+      "source": "/api/categories/:slug/products",
+      "destination": "/api/products?category=:slug"
+    },
+    {
       "source": "/api/:path*",
       "destination": "/api/:path*"
     },
