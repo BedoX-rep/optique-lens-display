@@ -70,23 +70,13 @@ export async function normalizeProduct(wcProduct: WooCommerceProduct): Promise<P
 
       // Create color to image mapping
       wcVariations.forEach((v) => {
-        const colorAttr = v.attributes.find(attr => 
-          attr.name.toLowerCase() === 'color' || 
-          attr.name.toLowerCase() === 'colour'
-        );
+        const colorAttr = v.attributes.find(attr => attr.name.toLowerCase() === 'color');
         if (colorAttr && v.image) {
-          const colorKey = colorAttr.option.toLowerCase();
-          colorImages[colorKey] = v.image.src;
-          console.log(`[WooCommerce] Mapped color "${colorKey}" to image for product ${wcProduct.id}`);
+          colorImages[colorAttr.option.toLowerCase()] = v.image.src;
         }
       });
-      
-      console.log(`[WooCommerce] Product ${wcProduct.id} color images:`, Object.keys(colorImages));
     } catch (error) {
       console.error(`Error fetching variations for product ${wcProduct.id}:`, error);
-      if (error instanceof Error) {
-        console.error(`Error details: ${error.message}`);
-      }
     }
   }
 
