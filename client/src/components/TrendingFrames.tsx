@@ -192,6 +192,7 @@ const TrendingFrames = () => {
                       data-testid={`card-frame-${frame.id}`}
                     >
                       <img 
+                        key={`${frame.id}-${selectedColors[frame.id] || 'default'}`}
                         src={getColorImage(frame, selectedColors[frame.id] || getProductColors(frame)[0])} 
                         alt={`${frame.name} - ${selectedColors[frame.id] || 'default'}`} 
                         className="mb-4 object-contain rounded-xl"

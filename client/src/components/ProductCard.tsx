@@ -39,6 +39,7 @@ const ProductCard = ({
       {/* Product Image with 680x340 aspect ratio (2:1) */}
       <div className="relative w-full h-52 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden p-4 flex items-center justify-center">
         <img 
+          key={`${id}-${selectedColor || 'default'}`}
           src={getCurrentImage()} 
           alt={`${name} - ${selectedColor || 'default'}`} 
           className="w-full h-auto max-h-full object-contain object-center group-hover:scale-110 transition-transform duration-500"

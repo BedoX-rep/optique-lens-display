@@ -140,6 +140,7 @@ const ProductPage = () => {
           <div className="flex flex-col items-center mb-8 xl:mb-0 xl:pr-8">
             <div className="w-full max-w-lg xl:max-w-2xl bg-gray-100 rounded-lg p-8 mb-6">
               <img 
+                key={`${product.id}-${selectedColor || 'default'}`}
                 src={getCurrentImage()} 
                 alt={`${product.name} - ${selectedColor || 'default'}`}
                 className="w-full h-auto object-contain"
