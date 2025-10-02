@@ -1,8 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import { RotateCcw, Shield, MapPin, Lock } from "lucide-react";
 import "../styles/brand-system.css";
-import heroBannerImg from "@assets/coverimage_imgupscaler.ai_v2(Pro)_2K_1759268011540.png";
 
 const Hero = () => {
   return (
@@ -15,7 +13,7 @@ const Hero = () => {
         {/* Hero banner image */}
         <div className="absolute inset-0">
           <img 
-            src={heroBannerImg} 
+            src="/attached_images/hero-banner.png" 
             alt="Eyeglasses collection banner" 
             className="w-full h-full object-cover"
           />
