@@ -18,7 +18,7 @@ const ProductsPage = () => {
 
   // Fetch products from WooCommerce API
   const { data: products = [], isLoading, error } = useQuery<Product[]>({
-    queryKey: ['/api/categories/frames/products'],
+    queryKey: [`/api/categories/${selectedCategory}/products`],
     retry: 2,
     retryDelay: 1000,
   });
