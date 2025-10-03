@@ -2,19 +2,31 @@
 import { QueryClient } from "@tanstack/react-query";
 
 async function defaultFetcher<T>(url: string): Promise<T> {
-  const response = await fetch(url, {
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  console.log(`[QueryClient] Fetching: ${url}`);
+  
+  try {
+    const response = await fetch(url, {
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`API Error (${response.status}): ${error}`);
+    console.log(`[QueryClient] Response for ${url}: ${response.status} ${response.statusText}`);
+
+    if (!response.ok) {
+      const error = await response.text();
+      console.error(`[QueryClient] Error response for ${url}:`, error);
+      throw new Error(`API Error (${response.status}): ${error}`);
+    }
+
+    const data = await response.json();
+    console.log(`[QueryClient] Success for ${url}:`, data);
+    return data;
+  } catch (error) {
+    console.error(`[QueryClient] Fetch failed for ${url}:`, error);
+    throw error;
   }
-
-  return response.json();
 }
 
 export const queryClient = new QueryClient({

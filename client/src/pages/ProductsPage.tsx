@@ -23,6 +23,16 @@ const ProductsPage = () => {
     retryDelay: 1000,
   });
 
+  // Debug logging
+  console.log('[ProductsPage] Query state:', {
+    selectedCategory,
+    queryKey: `/api/categories/${selectedCategory}/products`,
+    isLoading,
+    hasError: !!error,
+    productsCount: products.length,
+    error: error
+  });
+
   const handleLike = (productId: number) => {
     setLikedProducts(prev => 
       prev.includes(productId) 

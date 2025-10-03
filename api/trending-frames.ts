@@ -6,9 +6,12 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse,
 ) {
+  console.log('[API] /api/trending-frames - Request received');
+  
   const api = createWooCommerceApi();
   
   if (!api) {
+    console.error('[API] WooCommerce API not configured');
     return res.status(500).json({ 
       error: "WooCommerce API not configured",
       message: "Missing environment variables: WOOCOMMERCE_URL, WOOCOMMERCE_CONSUMER_KEY, or WOOCOMMERCE_CONSUMER_SECRET"
@@ -16,6 +19,7 @@ export default async function handler(
   }
 
   try {
+    console.log('[API] Fetching trending frames');
     const categoriesResponse = await api.get("products/categories", {
       slug: "frames",
     });
