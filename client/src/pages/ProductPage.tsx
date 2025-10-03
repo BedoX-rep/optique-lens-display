@@ -12,7 +12,7 @@ import type { Product } from "@shared/woocommerce-types";
 import "../styles/brand-system.css";
 
 const ProductPage = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // This is actually the slug from the URL
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState("");
@@ -25,8 +25,10 @@ const ProductPage = () => {
     retryDelay: 1000,
   });
 
-  // Find the specific product by ID from cached products
-  const product = allProducts.find(p => p.id === Number(id));
+  // Find the specific product by slug or ID from cached products
+  const product = allProducts.find(p => 
+    p.slug === id || p.id === Number(id)
+  );
   const error = !isLoading && !product;
 
   // Scroll to top when component mounts
