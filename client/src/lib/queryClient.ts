@@ -37,9 +37,9 @@ export const queryClient = new QueryClient({
         console.log(`[QueryClient] Query registered:`, queryKey);
         return defaultFetcher(url);
       },
-      staleTime: 1000 * 60 * 30, // 5 minutes
+      staleTime: 1000 * 60 * 2, // 2 minutes
       retry: 1,
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
       refetchOnMount: true,
     },
   },

@@ -42,16 +42,26 @@ const TrendingFrames = () => {
   // Initialize default colors for each product
   useEffect(() => {
     if (frames.length > 0) {
-      const defaultColors: Record<number, string> = {};
-      frames.forEach(frame => {
-        const colors = getProductColors(frame);
-        if (colors.length > 0) {
-          defaultColors[frame.id] = colors[0];
-        }
+      setSelectedColors(prevColors => {
+        const newColors: Record<number, string> = {};
+        let hasChanges = false;
+        
+        frames.forEach(frame => {
+          const colors = getProductColors(frame);
+          if (colors.length > 0) {
+            if (!prevColors[frame.id]) {
+              newColors[frame.id] = colors[0];
+              hasChanges = true;
+            } else {
+              newColors[frame.id] = prevColors[frame.id];
+            }
+          }
+        });
+        
+        return hasChanges ? newColors : prevColors;
       });
-      setSelectedColors(defaultColors);
     }
-  }, [frames]);
+  }, [allProducts.length]);
 
   // Auto-scroll functionality
   useEffect(() => {

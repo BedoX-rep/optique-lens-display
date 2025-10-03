@@ -153,7 +153,15 @@ const Header = () => {
                         <span className="text-gray-700 font-medium">Sign in</span>
                       </div>
                     </div>
-                    {navigationItems.map((item) => (
+                    <div className="border-b">
+                      <Link
+                        to="/products"
+                        className="block px-6 py-4 text-base font-medium text-gray-700 hover:text-gray-900"
+                      >
+                        Eyeglasses
+                      </Link>
+                    </div>
+                    {navigationItems.slice(1).map((item) => (
                       <div key={item} className="border-b">
                         <a
                           href="#"
