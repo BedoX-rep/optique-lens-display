@@ -6,6 +6,12 @@ The application serves as an online eyewear retailer with product browsing, user
 
 # Recent Changes
 
+- **October 03, 2025**: Implemented image proxy solution for password-protected WooCommerce images
+  - Created dual image proxy: Express endpoint (`/api/proxy-image`) for Replit + Vercel serverless function for production
+  - Images now properly authenticate using LocalWP credentials (LOCALWP_USERNAME, LOCALWP_PASSWORD)
+  - All product images automatically proxied through backend to eliminate 401 errors
+  - Configured edge caching (1 hour) on Vercel for optimal performance
+  
 - **October 03, 2025**: Restructured to use Vercel serverless functions for WooCommerce API
   - Created `/api` directory with serverless functions for Vercel deployment
   - Implemented shared WooCommerce utilities in `shared/woocommerce-utils.ts` to avoid code duplication
@@ -92,10 +98,11 @@ The application fetches product data from a WooCommerce REST API:
 - `LOCALWP_USERNAME`: (Optional) Basic auth username for LocalWP Live Links
 - `LOCALWP_PASSWORD`: (Optional) Basic auth password for LocalWP Live Links
 
-### Known Issues
-- **Image Loading**: If the WooCommerce site is password-protected (LocalWP Live Links), product images may fail to load in the browser with 401 errors. The browser cannot automatically pass basic auth credentials to image requests. Solutions:
-  1. Disable password protection on the LocalWP Live Link
-  2. Use a non-password-protected production/staging URL
-  3. Implement an image proxy endpoint on the backend that adds authentication
+### Image Proxy Solution
+- **Automatic Image Authentication**: All WooCommerce product images are automatically proxied through the backend to handle basic authentication
+  - Express endpoint: `/api/proxy-image?url={imageUrl}` (Replit local development)
+  - Vercel serverless function: `/api/proxy-image.ts` (production deployment)
+  - Images cached for 1 hour on Vercel edge network for optimal performance
+  - Supports LocalWP Live Link password-protected sites seamlessly
 
 The architecture follows a clean separation of concerns with shared types and schemas between frontend and backend, enabling type safety across the full stack. The application is designed for scalability with proper error handling, responsive design, and modern development practices.
