@@ -20,14 +20,27 @@ export default async function handler(
   }
 
   try {
-    console.log('[API] Fetching all products');
+    console.log('[API] Fetching frames products');
+    
+    // Get the frames category
+    const categoriesResponse = await api.get("products/categories", {
+      slug: "frames",
+    });
+
+    let categoryId;
+    if (categoriesResponse.data.length > 0) {
+      categoryId = categoriesResponse.data[0].id;
+    }
+
+    // Fetch only frames products
     const response = await api.get("products", {
+      ...(categoryId && { category: categoryId }),
       per_page: 100,
       status: "publish",
     });
 
     const wcProducts = response.data as WooCommerceProduct[];
-    console.log('[API] Raw products count:', wcProducts.length);
+    console.log('[API] Raw frames count:', wcProducts.length);
     
     const products = await Promise.all(
       wcProducts.map((wcProduct) => normalizeProduct(wcProduct, api))
@@ -35,7 +48,7 @@ export default async function handler(
 
     // Filter out progressive lenses
     const filteredProducts = products.filter(p => !p.name.toLowerCase().includes("progressive"));
-    console.log('[API] Filtered products count:', filteredProducts.length);
+    console.log('[API] Filtered frames count:', filteredProducts.length);
 
     res.status(200).json(filteredProducts);
   } catch (error) {

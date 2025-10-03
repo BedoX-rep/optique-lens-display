@@ -14,27 +14,21 @@ const ProductsPage = () => {
   const [showAsSunglasses, setShowAsSunglasses] = useState(false);
   const [sortBy, setSortBy] = useState('Popularity');
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('frames');
 
-  console.log('[ProductsPage] Component mounted/rendered with category:', selectedCategory);
+  console.log('[ProductsPage] Component mounted/rendered');
 
   // Get all products from React Query cache (prefetched on homepage)
-  const { data: allProducts = [], isLoading, error } = useQuery<Product[]>({
+  const { data: products = [], isLoading, error } = useQuery<Product[]>({
     queryKey: ['/api/products'],
     retry: 2,
     retryDelay: 1000,
   });
 
-  // Filter products by selected category
-  const products = allProducts.filter(p => p.categorySlug === selectedCategory);
-
   // Debug logging
   console.log('[ProductsPage] Query state:', {
-    selectedCategory,
     isLoading,
     hasError: !!error,
-    allProductsCount: allProducts.length,
-    filteredProductsCount: products.length,
+    productsCount: products.length,
     error: error
   });
 
