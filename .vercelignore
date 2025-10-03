@@ -1,4 +1,7 @@
-
-server/
-.replit
-replit.nix
+server
+node_modules
+.git
+*.log
+.env
+.env.local
+attached_assets

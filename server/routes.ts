@@ -62,17 +62,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get all categories (for debugging)
-  app.get("/api/categories", async (req, res, next) => {
-    try {
-      const { getCategories } = await import("./woocommerce");
-      const categories = await getCategories();
-      res.json(categories);
-    } catch (error) {
-      next(error);
-    }
-  });
-
   // Get trending frames (first 4 frame products)
   app.get("/api/trending-frames", async (req, res, next) => {
     try {

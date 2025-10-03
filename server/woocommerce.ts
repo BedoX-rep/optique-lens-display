@@ -161,72 +161,19 @@ export async function getProduct(idOrSlug: string | number): Promise<Product | n
   }
 }
 
-// Get all categories
-export async function getCategories(): Promise<any[]> {
-  if (!api) {
-    throw new Error("WooCommerce API not configured");
-  }
-
-  try {
-    const response = await api.get("products/categories", {
-      per_page: 100,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    throw new Error("Failed to fetch categories");
-  }
-}
-
 // Get products by category
 export async function getProductsByCategory(categorySlug: string): Promise<Product[]> {
-  if (!api) {
-    throw new Error("WooCommerce API not configured. Please set WOOCOMMERCE_URL, WOOCOMMERCE_CONSUMER_KEY, and WOOCOMMERCE_CONSUMER_SECRET environment variables.");
-  }
-
   try {
     // First get the category ID
-    console.log(`[WooCommerce] Looking up category with slug: "${categorySlug}"`);
     const categoriesResponse = await api.get("products/categories", {
-      slug: categorySlug.toLowerCase(), // Ensure lowercase slug
+      slug: categorySlug,
     });
 
-    console.log(`[WooCommerce] Category lookup response:`, categoriesResponse.data);
-
     if (categoriesResponse.data.length === 0) {
-      console.log(`[WooCommerce] Category "${categorySlug}" not found. Trying to find by name...`);
-      
-      // Try to find by searching all categories
-      const allCategoriesResponse = await api.get("products/categories", {
-        search: categorySlug,
-        per_page: 100,
-      });
-      
-      if (allCategoriesResponse.data.length === 0) {
-        console.log(`[WooCommerce] No category found matching "${categorySlug}"`);
-        return [];
-      }
-      
-      // Use the first matching category
-      const categoryId = allCategoriesResponse.data[0].id;
-      console.log(`[WooCommerce] Found category by search - ID: ${categoryId}, Name: ${allCategoriesResponse.data[0].name}`);
-      
-      const response = await api.get("products", {
-        category: categoryId,
-        per_page: 100,
-        status: "publish",
-      });
-
-      const wcProducts = response.data as WooCommerceProduct[];
-      const products = await Promise.all(
-        wcProducts.map((wcProduct) => normalizeProduct(wcProduct))
-      );
-
-      return products;
+      return [];
     }
 
     const categoryId = categoriesResponse.data[0].id;
-    console.log(`[WooCommerce] Found category ID: ${categoryId}, Name: ${categoriesResponse.data[0].name}`);
 
     const response = await api.get("products", {
       category: categoryId,
