@@ -81,6 +81,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Image proxy endpoint to handle authenticated image requests
+  app.get("/api/proxy-image", async (req, res, next) => {
+    try {
+      const imageUrl = req.query.url as string;
+      
+      if (!imageUrl) {
+        return res.status(400).json({ message: "Image URL is required" });
+      }
+
+      // Fetch image with authentication if needed
+      const fetchOptions: RequestInit = {
+        headers: {
+          'User-Agent': 'Mozilla/5.0',
+        },
+      };
+
+      // Add basic auth if LocalWP credentials are available
+      if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
+        const credentials = Buffer.from(
+          `${process.env.LOCALWP_USERNAME}:${process.env.LOCALWP_PASSWORD}`
+        ).toString('base64');
+        fetchOptions.headers = {
+          ...fetchOptions.headers,
+          'Authorization': `Basic ${credentials}`,
+        };
+      }
+
+      const response = await fetch(imageUrl, fetchOptions);
+      
+      if (!response.ok) {
+        return res.status(response.status).json({ message: "Failed to fetch image" });
+      }
+
+      // Get content type from response
+      const contentType = response.headers.get('content-type');
+      if (contentType) {
+        res.setHeader('Content-Type', contentType);
+      }
+
+      // Cache for 1 hour
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+
+      // Stream the image to the client
+      const buffer = await response.arrayBuffer();
+      res.send(Buffer.from(buffer));
+    } catch (error) {
+      console.error('Error proxying image:', error);
+      next(error);
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

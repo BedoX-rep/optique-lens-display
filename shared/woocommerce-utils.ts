@@ -45,6 +45,18 @@ export function priceToCents(priceString: string): number {
   return Math.round(price * 100);
 }
 
+// Convert image URL to use proxy endpoint if authentication is needed
+export function proxyImageUrl(imageUrl: string): string {
+  if (!imageUrl) return imageUrl;
+  
+  // If LocalWP credentials are set, use the proxy
+  if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
+    return `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`;
+  }
+  
+  return imageUrl;
+}
+
 // Normalize WooCommerce product to our Product type
 export async function normalizeProduct(wcProduct: WooCommerceProduct, api: any): Promise<Product> {
   const category = wcProduct.categories[0];
@@ -67,7 +79,7 @@ export async function normalizeProduct(wcProduct: WooCommerceProduct, api: any):
           return acc;
         }, {} as Record<string, string>),
         image: v.image ? {
-          src: v.image.src,
+          src: proxyImageUrl(v.image.src),
           alt: v.image.alt,
         } : undefined,
         inStock: v.stock_status === "instock",
@@ -76,7 +88,7 @@ export async function normalizeProduct(wcProduct: WooCommerceProduct, api: any):
       wcVariations.forEach((v) => {
         const colorAttr = v.attributes.find(attr => attr.name.toLowerCase() === 'color');
         if (colorAttr && v.image) {
-          colorImages[colorAttr.option.toLowerCase()] = v.image.src;
+          colorImages[colorAttr.option.toLowerCase()] = proxyImageUrl(v.image.src);
         }
       });
     } catch (error) {
@@ -104,7 +116,7 @@ export async function normalizeProduct(wcProduct: WooCommerceProduct, api: any):
     categorySlug: category?.slug || "uncategorized",
     images: wcProduct.images.map((img) => ({
       id: img.id,
-      src: img.src,
+      src: proxyImageUrl(img.src),
       alt: img.alt || wcProduct.name,
     })),
     attributes,
