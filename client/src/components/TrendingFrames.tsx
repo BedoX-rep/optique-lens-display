@@ -15,13 +15,16 @@ const TrendingFrames = () => {
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
   const [selectedColors, setSelectedColors] = useState<Record<number, string>>({});
 
-  // Fetch trending frames from WooCommerce API
-  const { data: frames = [], isLoading, error } = useQuery<Product[]>({
-    queryKey: ['/api/trending-frames'],
+  // Fetch all products and use first 4 frames
+  const { data: allProducts = [], isLoading, error } = useQuery<Product[]>({
+    queryKey: ['/api/products'],
     retry: 2,
     retryDelay: 1000,
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes to avoid unnecessary calls
   });
+
+  // Get first 4 frames for trending section
+  const frames = allProducts.slice(0, 4);
 
   // Responsive: 1 card on mobile, 3 on desktop
   const [itemsPerView, setItemsPerView] = useState(3);
