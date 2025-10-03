@@ -6,6 +6,13 @@ The application serves as an online eyewear retailer with product browsing, user
 
 # Recent Changes
 
+- **October 03, 2025**: Restructured to use Vercel serverless functions for WooCommerce API
+  - Created `/api` directory with serverless functions for Vercel deployment
+  - Implemented shared WooCommerce utilities in `shared/woocommerce-utils.ts` to avoid code duplication
+  - Updated `vercel.json` to properly configure serverless functions
+  - Express server continues to work for local development in Replit
+  - All WooCommerce API endpoints now available as both Express routes (local) and Vercel functions (production)
+
 - **October 01, 2025**: Connected WooCommerce API to fetch real product data
   - Configured WooCommerce REST API with query string authentication
   - Added site-level basic authentication support for LocalWP Live Links
@@ -40,7 +47,9 @@ Preferred communication style: Simple, everyday language.
 - **UI Components**: Extensive use of Radix UI primitives through shadcn/ui for accessibility compliance
 
 ## Backend Architecture
-- **Framework**: Express.js with TypeScript for the REST API server
+- **Framework**: Express.js with TypeScript for the REST API server (local development)
+- **Serverless Functions**: Vercel serverless functions in `/api` directory for production deployment
+- **Shared Utilities**: Common WooCommerce logic in `shared/woocommerce-utils.ts` used by both Express and Vercel
 - **Database ORM**: Drizzle ORM with PostgreSQL dialect for type-safe database operations
 - **Storage Pattern**: Repository pattern implemented through IStorage interface with both memory and database implementations
 - **Development Server**: Custom Vite middleware integration for hot reloading in development
