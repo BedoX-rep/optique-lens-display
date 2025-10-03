@@ -18,20 +18,16 @@ const ProductPage = () => {
   const [selectedColor, setSelectedColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
 
-  // Fetch product data from WooCommerce API
-  const { data: product, isLoading, error } = useQuery<Product>({
-    queryKey: [`/api/products/${id}`],
+  // Get all products from React Query cache (prefetched on homepage)
+  const { data: allProducts = [], isLoading } = useQuery<Product[]>({
+    queryKey: ['/api/products'],
     retry: 2,
     retryDelay: 1000,
-    enabled: !!id,
   });
 
-  // Fetch trending frames for related products
-  const { data: allFrames = [] } = useQuery<Product[]>({
-    queryKey: ['/api/trending-frames'],
-    retry: 2,
-    retryDelay: 1000,
-  });
+  // Find the specific product by ID from cached products
+  const product = allProducts.find(p => p.id === Number(id));
+  const error = !isLoading && !product;
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -72,7 +68,7 @@ const ProductPage = () => {
   };
 
   // Get related products (excluding current product)
-  const relatedProducts = allFrames.filter(p => p.id !== product?.id).slice(0, 3);
+  const relatedProducts = allProducts.filter(p => p.id !== product?.id).slice(0, 3);
 
   // Loading state
   if (isLoading) {

@@ -18,22 +18,23 @@ const ProductsPage = () => {
 
   console.log('[ProductsPage] Component mounted/rendered with category:', selectedCategory);
 
-  // Fetch products from WooCommerce API
-  const { data: products = [], isLoading, error } = useQuery<Product[]>({
-    queryKey: [`/api/categories/${selectedCategory}/products`],
+  // Get all products from React Query cache (prefetched on homepage)
+  const { data: allProducts = [], isLoading, error } = useQuery<Product[]>({
+    queryKey: ['/api/products'],
     retry: 2,
     retryDelay: 1000,
-    enabled: true, // Explicitly enable the query
-    refetchOnMount: true,
   });
+
+  // Filter products by selected category
+  const products = allProducts.filter(p => p.categorySlug === selectedCategory);
 
   // Debug logging
   console.log('[ProductsPage] Query state:', {
     selectedCategory,
-    queryKey: `/api/categories/${selectedCategory}/products`,
     isLoading,
     hasError: !!error,
-    productsCount: products.length,
+    allProductsCount: allProducts.length,
+    filteredProductsCount: products.length,
     error: error
   });
 
