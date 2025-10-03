@@ -16,11 +16,15 @@ const ProductsPage = () => {
   const [likedProducts, setLikedProducts] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('frames');
 
+  console.log('[ProductsPage] Component mounted/rendered with category:', selectedCategory);
+
   // Fetch products from WooCommerce API
   const { data: products = [], isLoading, error } = useQuery<Product[]>({
     queryKey: [`/api/categories/${selectedCategory}/products`],
     retry: 2,
     retryDelay: 1000,
+    enabled: true, // Explicitly enable the query
+    refetchOnMount: true,
   });
 
   // Debug logging
