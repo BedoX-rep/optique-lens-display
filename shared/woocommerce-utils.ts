@@ -10,6 +10,11 @@ export function createWooCommerceApi() {
   );
 
   if (!hasWooCommerceCredentials) {
+    console.error('WooCommerce API credentials missing:', {
+      hasUrl: !!process.env.WOOCOMMERCE_URL,
+      hasKey: !!process.env.WOOCOMMERCE_CONSUMER_KEY,
+      hasSecret: !!process.env.WOOCOMMERCE_CONSUMER_SECRET
+    });
     return null;
   }
 

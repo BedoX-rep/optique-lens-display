@@ -9,7 +9,10 @@ export default async function handler(
   const api = createWooCommerceApi();
   
   if (!api) {
-    return res.status(500).json({ error: "WooCommerce API not configured" });
+    return res.status(500).json({ 
+      error: "WooCommerce API not configured",
+      message: "Missing environment variables: WOOCOMMERCE_URL, WOOCOMMERCE_CONSUMER_KEY, or WOOCOMMERCE_CONSUMER_SECRET"
+    });
   }
 
   try {
