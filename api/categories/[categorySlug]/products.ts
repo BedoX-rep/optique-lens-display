@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { createWooCommerceApi, normalizeProduct } from "../../../shared/woocommerce-utils";
-import type { WooCommerceProduct } from "../../../shared/woocommerce-types";
+import { createWooCommerceApi, normalizeProduct } from "../../../shared/woocommerce-utils.js";
+import type { WooCommerceProduct } from "../../../shared/woocommerce-types.js";
 
 export default async function handler(
   req: VercelRequest,
