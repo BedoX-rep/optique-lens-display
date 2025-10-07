@@ -6,6 +6,15 @@ The application serves as an online eyewear retailer with product browsing, user
 
 # Recent Changes
 
+- **October 07, 2025**: Completed Cloudinary integration for image hosting
+  - Uploaded 37 images from local storage to Cloudinary cloud storage
+  - Created image mapping system (`shared/image-mappings.ts`) for backward compatibility
+  - Implemented reusable Cloudinary utilities (`shared/cloudinary-utils.ts`) with `uploadImageToCloudinary()` and `uploadImageBuffer()`
+  - Created `/api/upload-image` endpoint with multer support for future uploads
+  - Updated all UI components (Header, Hero, Footer, ProductCategories, ServiceSections, ProductsPage) to use Cloudinary URLs
+  - Supports both `CLOUDINARY_URL` and discrete credentials (`CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`)
+  - All images now served from Cloudinary CDN for optimal performance
+
 - **October 03, 2025**: Implemented image proxy solution for password-protected WooCommerce images
   - Created dual image proxy: Express endpoint (`/api/proxy-image`) for Replit + Vercel serverless function for production
   - Images now properly authenticate using LocalWP credentials (LOCALWP_USERNAME, LOCALWP_PASSWORD)
@@ -74,6 +83,7 @@ Preferred communication style: Simple, everyday language.
 
 ## External Dependencies
 - **Database**: Neon PostgreSQL serverless database
+- **Image Hosting**: Cloudinary CDN for all static images and media files
 - **WooCommerce API**: Product data, attributes, variations, and inventory management
   - API URL: Configured via `WOOCOMMERCE_URL` environment variable
   - Authentication: Query string auth with consumer key and secret
