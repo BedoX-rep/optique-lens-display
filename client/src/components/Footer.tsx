@@ -1,4 +1,5 @@
 import "../styles/brand-system.css";
+import { getCloudinaryUrl } from "@shared/image-mappings";
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
           <div>
             <div className="mb-6">
               <img 
-                src="/attached_images/logotrans.png" 
+                src={getCloudinaryUrl("/attached_images/logotrans.png")}
                 alt="OptiqueLens Logo" 
                 className="h-8 w-auto"
               />

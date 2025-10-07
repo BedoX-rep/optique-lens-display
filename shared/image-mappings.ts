@@ -1,0 +1,45 @@
+// Image URL mappings from local to Cloudinary
+export const imageMappings: Record<string, string> = {
+  "/attached_images/logotrans.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874956/optiquelens/logotrans.png",
+  "/attached_images/hero-banner.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874957/optiquelens/hero-banner.png",
+  "/attached_images/products-banner.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874958/optiquelens/products-banner.png",
+  "/attached_images/changed_1756660015874.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874429/optiquelens/changed_1756660015874.png",
+  "/attached_images/changed_1756660061812.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874430/optiquelens/changed_1756660061812.png",
+  "/attached_images/coverimage_imgupscaler.ai_v2(Pro)_2K_1759268011540.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874431/optiquelens/coverimage_imgupscaler.ai_v2_Pro__2K_1759268011540.png",
+  "/attached_images/generated_images/AI_eyewear_fitting_technology_01b46048.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874432/optiquelens/generated_images/AI_eyewear_fitting_technology_01b46048.png",
+  "/attached_images/generated_images/Cool_man_wearing_glasses_42815e12.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874433/optiquelens/generated_images/Cool_man_wearing_glasses_42815e12.png",
+  "/attached_images/generated_images/Cool_woman_wearing_glasses_1e8db1d1.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874434/optiquelens/generated_images/Cool_woman_wearing_glasses_1e8db1d1.png",
+  "/attached_images/generated_images/Modern_optical_store_interior_681bc472.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874435/optiquelens/generated_images/Modern_optical_store_interior_681bc472.png",
+  "/attached_images/generated_images/Person_wearing_blue_light_blocking_glasses_9fab8022.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874436/optiquelens/generated_images/Person_wearing_blue_light_blocking_glasses_9fab8022.png",
+  "/attached_images/generated_images/Person_wearing_transition_lenses_2ae86d8c.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874437/optiquelens/generated_images/Person_wearing_transition_lenses_2ae86d8c.png",
+  "/attached_images/generated_images/Premium_sunglasses_collection_display_972f8bd4.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874437/optiquelens/generated_images/Premium_sunglasses_collection_display_972f8bd4.png",
+  "/attached_images/generated_images/Professional_wearing_varifocal_glasses_f10f2f93.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874438/optiquelens/generated_images/Professional_wearing_varifocal_glasses_f10f2f93.png",
+  "/attached_images/generated_images/Stylish_couple_wearing_glasses_751eb959.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874440/optiquelens/generated_images/Stylish_couple_wearing_glasses_751eb959.png",
+  "/attached_images/generated_images/Varifocal_prescription_glasses_display_8f7aaa15.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874441/optiquelens/generated_images/Varifocal_prescription_glasses_display_8f7aaa15.png",
+  "/attached_images/generated_images/Woman_wearing_stylish_sunglasses_f496508c.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874442/optiquelens/generated_images/Woman_wearing_stylish_sunglasses_f496508c.png",
+  "/attached_images/image_1756665149235.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874443/optiquelens/image_1756665149235.png",
+  "/attached_images/image_1757181538545.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874444/optiquelens/image_1757181538545.png",
+  "/attached_images/image_1757181593156.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874444/optiquelens/image_1757181593156.png",
+  "/attached_images/image_1757182310528.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874445/optiquelens/image_1757182310528.png",
+  "/attached_images/image_1757183720503.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874445/optiquelens/image_1757183720503.png",
+  "/attached_images/image_1757183913408.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874446/optiquelens/image_1757183913408.png",
+  "/attached_images/image_1757185099793.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874447/optiquelens/image_1757185099793.png",
+  "/attached_images/image_1757283690716.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874448/optiquelens/image_1757283690716.png",
+  "/attached_images/image_1757426782456.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874449/optiquelens/image_1757426782456.png",
+  "/attached_images/image_1757426950886.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874450/optiquelens/image_1757426950886.png",
+  "/attached_images/imgi_193_vto-mobile_1757213500747.webp": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874450/optiquelens/imgi_193_vto-mobile_1757213500747.webp",
+  "/attached_images/imgi_213_banner-about_1757426645307.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874452/optiquelens/imgi_213_banner-about_1757426645307.png",
+  "/attached_images/imgi_490_banner-all-glasses_1757184523704.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874453/optiquelens/imgi_490_banner-all-glasses_1757184523704.png",
+  "/attached_images/screencapture-directsight-co-uk-basket-use-2025-09-09-14_09_52_1757424387827.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874453/optiquelens/screencapture-directsight-co-uk-basket-use-2025-09-09-14_09_52_1757424387827.png",
+  "/attached_images/screencapture-directsight-co-uk-detail-ds-collection-glasses-589-2025-09-06-18_33_35_1757180271091.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874454/optiquelens/screencapture-directsight-co-uk-detail-ds-collection-glasses-589-2025-09-06-18_33_35_1757180271091.png",
+  "/attached_images/test1_1757181439878.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874455/optiquelens/test1_1757181439878.png",
+  "/attached_images/test2_1757181439879.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874456/optiquelens/test2_1757181439879.png",
+  "/attached_images/test3_1757181439880.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874457/optiquelens/test3_1757181439880.png",
+  "/attached_images/test4_1757181439880.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874458/optiquelens/test4_1757181439880.png",
+  "/attached_images/upscalemedia-transformed (2)_1759267008280.png": "https://res.cloudinary.com/dox1gblux/image/upload/v1759874460/optiquelens/upscalemedia-transformed_2__1759267008280.png",
+};
+
+// Helper function to get Cloudinary URL for a local image path
+export function getCloudinaryUrl(localPath: string): string {
+  return imageMappings[localPath] || localPath;
+}

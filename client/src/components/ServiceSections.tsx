@@ -1,4 +1,5 @@
 import "../styles/brand-system.css";
+import { getCloudinaryUrl } from "@shared/image-mappings";
 
 const ServiceSections = () => {
   const services = [
@@ -6,25 +7,25 @@ const ServiceSections = () => {
       title: "SUNGLASSES",
       subtitle: "Large selection from only £19",
       bgColor: "from-teal-400 to-teal-500",
-      image: "/attached_images/Woman_wearing_stylish_sunglasses.png"
+      image: getCloudinaryUrl("/attached_images/generated_images/Woman_wearing_stylish_sunglasses_f496508c.png")
     },
     {
       title: "VARIFOCALS",
       subtitle: "Lens options from only £84",
       bgColor: "from-teal-500 to-teal-600",
-      image: "/attached_images/Professional_wearing_varifocal_glasses.png"
+      image: getCloudinaryUrl("/attached_images/generated_images/Professional_wearing_varifocal_glasses_f10f2f93.png")
     },
     {
       title: "BLUE LIGHT BLOCKING",
       subtitle: "Protect your eyes for only £20",
       bgColor: "from-teal-600 to-cyan-500",
-      image: "/attached_images/Person_wearing_blue_light_blocking_glasses.png"
+      image: getCloudinaryUrl("/attached_images/generated_images/Person_wearing_blue_light_blocking_glasses_9fab8022.png")
     },
     {
       title: "TRANSITIONS",
       subtitle: "Lenses on offer from £60",
       bgColor: "from-cyan-400 to-teal-500",
-      image: "/attached_images/Person_wearing_transition_lenses.png"
+      image: getCloudinaryUrl("/attached_images/generated_images/Person_wearing_transition_lenses_2ae86d8c.png")
     }
   ];
 
@@ -96,7 +97,7 @@ const ServiceSections = () => {
               {/* Image Side */}
               <div className="order-1 md:order-2 h-64 md:h-auto">
                 <img 
-                  src="/attached_images/Modern_optical_store_interior.png" 
+                  src={getCloudinaryUrl("/attached_images/generated_images/Modern_optical_store_interior_681bc472.png")}
                   alt="Modern optical store interior"
                   className="w-full h-full object-cover"
                 />

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import "../styles/brand-system.css";
+import { getCloudinaryUrl } from "@shared/image-mappings";
 
 const ProductCategories = () => {
   return (
@@ -11,7 +12,7 @@ const ProductCategories = () => {
           <div className="group cursor-pointer">
             <div className="relative rounded-lg overflow-hidden w-full h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
               <img 
-                src="/attached_images/Cool_woman_wearing_glasses.png" 
+                src={getCloudinaryUrl("/attached_images/generated_images/Cool_woman_wearing_glasses_1e8db1d1.png")}
                 alt="Glasses for Women"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
@@ -26,7 +27,7 @@ const ProductCategories = () => {
           <div className="group cursor-pointer">
             <div className="relative rounded-lg overflow-hidden w-full h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
               <img 
-                src="/attached_images/Stylish_couple_wearing_glasses.png" 
+                src={getCloudinaryUrl("/attached_images/generated_images/Stylish_couple_wearing_glasses_751eb959.png")}
                 alt="Special Offer"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
@@ -41,7 +42,7 @@ const ProductCategories = () => {
           <div className="group cursor-pointer">
             <div className="relative rounded-lg overflow-hidden w-full h-[250px] md:h-[300px] lg:h-[378px] mx-auto shadow-lg">
               <img 
-                src="/attached_images/Cool_man_wearing_glasses.png" 
+                src={getCloudinaryUrl("/attached_images/generated_images/Cool_man_wearing_glasses_42815e12.png")}
                 alt="Glasses for Men"
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />

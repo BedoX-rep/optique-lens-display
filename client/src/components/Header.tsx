@@ -11,6 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { getCloudinaryUrl } from "@shared/image-mappings";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -61,7 +62,7 @@ const Header = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center" data-testid="logo-optique">
               <img 
-                src="/attached_images/logotrans.png" 
+                src={getCloudinaryUrl("/attached_images/logotrans.png")}
                 alt="OptiqueLens Logo" 
                 className="h-12 w-auto"
               />
@@ -141,7 +142,7 @@ const Header = () => {
                 <div className="flex flex-col h-full">
                   <div className="flex items-center justify-between px-6 py-4 border-b">
                     <img 
-                      src="/attached_images/logotrans.png" 
+                      src={getCloudinaryUrl("/attached_images/logotrans.png")}
                       alt="OptiqueLens Logo" 
                       className="h-10 w-auto"
                     />

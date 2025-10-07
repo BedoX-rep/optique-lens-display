@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { Product } from '@shared/woocommerce-types';
 import '../styles/brand-system.css';
+import { getCloudinaryUrl } from '@shared/image-mappings';
 
 const ProductsPage = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const ProductsPage = () => {
         <div className="w-full max-w-[1440px] relative">
           <div className="w-full h-[310px] overflow-hidden">
             <img 
-              src="/attached_images/products-banner.png" 
+              src={getCloudinaryUrl("/attached_images/products-banner.png")}
               alt="Prescription Glasses Collection"
               className="w-full h-full object-cover"
             />

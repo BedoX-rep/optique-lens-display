@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { RotateCcw, Shield, MapPin, Lock } from "lucide-react";
 import "../styles/brand-system.css";
+import { getCloudinaryUrl } from "@shared/image-mappings";
 
 const Hero = () => {
   return (
@@ -13,7 +14,7 @@ const Hero = () => {
         {/* Hero banner image */}
         <div className="absolute inset-0">
           <img 
-            src="/attached_images/hero-banner.png" 
+            src={getCloudinaryUrl("/attached_images/hero-banner.png")}
             alt="Eyeglasses collection banner" 
             className="w-full h-full object-cover"
           />

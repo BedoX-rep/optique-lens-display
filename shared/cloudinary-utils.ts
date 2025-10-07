@@ -42,8 +42,10 @@ export async function uploadImageToCloudinary(
   folder: string = 'optiquelens'
 ): Promise<CloudinaryUploadResult> {
   try {
-    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-      throw new Error('Cloudinary credentials are not configured. Please set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET in your environment variables.');
+    // Check if Cloudinary is configured (either via URL or individual credentials)
+    const config = cloudinary.config();
+    if (!config.cloud_name || !config.api_key || !config.api_secret) {
+      throw new Error('Cloudinary credentials are not configured. Please set CLOUDINARY_URL, or set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET in your environment variables.');
     }
 
     const result = await cloudinary.uploader.upload(imagePath, {
@@ -73,8 +75,10 @@ export async function uploadImageBuffer(
   folder: string = 'optiquelens'
 ): Promise<CloudinaryUploadResult> {
   try {
-    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-      throw new Error('Cloudinary credentials are not configured. Please set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET in your environment variables.');
+    // Check if Cloudinary is configured (either via URL or individual credentials)
+    const config = cloudinary.config();
+    if (!config.cloud_name || !config.api_key || !config.api_secret) {
+      throw new Error('Cloudinary credentials are not configured. Please set CLOUDINARY_URL, or set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET in your environment variables.');
     }
 
     return new Promise((resolve, reject) => {

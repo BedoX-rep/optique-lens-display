@@ -2,6 +2,8 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { getProducts, getProduct, getProductsByCategory } from "./woocommerce";
+import { uploadImageToCloudinary, uploadImageBuffer } from "@shared/cloudinary-utils";
+import multer from "multer";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // WooCommerce Products API routes
@@ -77,6 +79,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(trendingFrames);
     } catch (error) {
+      next(error);
+    }
+  });
+
+  // Cloudinary image upload endpoint
+  const upload = multer({ storage: multer.memoryStorage() });
+  
+  app.post("/api/upload-image", upload.single('image'), async (req, res, next) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: "No image file provided" });
+      }
+
+      const filename = req.file.originalname.replace(/\.[^/.]+$/, ""); // Remove extension
+      const folder = (req.body.folder as string) || 'optiquelens';
+
+      const result = await uploadImageBuffer(
+        req.file.buffer,
+        filename,
+        folder
+      );
+
+      res.json({
+        success: true,
+        url: result.secure_url,
+        publicId: result.public_id,
+        width: result.width,
+        height: result.height,
+        format: result.format
+      });
+    } catch (error) {
+      console.error('Error uploading image to Cloudinary:', error);
       next(error);
     }
   });
