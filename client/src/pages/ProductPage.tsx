@@ -110,13 +110,15 @@ const ProductPage = () => {
       <Header />
       
       {/* Top Banner */}
-      <div className="w-full bg-blue-50 py-2 text-center text-sm text-blue-800">
-        Buy two pairs (or more) of prescription glasses or sunglasses and get 15% Off
+      <div className="w-full bg-blue-50 flex justify-center">
+        <div className="w-full max-w-[1440px] text-center text-sm text-blue-800" style={{ height: '25px', lineHeight: '25px' }}>
+          Buy two pairs (or more) of prescription glasses or sunglasses and get 15% Off
+        </div>
       </div>
 
       {/* Main Content */}
       <div className="w-full flex justify-center">
-      <div className="w-full max-w-[1440px] px-4 py-6">
+      <div className="w-full max-w-[1440px] px-4">
         {/* Product Section - Responsive Layout */}
         <div className="-mx-4 px-4 pb-8 mb-12" style={{ backgroundColor: '#F6F6F6' }}>
           {/* Navigation */}
@@ -133,7 +135,7 @@ const ProductPage = () => {
           <div className="flex flex-col xl:flex-row xl:gap-8 xl:justify-between">
           {/* Product Images */}
           <div className="flex flex-col mb-8 xl:mb-0">
-            <div className="bg-white rounded-lg flex items-center justify-center" style={{ width: '930px', height: '325px' }}>
+            <div className="rounded-lg flex items-center justify-center" style={{ width: '930px', height: '325px', backgroundColor: '#F6F6F6' }}>
               <img 
                 src={getCurrentImage()} 
                 alt={`${product.name} - ${selectedColor || 'default'}`}
@@ -144,27 +146,25 @@ const ProductPage = () => {
             </div>
             
             {/* Image Gallery Below Main Image */}
-            {images.length > 1 && (
-              <div className="flex gap-3 mt-4" style={{ width: '930px' }}>
-                {images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`bg-white rounded-lg flex items-center justify-center border-2 ${
-                      index === currentImageIndex ? 'border-gray-800' : 'border-gray-200'
-                    } hover:border-gray-600 transition-colors`}
-                    style={{ width: '85px', height: '85px' }}
-                    data-testid={`button-thumbnail-${index}`}
-                  >
-                    <img 
-                      src={image.src}
-                      alt={image.alt || `View ${index + 1}`}
-                      className="w-full h-full object-contain p-2"
-                    />
-                  </button>
-                ))}
-              </div>
-            )}
+            <div className="flex gap-3 mt-4" style={{ width: '930px' }}>
+              {images.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`rounded-lg flex items-center justify-center border-2 ${
+                    index === currentImageIndex ? 'border-gray-800' : 'border-gray-200'
+                  } hover:border-gray-600 transition-colors`}
+                  style={{ width: '85px', height: '85px', backgroundColor: '#F6F6F6' }}
+                  data-testid={`button-thumbnail-${index}`}
+                >
+                  <img 
+                    src={image.src}
+                    alt={image.alt || `View ${index + 1}`}
+                    className="w-full h-full object-contain p-2"
+                  />
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Product Details */}
