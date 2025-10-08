@@ -23,6 +23,8 @@ const ProductPage = () => {
     queryKey: ['/api/products'],
     retry: 2,
     retryDelay: 1000,
+    staleTime: 5 * 60 * 1000, // 5 minutes - prevents refetch on mount
+    refetchOnMount: false, // Don't refetch since data should be cached from homepage
   });
 
   // Find the specific product by slug or ID from cached products
