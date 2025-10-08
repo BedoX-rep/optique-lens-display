@@ -132,8 +132,8 @@ const ProductPage = () => {
       <Header />
       
       {/* Top Banner */}
-      <div className="w-full flex justify-center bg-blue-50">
-        <div className="w-full max-w-[1440px] text-center text-sm text-blue-800" style={{ height: '25px', lineHeight: '25px' }}>
+      <div className="w-full flex justify-center">
+        <div className="w-full max-w-[1440px] text-center text-sm text-blue-800 bg-blue-50" style={{ height: '25px', lineHeight: '25px' }}>
           Buy two pairs (or more) of prescription glasses or sunglasses and get 15% Off
         </div>
       </div>
