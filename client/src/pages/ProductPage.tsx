@@ -132,7 +132,7 @@ const ProductPage = () => {
       <Header />
       
       {/* Top Banner */}
-      <div className="w-full bg-blue-50 flex justify-center">
+      <div className="w-full flex justify-center bg-blue-50">
         <div className="w-full max-w-[1440px] text-center text-sm text-blue-800" style={{ height: '25px', lineHeight: '25px' }}>
           Buy two pairs (or more) of prescription glasses or sunglasses and get 15% Off
         </div>
@@ -145,14 +145,16 @@ const ProductPage = () => {
         <div className="-mx-4 px-4 pb-8 mb-12" style={{ backgroundColor: '#F6F6F6' }}>
           {/* Navigation */}
           <div className="flex items-center justify-between mb-6">
-            <button 
-              onClick={() => navigate(-1)}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
-              data-testid="button-back"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back
-            </button>
+            <div style={{ paddingTop: '20px', paddingLeft: '20px' }}>
+              <button 
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+                data-testid="button-back"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back
+              </button>
+            </div>
           </div>
           <div className="flex flex-col xl:flex-row xl:gap-8 xl:justify-between">
           {/* Product Images */}
