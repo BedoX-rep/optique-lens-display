@@ -186,90 +186,82 @@ const ProductPage = () => {
           </div>
 
           {/* Product Details */}
-          <div className="flex flex-col xl:pl-8 bg-white rounded-lg shadow-sm p-6 mx-4 xl:mx-0 mb-4 xl:mb-0">
-            {/* Product Name and Heart */}
-            <div className="flex items-center gap-3 mb-2">
-              <h1 className="brand-font-heading text-2xl text-gray-800" data-testid="text-product-name">
+          <div className="flex flex-col xl:pl-8 bg-white rounded-lg shadow-sm mx-4 xl:mx-0 mb-4 xl:mb-0" style={{ width: '470px', height: '521px', padding: '24px' }}>
+            {/* Product Name and Wishlist */}
+            <div className="flex items-center justify-between mb-3">
+              <h1 className="brand-font-heading text-3xl font-bold text-gray-900" data-testid="text-product-name">
                 {product.name}
               </h1>
-              <span className="brand-font-primary text-gray-400 text-sm">Favourite</span>
               <button
                 onClick={() => setIsLiked(!isLiked)}
-                className={`text-xl ${isLiked ? 'text-red-500' : 'text-gray-400'}`}
+                className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700"
                 data-testid="button-favorite"
               >
-                <Heart className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />
+                <span className="brand-font-primary">Add to wishlist</span>
+                <Heart className={`w-4 h-4 ${isLiked ? 'fill-current text-red-500' : ''}`} />
               </button>
             </div>
 
-            {/* Price and Stock */}
-            <div className="flex items-center gap-4 mb-6">
-              <span className="brand-font-heading text-3xl text-gray-900" data-testid="text-price">
-                {formatPrice(product.price)}
-              </span>
-              {product.regularPrice && product.salePrice && (
-                <span className="brand-font-primary text-lg text-gray-500 line-through">
-                  {formatPrice(product.regularPrice)}
+            {/* Price */}
+            <div className="mb-4">
+              <div className="flex items-baseline gap-2">
+                <span className="brand-font-heading text-4xl font-bold text-gray-900" data-testid="text-price">
+                  {formatPrice(product.price)}
                 </span>
-              )}
-              <span className="brand-font-primary text-sm text-gray-600">price includes:</span>
-              <Badge variant="outline" className={`${product.inStock ? 'bg-green-50 text-green-700 border-green-200' : 'bg-red-50 text-red-700 border-red-200'}`}>
-                {product.inStock ? 'In Stock' : 'Out of Stock'}
-              </Badge>
-            </div>
-
-            <div className="brand-font-primary text-sm text-gray-600 mb-4">
-              • Frame & standard clear lenses<br/>
-              • Quality 14 times prescription lenses
+                <span className="brand-font-primary text-sm text-gray-600">price includes:</span>
+              </div>
+              <div className="brand-font-primary text-sm text-gray-600 mt-1">
+                ✓ Frame & microfibre cloth<br/>
+                ✓ Quality 1.5 index prescription lenses
+              </div>
             </div>
 
             {/* Color Selection */}
             {availableColors.length > 0 && (
-              <div className="mb-6">
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="flex gap-2">
-                    {availableColors.map((color) => (
-                      <button
-                        key={color}
-                        onClick={() => setSelectedColor(color)}
-                        className={`w-6 h-6 rounded-full border-2 ${
-                          selectedColor === color ? 'border-gray-800' : 'border-gray-300'
-                        }`}
-                        style={{ 
-                          backgroundColor: color === 'clear' || color === 'transparent' ? '#f3f4f6' : color 
-                        }}
-                        data-testid={`button-color-${color}`}
-                      />
-                    ))}
+              <div className="mb-4">
+                <div className="flex items-center gap-3">
+                  <span className="brand-font-primary text-sm font-semibold text-gray-900">Colour:</span>
+                  <div className="flex items-center gap-3">
+                    <div className="flex gap-2">
+                      {availableColors.map((color) => (
+                        <button
+                          key={color}
+                          onClick={() => setSelectedColor(color)}
+                          className={`w-7 h-7 rounded-full border-2 ${
+                            selectedColor === color ? 'border-gray-900' : 'border-gray-300'
+                          }`}
+                          style={{ 
+                            backgroundColor: color === 'clear' || color === 'transparent' ? '#f3f4f6' : color 
+                          }}
+                          data-testid={`button-color-${color}`}
+                        />
+                      ))}
+                    </div>
+                    <span className="brand-font-primary text-sm text-gray-600 capitalize" data-testid="text-selected-color">
+                      {selectedColor}
+                    </span>
+                    <span className="brand-font-primary text-sm font-semibold text-gray-900">| In Stock</span>
                   </div>
-                  <span className="brand-font-primary text-sm text-gray-600 capitalize" data-testid="text-selected-color">
-                    {selectedColor}
-                  </span>
                 </div>
-              </div>
-            )}
-
-            {/* Product Description */}
-            {product.shortDescription && (
-              <div className="mb-6 brand-font-primary text-sm text-gray-600">
-                <div dangerouslySetInnerHTML={{ __html: product.shortDescription }} />
               </div>
             )}
 
             {/* Shipping Option */}
-            <div className="mb-6 p-3 bg-blue-50 rounded-lg">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="brand-font-primary text-blue-800 font-medium">📦 Next Day Express</span>
-                  <span className="brand-font-primary text-blue-600">- £19.00</span>
-                </div>
-                <Info className="w-4 h-4 text-blue-600" />
+            <div className="mb-4">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" className="w-4 h-4" />
+                <span className="brand-font-primary text-sm font-semibold text-gray-900">
+                  Add <span className="font-bold">Next Day Express</span> <span className="font-normal text-gray-600">+£19.00</span>
+                </span>
+                <Info className="w-4 h-4 text-gray-400" />
+              </label>
+              <div className="brand-font-primary text-xs text-blue-600 mt-1 ml-6">
+                Order now delivered by <span className="font-semibold">Thursday</span>
               </div>
-              <div className="brand-font-primary text-xs text-blue-600 mt-1">Order now and receive Thursday</div>
             </div>
 
             {/* Action Buttons */}
-            <div className="space-y-4 mb-8">
+            <div className="space-y-3 mb-4">
               <Button 
                 onClick={() => navigate(`/select-lenses/${product.id}`, { 
                   state: { product: { 
@@ -280,7 +272,7 @@ const ProductPage = () => {
                     color: selectedColor 
                   } } 
                 })}
-                className="w-full bg-purple-800 hover:bg-purple-900 text-white py-3 rounded-lg brand-font-primary font-medium"
+                className="w-full bg-[#1a0b3a] hover:bg-[#2a1b4a] text-white py-3 rounded-full brand-font-primary font-semibold text-base"
                 disabled={!product.inStock}
                 data-testid="button-choose-lenses"
               >
@@ -289,7 +281,7 @@ const ProductPage = () => {
               </Button>
               
               <button 
-                className="w-full brand-font-primary text-center text-purple-800 hover:text-purple-900 underline"
+                className="w-full brand-font-primary text-center text-gray-700 hover:text-gray-900 underline text-sm"
                 data-testid="button-frame-only"
               >
                 Buy frame only
@@ -297,9 +289,8 @@ const ProductPage = () => {
             </div>
 
             {/* Standard Protection */}
-            <div className="brand-font-primary text-sm text-gray-600 mb-6">
-              <strong>Standard Protection</strong> - 7 working days (Not Incl. on sales orders)
-              Standard lens, tint and non-tinted frame only fees range.
+            <div className="brand-font-primary text-xs text-gray-500 leading-relaxed">
+              <span className="font-semibold text-gray-700">Standard Production</span> 3-7 working days. Multifocal, complex prescriptions, tints and non-stock items may take longer.
             </div>
           </div>
           </div>
