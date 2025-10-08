@@ -53,6 +53,25 @@ const ProductPage = () => {
     return product?.attributes?.Color || [];
   };
 
+  // Get all images from variations
+  const getAllImages = () => {
+    if (!product) return [];
+    
+    // If product has images array populated, use that
+    if (product.images && product.images.length > 0) {
+      return product.images;
+    }
+    
+    // Otherwise, get images from variations
+    if (product.variations && product.variations.length > 0) {
+      return product.variations
+        .filter(v => v.image && v.image.src)
+        .map(v => v.image);
+    }
+    
+    return [];
+  };
+
   // Get the current image to display based on selected color
   const getCurrentImage = () => {
     if (!product) return "/placeholder.svg";
@@ -65,8 +84,11 @@ const ProductPage = () => {
       }
     }
     
-    // Fall back to the main product image
-    return product.images[currentImageIndex]?.src || "/placeholder.svg";
+    // Get all available images
+    const allImages = getAllImages();
+    
+    // Return current image or first available
+    return allImages[currentImageIndex]?.src || "/placeholder.svg";
   };
 
   // Get related products (excluding current product)
@@ -102,7 +124,7 @@ const ProductPage = () => {
     );
   }
 
-  const images = product.images || [];
+  const images = getAllImages();
   const availableColors = getAvailableColors();
 
   return (
@@ -146,15 +168,15 @@ const ProductPage = () => {
             </div>
             
             {/* Image Gallery Below Main Image */}
-            <div className="flex gap-3 mt-4" style={{ width: '930px' }}>
+            <div className="flex gap-4 mt-4" style={{ width: '930px' }}>
               {images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`rounded-lg flex items-center justify-center border-2 ${
-                    index === currentImageIndex ? 'border-gray-800' : 'border-gray-200'
-                  } hover:border-gray-600 transition-colors`}
-                  style={{ width: '85px', height: '85px', backgroundColor: '#F6F6F6' }}
+                  className={`rounded-md flex items-center justify-center border ${
+                    index === currentImageIndex ? 'border-gray-400' : 'border-gray-200'
+                  } hover:border-gray-400 transition-colors bg-white`}
+                  style={{ width: '120px', height: '90px' }}
                   data-testid={`button-thumbnail-${index}`}
                 >
                   <img 
