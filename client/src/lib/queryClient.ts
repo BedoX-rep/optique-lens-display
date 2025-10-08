@@ -37,10 +37,11 @@ export const queryClient = new QueryClient({
         console.log(`[QueryClient] Query registered:`, queryKey);
         return defaultFetcher(url);
       },
-      staleTime: 1000 * 60 * 5, // 5 minutes - match Vercel
+      staleTime: 1000 * 60 * 5, // 5 minutes - cache API data
+      cacheTime: 1000 * 60 * 10, // 10 minutes - keep in memory
       retry: 1,
-      refetchOnWindowFocus: false, // Prevent unnecessary refetches
-      refetchOnMount: false, // Prevent refetch on component mount
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
     },
   },
 });
