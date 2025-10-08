@@ -8,22 +8,21 @@ import multer from "multer";
 export async function registerRoutes(app: Express): Promise<Server> {
   // WooCommerce Products API routes
 
-  // Get all products or products by category
+  // Get all products (frames only, matching production)
   app.get("/api/products", async (req, res, next) => {
     try {
-      const categorySlug = req.query.category as string | undefined;
-
-      let products;
-      if (categorySlug) {
-        products = await getProductsByCategory(categorySlug);
-      } else {
-        products = await getProducts();
-      }
+      console.log('[API] Fetching frames products');
+      
+      // Get only frames category products (matching production behavior)
+      const products = await getProductsByCategory('frames');
 
       // Filter out progressive lenses as requested
-      products = products.filter(p => !p.name.toLowerCase().includes("progressive"));
+      const filteredProducts = products.filter(p => !p.name.toLowerCase().includes("progressive"));
+      
+      console.log('[API] Raw frames count:', products.length);
+      console.log('[API] Filtered frames count:', filteredProducts.length);
 
-      res.json(products);
+      res.json(filteredProducts);
     } catch (error) {
       next(error);
     }
