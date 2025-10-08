@@ -168,7 +168,7 @@ const ProductPage = () => {
             </div>
             
             {/* Image Gallery Below Main Image */}
-            <div className="flex gap-4 mt-4" style={{ width: '930px' }}>
+            <div className="flex gap-4 mt-4 justify-center" style={{ width: '930px' }}>
               {images.map((image, index) => (
                 <button
                   key={index}
