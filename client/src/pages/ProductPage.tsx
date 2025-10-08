@@ -118,7 +118,7 @@ const ProductPage = () => {
       <div className="w-full flex justify-center">
       <div className="w-full max-w-[1440px] px-4 py-6">
         {/* Product Section - Responsive Layout */}
-        <div className="bg-gray-100 -mx-4 px-4 py-8 mb-12">
+        <div className="-mx-4 px-4 pb-8 mb-12" style={{ backgroundColor: '#F6F6F6' }}>
           {/* Navigation */}
           <div className="flex items-center justify-between mb-6">
             <button 
@@ -129,64 +129,46 @@ const ProductPage = () => {
               <ArrowLeft className="w-4 h-4" />
               Back
             </button>
-            <Badge variant="secondary" className="bg-blue-100 text-blue-800 font-medium">
-              {product.inStock ? "IN STOCK" : "OUT OF STOCK"}
-            </Badge>
           </div>
-          <div className="flex flex-col xl:grid xl:grid-cols-2 xl:gap-16 2xl:gap-24">
+          <div className="flex flex-col xl:flex-row xl:gap-8 xl:justify-between">
           {/* Product Images */}
-          <div className="flex flex-col items-center mb-8 xl:mb-0 xl:pr-8">
-            <div className="w-full max-w-lg xl:max-w-2xl bg-gray-100 rounded-lg p-8 mb-6">
+          <div className="flex flex-col mb-8 xl:mb-0">
+            <div className="bg-white rounded-lg flex items-center justify-center" style={{ width: '930px', height: '325px' }}>
               <img 
                 src={getCurrentImage()} 
                 alt={`${product.name} - ${selectedColor || 'default'}`}
-                className="w-full h-auto object-contain"
-                style={{ minHeight: '300px', maxHeight: '400px' }}
+                className="object-contain"
+                style={{ width: '650px', height: '325px' }}
                 data-testid="img-product-main"
               />
             </div>
             
-            {/* Thumbnail Images */}
+            {/* Image Gallery Below Main Image */}
             {images.length > 1 && (
-              <div className="flex gap-3 mb-4">
-                {images.slice(0, 5).map((image, index) => (
+              <div className="flex gap-3 mt-4" style={{ width: '930px' }}>
+                {images.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`w-16 h-16 bg-white rounded-lg p-2 border-2 ${
-                      index === currentImageIndex ? 'border-purple-800' : 'border-gray-200'
-                    } hover:border-purple-600 transition-colors`}
+                    className={`bg-white rounded-lg flex items-center justify-center border-2 ${
+                      index === currentImageIndex ? 'border-gray-800' : 'border-gray-200'
+                    } hover:border-gray-600 transition-colors`}
+                    style={{ width: '85px', height: '85px' }}
                     data-testid={`button-thumbnail-${index}`}
                   >
                     <img 
                       src={image.src}
                       alt={image.alt || `View ${index + 1}`}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-contain p-2"
                     />
                   </button>
-                ))}
-              </div>
-            )}
-            
-            {/* Image Dots */}
-            {images.length > 1 && (
-              <div className="flex gap-2">
-                {images.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`w-3 h-3 rounded-full ${
-                      index === currentImageIndex ? 'bg-gray-800' : 'bg-gray-300'
-                    }`}
-                    data-testid={`button-image-dot-${index}`}
-                  />
                 ))}
               </div>
             )}
           </div>
 
           {/* Product Details */}
-          <div className="flex flex-col xl:pl-8 bg-white rounded-lg shadow-sm mx-4 xl:mx-0 mb-4 xl:mb-0" style={{ width: '470px', height: '521px', padding: '24px' }}>
+          <div className="flex flex-col bg-white rounded-lg shadow-sm mb-4 xl:mb-0" style={{ width: '470px', height: '521px', padding: '24px' }}>
             {/* Product Name and Wishlist */}
             <div className="flex items-center justify-between mb-3">
               <h1 className="brand-font-heading text-3xl font-bold text-gray-900" data-testid="text-product-name">
