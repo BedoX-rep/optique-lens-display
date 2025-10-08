@@ -19,17 +19,19 @@ const ProductPage = () => {
   const [isLiked, setIsLiked] = useState(false);
 
   // Get all products from React Query cache (prefetched on homepage)
-  const { data: allProducts = [], isLoading } = useQuery<Product[]>({
+  const { data: allProducts = [], isLoading, isFetching, status } = useQuery<Product[]>({
     queryKey: ['/api/products'],
-    retry: 2,
-    retryDelay: 1000,
   });
+
+  console.log('[ProductPage] Query state:', { isLoading, isFetching, status, dataLength: allProducts.length });
 
   // Find the specific product by slug or ID from cached products
   const product = allProducts.find(p => 
     p.slug === id || p.id === Number(id)
   );
   const error = !isLoading && !product;
+  
+  console.log('[ProductPage] Product found:', product?.name, 'Error:', error);
 
   // Scroll to top when component mounts
   useEffect(() => {

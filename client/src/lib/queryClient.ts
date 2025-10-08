@@ -37,10 +37,10 @@ export const queryClient = new QueryClient({
         console.log(`[QueryClient] Query registered:`, queryKey);
         return defaultFetcher(url);
       },
-      staleTime: 1000 * 60 * 2, // 2 minutes
+      staleTime: 1000 * 60 * 5, // 5 minutes - match Vercel
       retry: 1,
-      refetchOnWindowFocus: true,
-      refetchOnMount: true,
+      refetchOnWindowFocus: false, // Prevent unnecessary refetches
+      refetchOnMount: false, // Prevent refetch on component mount
     },
   },
 });
