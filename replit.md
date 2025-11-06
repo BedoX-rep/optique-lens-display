@@ -6,6 +6,14 @@ The application serves as an online eyewear retailer with product browsing, user
 
 # Recent Changes
 
+- **November 06, 2025**: Added AI-powered frame CSV generator
+  - Created script to automatically generate CSV files for eyeglass frames using Gemini AI
+  - Analyzes frame images to generate product names, codes, and color descriptions
+  - Batch processes all frames in FRAMES directory with progress tracking
+  - Supports multiple image formats (.jpg, .jpeg, .png, .webp, .gif)
+  - Usage: `tsx scripts/generate-frame-csvs.ts` (requires FRAMES folder with subfolders)
+  - See `FRAMES-SETUP.md` for detailed setup and usage instructions
+
 - **October 07, 2025**: Completed Cloudinary integration for image hosting
   - Uploaded 37 images from local storage to Cloudinary cloud storage
   - Created image mapping system (`shared/image-mappings.ts`) for backward compatibility
@@ -84,6 +92,7 @@ Preferred communication style: Simple, everyday language.
 ## External Dependencies
 - **Database**: Neon PostgreSQL serverless database
 - **Image Hosting**: Cloudinary CDN for all static images and media files
+- **AI Services**: Google Gemini API for frame image analysis and product data generation
 - **WooCommerce API**: Product data, attributes, variations, and inventory management
   - API URL: Configured via `WOOCOMMERCE_URL` environment variable
   - Authentication: Query string auth with consumer key and secret
