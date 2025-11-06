@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { parse } from 'csv-parse/sync';
 
 if (!process.env.GEMINI_API_KEY) {
   console.error('❌ ERROR: GEMINI_API_KEY environment variable is not set.');
@@ -52,24 +53,15 @@ async function fileToGenerativePart(filePath: string): Promise<{ inlineData: { d
 async function parseCSV(csvPath: string): Promise<FrameData | null> {
   try {
     const content = await fs.readFile(csvPath, 'utf-8');
-    const lines = content.trim().split('\n');
-    
-    if (lines.length < 2) return null;
-    
-    const headers = lines[0].split(',');
-    const values = lines[1].split(',').map(v => {
-      if (v.startsWith('"') && v.endsWith('"')) {
-        return v.slice(1, -1).replace(/""/g, '"');
-      }
-      return v;
+    const records = parse(content, {
+      columns: true,
+      skip_empty_lines: true,
+      trim: true
     });
     
-    const data: any = {};
-    headers.forEach((header, index) => {
-      data[header] = values[index] || '';
-    });
+    if (records.length === 0) return null;
     
-    return data as FrameData;
+    return records[0] as FrameData;
   } catch {
     return null;
   }

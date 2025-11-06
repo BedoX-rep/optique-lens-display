@@ -65,12 +65,20 @@ Aviator Classic Gold,AVC-G001,N,N,N,Gold with Brown Gradient
 
 ## Features
 
+**Method 1: CSV Creation**
+- ✅ Batch creates base CSV files for all frames
+- ✅ Skips folders that already have CSVs
+- ✅ Sets default values for all required fields
+
+**Method 2: Gemini AI Enrichment**
+- ✅ Pre-scans all folders to identify which need processing
+- ✅ Smart resume capability - only processes frames with empty Color fields
 - ✅ AI-powered name generation
 - ✅ Smart product code creation
 - ✅ Accurate color detection from images
-- ✅ Batch processing with progress tracking
+- ✅ Progress tracking with clear statistics
 - ✅ Error handling and fallback values
-- ✅ Rate limiting to respect API quotas
+- ✅ Rate limiting (7s delay) to respect API quotas
 
 ## Troubleshooting
 

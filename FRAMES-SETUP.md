@@ -29,27 +29,37 @@ FRAMES/
 - Put all images for that frame inside its subfolder
 - Supported formats: .jpg, .jpeg, .png, .webp, .gif
 
-### Step 2: Run the Generator
+### Step 2: Run Method 1 - Create Base CSVs
 
-Execute the script using tsx:
-
-```bash
-tsx scripts/generate-frame-csvs.ts
-```
-
-Or specify a custom path:
+First, create the base CSV files:
 
 ```bash
-tsx scripts/generate-frame-csvs.ts ./path/to/your/FRAMES
+tsx scripts/method1-create-csvs.ts client/public/Frames
 ```
 
-**Optional**: Adjust the API rate limit delay (default: 1000ms):
+This creates CSV files with default values. It's fast and doesn't use AI.
+
+### Step 3: Run Method 2 - Enrich with AI
+
+Then, enrich the CSVs with AI-generated data:
 
 ```bash
-API_DELAY_MS=2000 tsx scripts/generate-frame-csvs.ts
+tsx scripts/method2-enrich-with-gemini.ts client/public/Frames
 ```
 
-### Step 3: Review the Generated CSVs
+**What it does:**
+1. Scans all folders to find which CSVs need enrichment (empty Color field)
+2. Shows you exactly how many need processing
+3. Processes them one by one with AI analysis
+4. Automatically resumes if you run it again (skips already-enriched frames)
+
+**Optional**: Adjust the API rate limit delay (default: 7000ms):
+
+```bash
+API_DELAY_MS=10000 tsx scripts/method2-enrich-with-gemini.ts client/public/Frames
+```
+
+### Step 4: Review the Generated CSVs
 
 The script will create a CSV file in each frame subfolder:
 
@@ -80,7 +90,7 @@ Each CSV contains these columns:
 
 ## What the AI Does
 
-The Gemini AI analyzes your frame images and generates:
+The Gemini 2.0 Flash AI analyzes your frame images and generates:
 
 1. **Creative Product Name**: Based on the frame's style, shape, and aesthetic
 2. **Unique Product Code**: A 6-8 character alphanumeric identifier
@@ -99,7 +109,8 @@ Aviator Classic Collection,AVCLC01,N,N,N,Gold Frame with Brown Gradient Lenses
 ## Features
 
 ✅ **Batch Processing**: Handles multiple frames automatically  
-✅ **AI-Powered**: Uses Gemini 1.5 Flash for fast, accurate analysis  
+✅ **AI-Powered**: Uses Gemini 2.0 Flash for fast, accurate analysis  
+✅ **Smart Resume**: Automatically skips already-enriched frames  
 ✅ **Smart Fallbacks**: Uses folder name if AI analysis fails  
 ✅ **Progress Tracking**: Shows real-time processing status  
 ✅ **Rate Limiting**: Respects API quotas with automatic delays  
