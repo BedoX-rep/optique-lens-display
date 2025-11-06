@@ -153,32 +153,59 @@ async function enrichCSVs(framesDir: string) {
       return;
     }
     
-    console.log(`Found ${subfolders.length} frame folders to enrich`);
-    let enriched = 0;
-    let skipped = 0;
-    let failed = 0;
+    console.log(`\n🔍 Scanning ${subfolders.length} frame folders...`);
     
-    for (let i = 0; i < subfolders.length; i++) {
-      const folder = subfolders[i];
+    // First pass: identify which frames need processing
+    const framesToProcess: Array<{ folder: string; path: string; csvPath: string }> = [];
+    let alreadyEnriched = 0;
+    let missingCSV = 0;
+    
+    for (const folder of subfolders) {
       const folderPath = path.join(framesDir, folder.name);
       const csvPath = path.join(folderPath, `${folder.name}.csv`);
       
-      console.log(`\n[${i + 1}/${subfolders.length}] Processing: ${folder.name}`);
+      const existingData = await parseCSV(csvPath);
+      if (!existingData) {
+        missingCSV++;
+        continue;
+      }
+      
+      // Check if Color field is empty or "To be determined"
+      if (!existingData.Color || existingData.Color.trim() === '' || existingData.Color === 'To be determined') {
+        framesToProcess.push({ folder: folder.name, path: folderPath, csvPath });
+      } else {
+        alreadyEnriched++;
+      }
+    }
+    
+    console.log(`\n📊 Scan Results:`);
+    console.log(`   ✓ Already enriched: ${alreadyEnriched}`);
+    console.log(`   ⊘ Missing CSV: ${missingCSV}`);
+    console.log(`   📝 Need processing: ${framesToProcess.length}`);
+    
+    if (framesToProcess.length === 0) {
+      console.log(`\n✅ All frames are already enriched!`);
+      return;
+    }
+    
+    console.log(`\n🚀 Starting AI enrichment for ${framesToProcess.length} frames...`);
+    
+    let enriched = 0;
+    let failed = 0;
+    
+    for (let i = 0; i < framesToProcess.length; i++) {
+      const { folder, path: folderPath, csvPath } = framesToProcess[i];
+      
+      console.log(`\n[${i + 1}/${framesToProcess.length}] Processing: ${folder}`);
       
       const existingData = await parseCSV(csvPath);
       if (!existingData) {
-        console.log(`  ⊘ Skipped - CSV not found (run Method 1 first)`);
-        skipped++;
+        console.log(`  ⊘ Skipped - CSV disappeared`);
+        failed++;
         continue;
       }
       
-      if (existingData.Color !== 'To be determined') {
-        console.log(`  ⊘ Skipped - Already enriched`);
-        skipped++;
-        continue;
-      }
-      
-      const geminiData = await analyzeFrameWithGemini(folderPath, folder.name);
+      const geminiData = await analyzeFrameWithGemini(folderPath, folder);
       
       if (!geminiData.Name && !geminiData.Code && !geminiData.Color) {
         console.log(`  ⚠ Failed - No data from Gemini`);
@@ -211,8 +238,14 @@ async function enrichCSVs(framesDir: string) {
     
     console.log(`\n✅ Method 2 Complete!`);
     console.log(`   Enriched: ${enriched} CSVs`);
-    console.log(`   Skipped: ${skipped} (already done or no CSV)`);
     console.log(`   Failed: ${failed} (no images or API error)`);
+    
+    if (enriched + failed < framesToProcess.length) {
+      const remaining = framesToProcess.length - enriched - failed;
+      console.log(`\n⏸ Processing paused (likely rate limit hit)`);
+      console.log(`   Remaining: ${remaining} frames`);
+      console.log(`   Run the script again to continue processing`);
+    }
     
   } catch (error) {
     console.error('Error enriching CSVs:', error);
