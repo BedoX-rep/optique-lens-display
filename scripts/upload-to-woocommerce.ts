@@ -106,14 +106,20 @@ async function uploadImageToWordPress(imagePath: string): Promise<string | null>
     formData.append('file', imageBuffer, fileName);
     
     // Configure axios with WordPress REST API credentials
+    const headers: any = {
+      ...formData.getHeaders()
+    };
+    
+    // Always use WordPress Application Password for REST API
+    const authHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${WP_APP_PASSWORD}`).toString('base64');
+    headers['Authorization'] = authHeader;
+    
+    console.log(`     🔐 Authenticating as WordPress user: ${WP_USERNAME}`);
+    
     const axiosConfig: any = {
-      auth: {
-        username: WP_USERNAME,
-        password: WP_APP_PASSWORD
-      },
-      headers: {
-        ...formData.getHeaders()
-      }
+      headers,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity
     };
     
     const response = await axios.post(MEDIA_API_URL, formData, axiosConfig);
@@ -124,10 +130,26 @@ async function uploadImageToWordPress(imagePath: string): Promise<string | null>
     console.error(`  ❌ Failed to upload image: ${path.basename(imagePath)}`);
     if (axios.isAxiosError(error)) {
       console.error(`     Status: ${error.response?.status}`);
-      console.error(`     Message: ${JSON.stringify(error.response?.data)}`);
-      if (error.response?.status === 401) {
-        console.error(`     Authentication failed. Please check WORDPRESS_REST_API credentials.`);
+      
+      // Only show error data if it's JSON, not binary
+      const errorData = error.response?.data;
+      if (errorData && typeof errorData === 'object') {
+        console.error(`     Error: ${JSON.stringify(errorData)}`);
+      } else if (errorData && typeof errorData === 'string' && errorData.length < 500) {
+        console.error(`     Error: ${errorData}`);
       }
+      
+      if (error.response?.status === 401) {
+        console.error(`     Authentication failed. Check:`);
+        console.error(`     1. WORDPRESS_REST_API or LOCALWP credentials are correct`);
+        console.error(`     2. Application Password is valid (not expired)`);
+        console.error(`     3. Username has permission to upload media`);
+        console.error(`     4. WordPress REST API is enabled`);
+      } else if (error.response?.status === 403) {
+        console.error(`     Permission denied. User may not have media upload permissions.`);
+      }
+    } else {
+      console.error(`     Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
     return null;
   }
@@ -196,6 +218,15 @@ async function createWooCommerceProduct(frameData: FrameData, images: { url: str
         password: WC_SECRET
       }
     };
+    
+    // Add LocalWP basic auth if needed
+    if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
+      axiosConfig.headers = {
+        'Authorization': 'Basic ' + Buffer.from(
+          `${process.env.LOCALWP_USERNAME}:${process.env.LOCALWP_PASSWORD}`
+        ).toString('base64')
+      };
+    }
     
     const response = await axios.post(PRODUCTS_API_URL, productData, axiosConfig);
     
@@ -371,6 +402,65 @@ async function processAllFrames(framesDir: string) {
   }
 }
 
+async function testWPConnection(): Promise<boolean> {
+  console.log('\n🔍 Testing WordPress REST API connection...');
+  
+  try {
+    // Test with WordPress credentials first
+    const wpAuthHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${WP_APP_PASSWORD}`).toString('base64');
+    
+    const testUrl = `${WOOCOMMERCE_URL}/wp-json/wp/v2/users/me`;
+    
+    try {
+      const response = await axios.get(testUrl, {
+        headers: {
+          'Authorization': wpAuthHeader
+        }
+      });
+      
+      console.log(`✅ WordPress REST API authentication successful!`);
+      console.log(`   User: ${response.data.name} (${response.data.username})`);
+      return true;
+    } catch (wpError: any) {
+      console.log(`❌ WordPress credentials failed: ${wpError.response?.status}`);
+      
+      // Try with LocalWP credentials if available
+      if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
+        console.log(`🔄 Trying with LocalWP credentials...`);
+        const localAuthHeader = 'Basic ' + Buffer.from(
+          `${process.env.LOCALWP_USERNAME}:${process.env.LOCALWP_PASSWORD}`
+        ).toString('base64');
+        
+        try {
+          const localResponse = await axios.get(testUrl, {
+            headers: {
+              'Authorization': localAuthHeader
+            }
+          });
+          
+          console.log(`✅ LocalWP authentication successful!`);
+          console.log(`   User: ${localResponse.data.name} (${localResponse.data.username})`);
+          return true;
+        } catch (localError: any) {
+          console.log(`❌ LocalWP credentials also failed: ${localError.response?.status}`);
+          if (localError.response?.data) {
+            console.log(`   Error: ${JSON.stringify(localError.response.data)}`);
+          }
+        }
+      }
+      
+      if (wpError.response?.data) {
+        console.log(`   WordPress Error: ${JSON.stringify(wpError.response.data)}`);
+      }
+      
+      return false;
+    }
+  } catch (error) {
+    console.error(`❌ Connection test failed:`, error instanceof Error ? error.message : error);
+    return false;
+  }
+}
+
 const framesDir = process.argv[2] || './client/public/Frames';
 
 console.log('='.repeat(60));
@@ -379,11 +469,20 @@ console.log('='.repeat(60));
 console.log(`Target: ${WOOCOMMERCE_URL}`);
 console.log(`Processing: ${framesDir}\n`);
 
-processAllFrames(framesDir)
-  .then(() => {
-    console.log('\n✅ Processing complete!');
-  })
-  .catch(error => {
-    console.error('\n❌ Fatal error:', error);
+async function main() {
+  const connectionOk = await testWPConnection();
+  
+  if (!connectionOk) {
+    console.error('\n❌ Authentication test failed. Please check your credentials.');
+    console.error('   Update WORDPRESS_REST_API secret with: username:application_password');
     process.exit(1);
-  });
+  }
+  
+  await processAllFrames(framesDir);
+  console.log('\n✅ Processing complete!');
+}
+
+main().catch(error => {
+  console.error('\n❌ Fatal error:', error);
+  process.exit(1);
+});
