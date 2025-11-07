@@ -69,20 +69,43 @@ async function parseCSV(csvPath: string): Promise<FrameData | null> {
   }
 }
 
-function getImageUrl(imagePath: string): string {
-  // Convert local file path to public URL
-  // e.g., client/public/Frames/BAKER/Angled_nobg.png -> https://domain/Frames/BAKER/Angled_nobg.png
-  const replitDomain = process.env.REPLIT_DEV_DOMAIN || 'localhost:5000';
-  const protocol = process.env.REPLIT_DEV_DOMAIN ? 'https' : 'http';
-  
-  // Extract the path after 'public/'
-  const publicIndex = imagePath.indexOf('public/');
-  if (publicIndex === -1) {
-    throw new Error(`Image path does not contain 'public/': ${imagePath}`);
+async function uploadImageToWordPress(imagePath: string): Promise<string | null> {
+  try {
+    const imageBuffer = await fs.readFile(imagePath);
+    const fileName = path.basename(imagePath);
+    
+    // Create form data for WordPress media upload
+    const formData = new FormData();
+    formData.append('file', imageBuffer, fileName);
+    
+    // Configure axios with both WooCommerce auth and optional LocalWP basic auth
+    const axiosConfig: any = {
+      auth: {
+        username: WC_KEY,
+        password: WC_SECRET
+      },
+      headers: {
+        ...formData.getHeaders()
+      }
+    };
+    
+    // Add LocalWP basic auth if credentials are set
+    if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
+      axiosConfig.headers['Authorization'] = 'Basic ' + Buffer.from(
+        `${process.env.LOCALWP_USERNAME}:${process.env.LOCALWP_PASSWORD}`
+      ).toString('base64');
+    }
+    
+    const response = await axios.post(MEDIA_API_URL, formData, axiosConfig);
+    
+    return response.data.source_url;
+  } catch (error) {
+    console.error(`  ❌ Failed to upload image: ${path.basename(imagePath)}`);
+    if (axios.isAxiosError(error)) {
+      console.error(`     Error: ${error.response?.status} - ${JSON.stringify(error.response?.data)}`);
+    }
+    return null;
   }
-  
-  const relativePath = imagePath.substring(publicIndex + 7); // Skip 'public/'
-  return `${protocol}://${replitDomain}/${relativePath}`;
 }
 
 async function createWooCommerceProduct(frameData: FrameData, images: { url: string }[]): Promise<number | null> {
@@ -208,25 +231,31 @@ async function processFolder(folderPath: string, folderName: string): Promise<Up
     
     console.log(`  📸 Found ${imageFiles.length} background-removed image(s)`);
     
-    // 3. Get public URLs for images
+    // 3. Upload images to WordPress Media Library
     const imageUrls: { url: string }[] = [];
     
+    console.log(`  ⬆️  Uploading images to WordPress...`);
     for (const imageFile of imageFiles) {
       const imagePath = path.join(folderPath, imageFile);
       try {
-        const imageUrl = getImageUrl(imagePath);
-        imageUrls.push({ url: imageUrl });
-        console.log(`  🔗 Image URL: ${imageUrl}`);
+        const imageUrl = await uploadImageToWordPress(imagePath);
+        if (imageUrl) {
+          imageUrls.push({ url: imageUrl });
+          console.log(`  ✅ Uploaded: ${imageFile} -> ${imageUrl}`);
+        }
       } catch (error) {
-        console.error(`  ❌ Failed to generate URL for: ${imageFile}`);
+        console.error(`  ❌ Failed to upload: ${imageFile}`);
       }
+      
+      // Small delay between uploads to avoid rate limiting
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
     
     if (imageUrls.length === 0) {
       return {
         folder: folderName,
         status: 'failed',
-        message: 'Failed to generate image URLs'
+        message: 'Failed to upload images to WordPress'
       };
     }
     
