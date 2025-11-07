@@ -14,9 +14,36 @@ if (!process.env.WOOCOMMERCE_CONSUMER_KEY || !process.env.WOOCOMMERCE_CONSUMER_S
   process.exit(1);
 }
 
+if (!process.env.WORDPRESS_REST_API) {
+  console.error('❌ ERROR: WORDPRESS_REST_API environment variable is not set.');
+  console.error('   This should be in the format: username:application_password');
+  console.error('   Example: admin:xxxx xxxx xxxx xxxx xxxx xxxx');
+  process.exit(1);
+}
+
 const WOOCOMMERCE_URL = process.env.WOOCOMMERCE_URL;
 const WC_KEY = process.env.WOOCOMMERCE_CONSUMER_KEY;
 const WC_SECRET = process.env.WOOCOMMERCE_CONSUMER_SECRET;
+const WP_REST_API = process.env.WORDPRESS_REST_API;
+
+const colonIndex = WP_REST_API.indexOf(':');
+if (colonIndex === -1) {
+  console.error('❌ ERROR: WORDPRESS_REST_API must be in format: username:application_password');
+  console.error('   Current format appears to be missing the colon separator');
+  console.error('   Example: admin:xxxx xxxx xxxx xxxx xxxx xxxx');
+  console.error('   Make sure to include both WordPress username AND application password separated by a colon');
+  process.exit(1);
+}
+
+const WP_USERNAME = WP_REST_API.substring(0, colonIndex);
+const WP_APP_PASSWORD = WP_REST_API.substring(colonIndex + 1);
+
+if (!WP_USERNAME || !WP_APP_PASSWORD) {
+  console.error('❌ ERROR: WORDPRESS_REST_API must be in format: username:application_password');
+  console.error(`   Parsed username: "${WP_USERNAME || '(empty)'}"`);
+  console.error(`   Parsed password: "${WP_APP_PASSWORD ? '(present)' : '(empty)'}"`);
+  process.exit(1);
+}
 
 // WordPress media upload endpoint
 const MEDIA_API_URL = `${WOOCOMMERCE_URL}/wp-json/wp/v2/media`;
@@ -78,31 +105,29 @@ async function uploadImageToWordPress(imagePath: string): Promise<string | null>
     const formData = new FormData();
     formData.append('file', imageBuffer, fileName);
     
-    // Configure axios with both WooCommerce auth and optional LocalWP basic auth
+    // Configure axios with WordPress REST API credentials
     const axiosConfig: any = {
       auth: {
-        username: WC_KEY,
-        password: WC_SECRET
+        username: WP_USERNAME,
+        password: WP_APP_PASSWORD
       },
       headers: {
         ...formData.getHeaders()
       }
     };
     
-    // Add LocalWP basic auth if credentials are set
-    if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
-      axiosConfig.headers['Authorization'] = 'Basic ' + Buffer.from(
-        `${process.env.LOCALWP_USERNAME}:${process.env.LOCALWP_PASSWORD}`
-      ).toString('base64');
-    }
-    
     const response = await axios.post(MEDIA_API_URL, formData, axiosConfig);
     
+    console.log(`     ✅ Image uploaded to media library (ID: ${response.data.id})`);
     return response.data.source_url;
   } catch (error) {
     console.error(`  ❌ Failed to upload image: ${path.basename(imagePath)}`);
     if (axios.isAxiosError(error)) {
-      console.error(`     Error: ${error.response?.status} - ${JSON.stringify(error.response?.data)}`);
+      console.error(`     Status: ${error.response?.status}`);
+      console.error(`     Message: ${JSON.stringify(error.response?.data)}`);
+      if (error.response?.status === 401) {
+        console.error(`     Authentication failed. Please check WORDPRESS_REST_API credentials.`);
+      }
     }
     return null;
   }
@@ -164,22 +189,13 @@ async function createWooCommerceProduct(frameData: FrameData, images: { url: str
       });
     }
     
-    // Configure axios with both WooCommerce auth and optional LocalWP basic auth
+    // Configure axios with WooCommerce credentials
     const axiosConfig: any = {
       auth: {
         username: WC_KEY,
         password: WC_SECRET
       }
     };
-    
-    // Add LocalWP basic auth if credentials are set
-    if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
-      axiosConfig.headers = {
-        'Authorization': 'Basic ' + Buffer.from(
-          `${process.env.LOCALWP_USERNAME}:${process.env.LOCALWP_PASSWORD}`
-        ).toString('base64')
-      };
-    }
     
     const response = await axios.post(PRODUCTS_API_URL, productData, axiosConfig);
     
