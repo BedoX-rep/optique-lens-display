@@ -17,6 +17,9 @@ interface FrameData {
   Code: string;
   Variation_Exists: string;
   Variation_Code: string;
+  Shape: string;
+  Gender: string;
+  Material: string;
   Size: string;
   Color: string;
 }
@@ -68,12 +71,15 @@ async function parseCSV(csvPath: string): Promise<FrameData | null> {
 }
 
 function createCSVContent(data: FrameData): string {
-  const headers = ['Name', 'Code', 'Variation_Exists', 'Variation_Code', 'Size', 'Color'];
+  const headers = ['Name', 'Code', 'Variation_Exists', 'Variation_Code', 'Shape', 'Gender', 'Material', 'Size', 'Color'];
   const values = [
     data.Name,
     data.Code,
     data.Variation_Exists,
     data.Variation_Code,
+    data.Shape,
+    data.Gender,
+    data.Material,
     data.Size,
     data.Color
   ];
@@ -106,12 +112,20 @@ async function analyzeFrameWithGemini(folderPath: string, folderName: string): P
     const prompt = `Analyze these eyeglass frame images and provide:
 1. A creative, marketable product name for this frame (consider style, shape, and aesthetic)
 2. A unique product code (6-8 characters, alphanumeric, based on key features)
-3. The primary color(s) of the frame (be specific, e.g., "Matte Black", "Tortoise Brown", "Rose Gold")
+3. The frame shape (e.g., "Round", "Square", "Cat-Eye", "Aviator", "Rectangle", "Oval")
+4. The gender category - MUST be one of: Unisex, Female, Male
+5. The frame material - MUST be one of: Acetate, Titanium
+6. The frame size - MUST be one of: Small, Medium, Large
+7. The primary color - provide a SINGLE WORD color (e.g., "Black", "Brown", "Gold", "Silver", "Tortoise")
 
 Respond in this exact format:
 NAME: [product name]
 CODE: [product code]
-COLOR: [color description]
+SHAPE: [frame shape]
+GENDER: [Unisex/Female/Male]
+MATERIAL: [Acetate/Titanium]
+SIZE: [Small/Medium/Large]
+COLOR: [single word color]
 
 Be concise and professional.`;
 
@@ -121,11 +135,19 @@ Be concise and professional.`;
     
     const nameMatch = text.match(/NAME:\s*(.+)/i);
     const codeMatch = text.match(/CODE:\s*(.+)/i);
+    const shapeMatch = text.match(/SHAPE:\s*(.+)/i);
+    const genderMatch = text.match(/GENDER:\s*(.+)/i);
+    const materialMatch = text.match(/MATERIAL:\s*(.+)/i);
+    const sizeMatch = text.match(/SIZE:\s*(.+)/i);
     const colorMatch = text.match(/COLOR:\s*(.+)/i);
     
     return {
       Name: nameMatch ? nameMatch[1].trim() : undefined,
       Code: codeMatch ? codeMatch[1].trim() : undefined,
+      Shape: shapeMatch ? shapeMatch[1].trim() : undefined,
+      Gender: genderMatch ? genderMatch[1].trim() : undefined,
+      Material: materialMatch ? materialMatch[1].trim() : undefined,
+      Size: sizeMatch ? sizeMatch[1].trim() : undefined,
       Color: colorMatch ? colorMatch[1].trim() : undefined
     };
     
@@ -162,8 +184,13 @@ async function enrichCSVs(framesDir: string) {
         continue;
       }
       
-      // Check if Color field is empty or "To be determined"
-      if (!existingData.Color || existingData.Color.trim() === '' || existingData.Color === 'To be determined') {
+      // Check if any of the new fields are empty or need updating
+      const needsEnrichment = 
+        !existingData.Color || existingData.Color.trim() === '' || existingData.Color === 'To be determined' ||
+        !existingData.Shape || existingData.Shape === 'Unknown' ||
+        !existingData.Gender || !existingData.Material || !existingData.Size;
+      
+      if (needsEnrichment) {
         framesToProcess.push({ folder: folder.name, path: folderPath, csvPath });
       } else {
         alreadyEnriched++;
@@ -199,7 +226,7 @@ async function enrichCSVs(framesDir: string) {
       
       const geminiData = await analyzeFrameWithGemini(folderPath, folder);
       
-      if (!geminiData.Name && !geminiData.Code && !geminiData.Color) {
+      if (!geminiData.Name && !geminiData.Code && !geminiData.Color && !geminiData.Shape && !geminiData.Gender && !geminiData.Material && !geminiData.Size) {
         console.log(`  ⚠ Failed - No data from Gemini`);
         failed++;
         continue;
@@ -210,8 +237,11 @@ async function enrichCSVs(framesDir: string) {
         Code: geminiData.Code || existingData.Code,
         Variation_Exists: existingData.Variation_Exists,
         Variation_Code: existingData.Variation_Code,
-        Size: existingData.Size,
-        Color: geminiData.Color || 'Unknown'
+        Shape: geminiData.Shape || existingData.Shape || 'Unknown',
+        Gender: geminiData.Gender || existingData.Gender || 'Unisex',
+        Material: geminiData.Material || existingData.Material || 'Acetate',
+        Size: geminiData.Size || existingData.Size || 'Medium',
+        Color: geminiData.Color || existingData.Color || 'Unknown'
       };
       
       const csvContent = createCSVContent(enrichedData);
@@ -220,6 +250,10 @@ async function enrichCSVs(framesDir: string) {
       console.log(`  ✓ Enriched successfully`);
       console.log(`    Name: ${enrichedData.Name}`);
       console.log(`    Code: ${enrichedData.Code}`);
+      console.log(`    Shape: ${enrichedData.Shape}`);
+      console.log(`    Gender: ${enrichedData.Gender}`);
+      console.log(`    Material: ${enrichedData.Material}`);
+      console.log(`    Size: ${enrichedData.Size}`);
       console.log(`    Color: ${enrichedData.Color}`);
       enriched++;
       

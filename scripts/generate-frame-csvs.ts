@@ -16,6 +16,9 @@ interface FrameData {
   Code: string;
   Variation_Exists: string;
   Variation_Code: string;
+  Shape: string;
+  Gender: string;
+  Material: string;
   Size: string;
   Color: string;
 }
@@ -71,12 +74,20 @@ async function analyzeFrameWithGemini(folderPath: string, folderName: string): P
     const prompt = `Analyze these eyeglass frame images and provide:
 1. A creative, marketable product name for this frame (consider style, shape, and aesthetic)
 2. A unique product code (6-8 characters, alphanumeric, based on key features)
-3. The primary color(s) of the frame (be specific, e.g., "Matte Black", "Tortoise Brown", "Rose Gold")
+3. The frame shape (e.g., "Round", "Square", "Cat-Eye", "Aviator", "Rectangle", "Oval")
+4. The gender category - MUST be one of: Unisex, Female, Male
+5. The frame material - MUST be one of: Acetate, Titanium
+6. The frame size - MUST be one of: Small, Medium, Large
+7. The primary color - provide a SINGLE WORD color (e.g., "Black", "Brown", "Gold", "Silver", "Tortoise")
 
 Respond in this exact format:
 NAME: [product name]
 CODE: [product code]
-COLOR: [color description]
+SHAPE: [frame shape]
+GENDER: [Unisex/Female/Male]
+MATERIAL: [Acetate/Titanium]
+SIZE: [Small/Medium/Large]
+COLOR: [single word color]
 
 Be concise and professional.`;
 
@@ -88,11 +99,19 @@ Be concise and professional.`;
     
     const nameMatch = text.match(/NAME:\s*(.+)/i);
     const codeMatch = text.match(/CODE:\s*(.+)/i);
+    const shapeMatch = text.match(/SHAPE:\s*(.+)/i);
+    const genderMatch = text.match(/GENDER:\s*(.+)/i);
+    const materialMatch = text.match(/MATERIAL:\s*(.+)/i);
+    const sizeMatch = text.match(/SIZE:\s*(.+)/i);
     const colorMatch = text.match(/COLOR:\s*(.+)/i);
     
     return {
       Name: nameMatch ? nameMatch[1].trim() : folderName,
       Code: codeMatch ? codeMatch[1].trim() : folderName.toUpperCase().replace(/[^A-Z0-9]/g, '_'),
+      Shape: shapeMatch ? shapeMatch[1].trim() : 'Unknown',
+      Gender: genderMatch ? genderMatch[1].trim() : 'Unisex',
+      Material: materialMatch ? materialMatch[1].trim() : 'Acetate',
+      Size: sizeMatch ? sizeMatch[1].trim() : 'Medium',
       Color: colorMatch ? colorMatch[1].trim() : 'Unknown'
     };
     
@@ -101,18 +120,25 @@ Be concise and professional.`;
     return {
       Name: folderName,
       Code: folderName.toUpperCase().replace(/[^A-Z0-9]/g, '_'),
+      Shape: 'Unknown',
+      Gender: 'Unisex',
+      Material: 'Acetate',
+      Size: 'Medium',
       Color: 'Unknown'
     };
   }
 }
 
 function createCSVContent(data: FrameData): string {
-  const headers = ['Name', 'Code', 'Variation_Exists', 'Variation_Code', 'Size', 'Color'];
+  const headers = ['Name', 'Code', 'Variation_Exists', 'Variation_Code', 'Shape', 'Gender', 'Material', 'Size', 'Color'];
   const values = [
     data.Name,
     data.Code,
     data.Variation_Exists,
     data.Variation_Code,
+    data.Shape,
+    data.Gender,
+    data.Material,
     data.Size,
     data.Color
   ];
@@ -150,7 +176,10 @@ async function processFramesFolder(framesDir: string) {
         Code: geminiData.Code || folder.name.toUpperCase(),
         Variation_Exists: 'N',
         Variation_Code: 'N',
-        Size: 'N',
+        Shape: geminiData.Shape || 'Unknown',
+        Gender: geminiData.Gender || 'Unisex',
+        Material: geminiData.Material || 'Acetate',
+        Size: geminiData.Size || 'Medium',
         Color: geminiData.Color || 'Unknown'
       };
       
@@ -161,6 +190,10 @@ async function processFramesFolder(framesDir: string) {
       console.log(`✓ CSV created: ${csvPath}`);
       console.log(`  Name: ${frameData.Name}`);
       console.log(`  Code: ${frameData.Code}`);
+      console.log(`  Shape: ${frameData.Shape}`);
+      console.log(`  Gender: ${frameData.Gender}`);
+      console.log(`  Material: ${frameData.Material}`);
+      console.log(`  Size: ${frameData.Size}`);
       console.log(`  Color: ${frameData.Color}`);
       
       const delayMs = parseInt(process.env.API_DELAY_MS || '1000');
