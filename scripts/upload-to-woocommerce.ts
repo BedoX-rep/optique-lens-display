@@ -141,12 +141,24 @@ async function createWooCommerceProduct(frameData: FrameData, images: { url: str
       });
     }
     
-    const response = await axios.post(PRODUCTS_API_URL, productData, {
+    // Configure axios with both WooCommerce auth and optional LocalWP basic auth
+    const axiosConfig: any = {
       auth: {
         username: WC_KEY,
         password: WC_SECRET
       }
-    });
+    };
+    
+    // Add LocalWP basic auth if credentials are set
+    if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
+      axiosConfig.headers = {
+        'Authorization': 'Basic ' + Buffer.from(
+          `${process.env.LOCALWP_USERNAME}:${process.env.LOCALWP_PASSWORD}`
+        ).toString('base64')
+      };
+    }
+    
+    const response = await axios.post(PRODUCTS_API_URL, productData, axiosConfig);
     
     return response.data.id;
   } catch (error) {
