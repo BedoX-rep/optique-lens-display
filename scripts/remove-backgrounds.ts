@@ -1,0 +1,212 @@
+import { promises as fs } from 'fs';
+import path from 'path';
+
+if (!process.env.REMOVEBG_API) {
+  console.error('❌ ERROR: REMOVEBG_API environment variable is not set.');
+  console.error('Please configure your Remove.bg API key in Replit secrets.');
+  process.exit(1);
+}
+
+const REMOVEBG_API_KEY = process.env.REMOVEBG_API;
+const REMOVEBG_API_URL = 'https://api.remove.bg/v1.0/removebg';
+
+interface ProcessResult {
+  folder: string;
+  status: 'success' | 'skipped' | 'failed';
+  message: string;
+  processed?: number;
+}
+
+async function getImageFiles(folderPath: string): Promise<string[]> {
+  const files = await fs.readdir(folderPath);
+  const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+  return files.filter(file => 
+    imageExtensions.some(ext => file.toLowerCase().endsWith(ext))
+  );
+}
+
+async function removeBackground(imagePath: string, outputPath: string): Promise<void> {
+  const imageBuffer = await fs.readFile(imagePath);
+  
+  const formData = new FormData();
+  const blob = new Blob([imageBuffer]);
+  formData.append('image_file', blob, path.basename(imagePath));
+  formData.append('size', 'auto');
+  
+  const response = await fetch(REMOVEBG_API_URL, {
+    method: 'POST',
+    headers: {
+      'X-Api-Key': REMOVEBG_API_KEY,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Remove.bg API error: ${response.status} - ${errorText}`);
+  }
+
+  const resultBuffer = await response.arrayBuffer();
+  await fs.writeFile(outputPath, Buffer.from(resultBuffer));
+}
+
+async function processFolder(folderPath: string, folderName: string): Promise<ProcessResult> {
+  try {
+    const imageFiles = await getImageFiles(folderPath);
+    
+    // Check if folder already has more than 2 images (already processed)
+    if (imageFiles.length > 2) {
+      return {
+        folder: folderName,
+        status: 'skipped',
+        message: `Already processed (${imageFiles.length} images found)`
+      };
+    }
+
+    if (imageFiles.length === 0) {
+      return {
+        folder: folderName,
+        status: 'skipped',
+        message: 'No images found'
+      };
+    }
+
+    // Process up to 2 images
+    const imagesToProcess = imageFiles.slice(0, 2);
+    let processedCount = 0;
+
+    for (const imageFile of imagesToProcess) {
+      const imagePath = path.join(folderPath, imageFile);
+      const ext = path.extname(imageFile);
+      const baseName = path.basename(imageFile, ext);
+      const outputPath = path.join(folderPath, `${baseName}_nobg.png`);
+
+      // Skip if output already exists
+      try {
+        await fs.access(outputPath);
+        console.log(`  ⏭  Skipping ${imageFile} - background-removed version already exists`);
+        continue;
+      } catch {
+        // File doesn't exist, proceed with processing
+      }
+
+      console.log(`  🔄 Processing: ${imageFile}`);
+      await removeBackground(imagePath, outputPath);
+      console.log(`  ✓ Created: ${baseName}_nobg.png`);
+      processedCount++;
+
+      // Add delay between API calls to avoid rate limits
+      if (processedCount < imagesToProcess.length) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    }
+
+    return {
+      folder: folderName,
+      status: 'success',
+      message: `Processed ${processedCount} image(s)`,
+      processed: processedCount
+    };
+
+  } catch (error) {
+    return {
+      folder: folderName,
+      status: 'failed',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
+}
+
+async function processAllFrames(framesDir: string) {
+  try {
+    const stats = await fs.stat(framesDir);
+    
+    // Check if it's a single folder with images or a parent folder with subfolders
+    const imageFiles = await getImageFiles(framesDir);
+    const hasImages = imageFiles.length > 0;
+    
+    let results: ProcessResult[] = [];
+    
+    if (hasImages) {
+      // Single folder mode
+      console.log(`\n📂 Processing single folder: ${path.basename(framesDir)}\n`);
+      const result = await processFolder(framesDir, path.basename(framesDir));
+      results.push(result);
+      
+      if (result.status === 'success') {
+        console.log(`✓ ${result.message}`);
+      } else if (result.status === 'skipped') {
+        console.log(`⏭  ${result.message}`);
+      } else {
+        console.log(`❌ ${result.message}`);
+      }
+    } else {
+      // Multiple folders mode
+      const entries = await fs.readdir(framesDir, { withFileTypes: true });
+      const subfolders = entries.filter(entry => entry.isDirectory());
+      
+      if (subfolders.length === 0) {
+        console.log('No subfolders or images found in the directory');
+        return;
+      }
+      
+      console.log(`\n📂 Found ${subfolders.length} frame folders\n`);
+      
+      for (let i = 0; i < subfolders.length; i++) {
+        const folder = subfolders[i];
+        const folderPath = path.join(framesDir, folder.name);
+        
+        console.log(`[${i + 1}/${subfolders.length}] Processing: ${folder.name}`);
+        
+        const result = await processFolder(folderPath, folder.name);
+        results.push(result);
+        
+        if (result.status === 'success') {
+          console.log(`  ✓ ${result.message}`);
+        } else if (result.status === 'skipped') {
+          console.log(`  ⏭  ${result.message}`);
+        } else {
+          console.log(`  ❌ ${result.message}`);
+        }
+        
+        console.log('');
+      }
+    }
+    
+    // Summary
+    const successful = results.filter(r => r.status === 'success').length;
+    const skipped = results.filter(r => r.status === 'skipped').length;
+    const failed = results.filter(r => r.status === 'failed').length;
+    const totalProcessed = results
+      .filter(r => r.status === 'success')
+      .reduce((sum, r) => sum + (r.processed || 0), 0);
+    
+    console.log('='.repeat(60));
+    console.log('📊 Summary:');
+    console.log(`   ✓ Successful: ${successful} folders`);
+    console.log(`   ⏭  Skipped: ${skipped} folders`);
+    console.log(`   ❌ Failed: ${failed} folders`);
+    console.log(`   📸 Total images processed: ${totalProcessed}`);
+    console.log('='.repeat(60));
+    
+  } catch (error) {
+    console.error('Error processing frames:', error);
+    throw error;
+  }
+}
+
+const framesDir = process.argv[2] || './client/public/Frames';
+
+console.log('='.repeat(60));
+console.log('Background Removal Tool - Remove.bg API');
+console.log('='.repeat(60));
+console.log(`Processing directory: ${framesDir}\n`);
+
+processAllFrames(framesDir)
+  .then(() => {
+    console.log('\n✅ Processing complete!');
+  })
+  .catch(error => {
+    console.error('\n❌ Fatal error:', error);
+    process.exit(1);
+  });
