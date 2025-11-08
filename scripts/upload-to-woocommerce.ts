@@ -110,9 +110,9 @@ async function uploadImageToWordPress(imagePath: string): Promise<string | null>
       ...formData.getHeaders()
     };
     
-    // Always use WordPress Application Password for REST API
-    const authHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${WP_APP_PASSWORD}`).toString('base64');
-    headers['Authorization'] = authHeader;
+    // Use WordPress Application Password for REST API authentication
+    const wpAuthHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${WP_APP_PASSWORD}`).toString('base64');
+    headers['Authorization'] = wpAuthHeader;
     
     console.log(`     🔐 Authenticating as WordPress user: ${WP_USERNAME}`);
     
@@ -121,6 +121,15 @@ async function uploadImageToWordPress(imagePath: string): Promise<string | null>
       maxBodyLength: Infinity,
       maxContentLength: Infinity
     };
+    
+    // For LocalWP, add HTTP basic auth at the axios level (different from WordPress auth)
+    if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
+      console.log(`     🔐 Adding LocalWP HTTP basic auth layer`);
+      axiosConfig.auth = {
+        username: process.env.LOCALWP_USERNAME,
+        password: process.env.LOCALWP_PASSWORD
+      };
+    }
     
     const response = await axios.post(MEDIA_API_URL, formData, axiosConfig);
     
@@ -406,52 +415,45 @@ async function testWPConnection(): Promise<boolean> {
   console.log('\n🔍 Testing WordPress REST API connection...');
   
   try {
-    // Test with WordPress credentials first
-    const wpAuthHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${WP_APP_PASSWORD}`).toString('base64');
-    
     const testUrl = `${WOOCOMMERCE_URL}/wp-json/wp/v2/users/me`;
     
+    // WordPress Application Password for REST API auth
+    const wpAuthHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${WP_APP_PASSWORD}`).toString('base64');
+    
+    const requestConfig: any = {
+      headers: {
+        'Authorization': wpAuthHeader
+      }
+    };
+    
+    // For LocalWP, add HTTP basic auth at the axios level (different layer)
+    if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
+      console.log(`   🔐 Using LocalWP HTTP basic auth layer`);
+      requestConfig.auth = {
+        username: process.env.LOCALWP_USERNAME,
+        password: process.env.LOCALWP_PASSWORD
+      };
+    }
+    
     try {
-      const response = await axios.get(testUrl, {
-        headers: {
-          'Authorization': wpAuthHeader
-        }
-      });
+      const response = await axios.get(testUrl, requestConfig);
       
       console.log(`✅ WordPress REST API authentication successful!`);
       console.log(`   User: ${response.data.name} (${response.data.username})`);
+      console.log(`   Roles: ${response.data.roles.join(', ')}`);
       return true;
-    } catch (wpError: any) {
-      console.log(`❌ WordPress credentials failed: ${wpError.response?.status}`);
+    } catch (error: any) {
+      console.log(`❌ Authentication failed: ${error.response?.status}`);
       
-      // Try with LocalWP credentials if available
-      if (process.env.LOCALWP_USERNAME && process.env.LOCALWP_PASSWORD) {
-        console.log(`🔄 Trying with LocalWP credentials...`);
-        const localAuthHeader = 'Basic ' + Buffer.from(
-          `${process.env.LOCALWP_USERNAME}:${process.env.LOCALWP_PASSWORD}`
-        ).toString('base64');
-        
-        try {
-          const localResponse = await axios.get(testUrl, {
-            headers: {
-              'Authorization': localAuthHeader
-            }
-          });
-          
-          console.log(`✅ LocalWP authentication successful!`);
-          console.log(`   User: ${localResponse.data.name} (${localResponse.data.username})`);
-          return true;
-        } catch (localError: any) {
-          console.log(`❌ LocalWP credentials also failed: ${localError.response?.status}`);
-          if (localError.response?.data) {
-            console.log(`   Error: ${JSON.stringify(localError.response.data)}`);
-          }
-        }
+      if (error.response?.data) {
+        console.log(`   Error: ${JSON.stringify(error.response.data)}`);
       }
       
-      if (wpError.response?.data) {
-        console.log(`   WordPress Error: ${JSON.stringify(wpError.response.data)}`);
-      }
+      console.log(`\n   Troubleshooting tips:`);
+      console.log(`   1. Verify WordPress username is correct (not email, unless that's your username)`);
+      console.log(`   2. Make sure Application Password is freshly generated`);
+      console.log(`   3. Check if Application Passwords are enabled in WordPress`);
+      console.log(`   4. Verify LocalWP credentials if using LocalWP`);
       
       return false;
     }
