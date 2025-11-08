@@ -111,7 +111,9 @@ async function uploadImageToWordPress(imagePath: string): Promise<string | null>
     };
     
     // Use WordPress Application Password for REST API authentication
-    const wpAuthHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${WP_APP_PASSWORD}`).toString('base64');
+    // Remove spaces from app password (WordPress generates them with spaces but expects them removed)
+    const cleanPassword = WP_APP_PASSWORD.replace(/\s/g, '');
+    const wpAuthHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${cleanPassword}`).toString('base64');
     headers['Authorization'] = wpAuthHeader;
     
     console.log(`     🔐 Authenticating as WordPress user: ${WP_USERNAME}`);
@@ -413,12 +415,20 @@ async function processAllFrames(framesDir: string) {
 
 async function testWPConnection(): Promise<boolean> {
   console.log('\n🔍 Testing WordPress REST API connection...');
+  console.log(`   WordPress Username: "${WP_USERNAME}"`);
+  console.log(`   Username Length: ${WP_USERNAME.length} characters`);
+  console.log(`   Password Length: ${WP_APP_PASSWORD.length} characters`);
+  console.log(`   Password has spaces: ${WP_APP_PASSWORD.includes(' ') ? 'Yes' : 'No'}`);
   
   try {
     const testUrl = `${WOOCOMMERCE_URL}/wp-json/wp/v2/users/me`;
     
     // WordPress Application Password for REST API auth
-    const wpAuthHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${WP_APP_PASSWORD}`).toString('base64');
+    // Remove all spaces from app password as WordPress may require
+    const cleanPassword = WP_APP_PASSWORD.replace(/\s/g, '');
+    console.log(`   Cleaned Password Length: ${cleanPassword.length} characters`);
+    
+    const wpAuthHeader = 'Basic ' + Buffer.from(`${WP_USERNAME}:${cleanPassword}`).toString('base64');
     
     const requestConfig: any = {
       headers: {
