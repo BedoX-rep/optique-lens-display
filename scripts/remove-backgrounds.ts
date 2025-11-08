@@ -1,14 +1,37 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
-if (!process.env.REMOVEBG_API) {
-  console.error('❌ ERROR: REMOVEBG_API environment variable is not set.');
-  console.error('Please configure your Remove.bg API key in Replit secrets.');
+// Load all available API keys
+const apiKeys: string[] = [];
+
+// Check for REMOVEBG_API first (legacy naming)
+if (process.env.REMOVEBG_API) {
+  apiKeys.push(process.env.REMOVEBG_API);
+}
+
+// Then check for REMOVEBG_API1, REMOVEBG_API2, etc.
+for (let i = 1; i <= 4; i++) {
+  const key = process.env[`REMOVEBG_API${i}`];
+  if (key && !apiKeys.includes(key)) { // Avoid duplicates
+    apiKeys.push(key);
+  }
+}
+
+if (apiKeys.length === 0) {
+  console.error('❌ ERROR: No REMOVEBG_API keys found.');
+  console.error('Please configure at least REMOVEBG_API or REMOVEBG_API1 in Replit secrets.');
+  console.error('You can add REMOVEBG_API2, REMOVEBG_API3, REMOVEBG_API4 for additional capacity.');
   process.exit(1);
 }
 
-const REMOVEBG_API_KEY = process.env.REMOVEBG_API;
+console.log(`🔑 Loaded ${apiKeys.length} API key(s)`);
+
 const REMOVEBG_API_URL = 'https://api.remove.bg/v1.0/removebg';
+const MAX_REQUESTS_PER_KEY = 50;
+
+// Track usage for each API key
+let currentKeyIndex = 0;
+let requestsWithCurrentKey = 0;
 
 interface ProcessResult {
   folder: string;
@@ -25,6 +48,16 @@ async function getImageFiles(folderPath: string): Promise<string[]> {
   );
 }
 
+function switchToNextKey(): boolean {
+  if (currentKeyIndex + 1 < apiKeys.length) {
+    currentKeyIndex++;
+    requestsWithCurrentKey = 0;
+    console.log(`\n🔄 Switching to API key ${currentKeyIndex + 1}/${apiKeys.length}`);
+    return true;
+  }
+  return false;
+}
+
 async function removeBackground(imagePath: string, outputPath: string): Promise<void> {
   const imageBuffer = await fs.readFile(imagePath);
   
@@ -33,18 +66,44 @@ async function removeBackground(imagePath: string, outputPath: string): Promise<
   formData.append('image_file', blob, path.basename(imagePath));
   formData.append('size', 'auto');
   
+  // Check if we need to switch to next API key
+  if (requestsWithCurrentKey >= MAX_REQUESTS_PER_KEY) {
+    if (!switchToNextKey()) {
+      throw new Error(`All ${apiKeys.length} API keys have reached their ${MAX_REQUESTS_PER_KEY} request limit`);
+    }
+  }
+  
+  const currentApiKey = apiKeys[currentKeyIndex];
+  
   const response = await fetch(REMOVEBG_API_URL, {
     method: 'POST',
     headers: {
-      'X-Api-Key': REMOVEBG_API_KEY,
+      'X-Api-Key': currentApiKey,
     },
     body: formData,
   });
 
   if (!response.ok) {
     const errorText = await response.text();
+    
+    // Check if it's a rate limit error
+    if (response.status === 429 || errorText.includes('rate limit') || errorText.includes('quota')) {
+      console.log(`  ⚠️  API key ${currentKeyIndex + 1} hit rate limit`);
+      
+      // Try switching to next key
+      if (switchToNextKey()) {
+        console.log(`  🔄 Retrying with next API key...`);
+        return removeBackground(imagePath, outputPath); // Retry with new key
+      } else {
+        throw new Error(`All API keys exhausted. Error: ${errorText}`);
+      }
+    }
+    
     throw new Error(`Remove.bg API error: ${response.status} - ${errorText}`);
   }
+
+  requestsWithCurrentKey++;
+  console.log(`  📊 API key ${currentKeyIndex + 1}: ${requestsWithCurrentKey}/${MAX_REQUESTS_PER_KEY} requests used`);
 
   const resultBuffer = await response.arrayBuffer();
   await fs.writeFile(outputPath, Buffer.from(resultBuffer));
