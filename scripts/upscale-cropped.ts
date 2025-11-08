@@ -37,47 +37,38 @@ async function getImageFiles(folderPath: string): Promise<string[]> {
 
 async function upscaleImage(imagePath: string, outputPath: string): Promise<void> {
   try {
-    console.log(`  📤 Uploading to Cloudinary...`);
-    
     // Upload original to Cloudinary
     const uploadResult = await cloudinary.uploader.upload(imagePath, {
       folder: 'optiquelens/temp',
       resource_type: 'auto',
     });
 
-    console.log(`  ✓ Uploaded to Cloudinary: ${uploadResult.public_id}`);
+    console.log(`  📤 Uploaded to Cloudinary: ${uploadResult.public_id}`);
 
-    // Generate upscaled version using Cloudinary's transformation
-    // Using width/height scaling instead of 'upscale' effect which requires specific plans
+    // Generate upscaled version using Cloudinary's AI upscaling
     const upscaledUrl = cloudinary.url(uploadResult.public_id, {
-      width: uploadResult.width * 2,
-      height: uploadResult.height * 2,
-      crop: 'scale',
+      effect: 'upscale',
       quality: 'auto:best',
       fetch_format: 'auto',
     });
 
-    console.log(`  🔄 Downloading upscaled image from: ${upscaledUrl}`);
+    console.log(`  🔄 Downloading upscaled image...`);
 
     // Download upscaled image
     const response = await fetch(upscaledUrl);
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Failed to download upscaled image: ${response.status} ${response.statusText} - ${errorText}`);
+      throw new Error(`Failed to download upscaled image: ${response.statusText}`);
     }
 
     const buffer = await response.arrayBuffer();
     await fs.writeFile(outputPath, Buffer.from(buffer));
 
-    console.log(`  ✓ Upscaled image saved to: ${path.basename(outputPath)}`);
-
     // Clean up temporary upload
     await cloudinary.uploader.destroy(uploadResult.public_id);
-    console.log(`  🗑️  Cleaned up temporary upload`);
 
+    console.log(`  ✓ Upscaled image saved`);
   } catch (error) {
-    console.error(`  ❌ Error details:`, error);
-    throw new Error(`Upscaling failed: ${error instanceof Error ? error.message : JSON.stringify(error)}`);
+    throw new Error(`Upscaling failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 
