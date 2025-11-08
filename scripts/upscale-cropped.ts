@@ -45,16 +45,18 @@ async function upscaleImage(imagePath: string, outputPath: string): Promise<void
 
     console.log(`  📤 Uploaded to Cloudinary: ${uploadResult.public_id}`);
 
-    // Generate upscaled version using Cloudinary's AI upscaling
-    // Use PNG format to preserve transparency
+    // Generate upscaled version with background removal using Cloudinary's transformations
+    // Chain upscale + background removal to ensure transparency
     const upscaledUrl = cloudinary.url(uploadResult.public_id, {
-      effect: 'upscale',
+      transformation: [
+        { effect: 'upscale' },
+        { effect: 'background_removal' }
+      ],
       quality: 'auto:best',
       fetch_format: 'png',
-      flags: 'preserve_transparency',
     });
 
-    console.log(`  🔄 Downloading upscaled image...`);
+    console.log(`  🔄 Downloading upscaled and background-removed image...`);
 
     // Download upscaled image
     const response = await fetch(upscaledUrl);
