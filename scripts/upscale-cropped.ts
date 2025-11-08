@@ -6,15 +6,14 @@ import path from 'path';
 // Configure Cloudinary
 function configureCloudinary() {
   if (process.env.CLOUDINARY_URL) {
+    // If CLOUDINARY_URL is provided, use it directly
     cloudinary.config(process.env.CLOUDINARY_URL);
   } else if (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET) {
-    cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-    });
+    // If individual credentials are provided, construct the URL and configure
+    const cloudinaryUrl = `cloudinary://${process.env.CLOUDINARY_API_KEY}:${process.env.CLOUDINARY_API_SECRET}@${process.env.CLOUDINARY_CLOUD_NAME}`;
+    cloudinary.config(cloudinaryUrl);
   } else {
-    throw new Error('Cloudinary credentials not configured. Please set CLOUDINARY_URL or individual credentials.');
+    throw new Error('Cloudinary credentials not configured. Please set CLOUDINARY_URL or individual credentials (CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET).');
   }
 }
 

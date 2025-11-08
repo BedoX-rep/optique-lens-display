@@ -8,21 +8,15 @@ function configureCloudinary() {
   if (process.env.CLOUDINARY_URL) {
     cloudinary.config(process.env.CLOUDINARY_URL);
   } 
-  // Otherwise use individual environment variables
+  // Otherwise use individual environment variables and construct the URL
   else if (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET) {
-    cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-    });
+    const cloudinaryUrl = `cloudinary://${process.env.CLOUDINARY_API_KEY}:${process.env.CLOUDINARY_API_SECRET}@${process.env.CLOUDINARY_CLOUD_NAME}`;
+    cloudinary.config(cloudinaryUrl);
   }
   // Check if CLOUDINARY_API is the API Secret (legacy format)
   else if (process.env.CLOUDINARY_API && process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY) {
-    cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API,
-    });
+    const cloudinaryUrl = `cloudinary://${process.env.CLOUDINARY_API_KEY}:${process.env.CLOUDINARY_API}@${process.env.CLOUDINARY_CLOUD_NAME}`;
+    cloudinary.config(cloudinaryUrl);
   }
 }
 
