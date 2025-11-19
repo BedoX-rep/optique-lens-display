@@ -4,64 +4,104 @@ const BuyProcess = () => {
   const steps = [
     {
       id: 1,
-      number: "1",
+      number: "01",
+      label: "STEP ONE",
       title: "Find your pair",
-      description: "Discover designer eyewear"
+      description: "Browse designer collections"
     },
     {
       id: 2,
-      number: "2",
+      number: "02",
+      label: "STEP TWO",
       title: "Select lenses",
-      description: "Choose prescription type"
+      description: "Choose your prescription"
     },
     {
       id: 3,
-      number: "3",
+      number: "03",
+      label: "STEP THREE",
       title: "Personalize",
-      description: "Add treatments & coatings"
+      description: "Custom treatments"
     },
     {
       id: 4,
-      number: "4",
-      title: "Complete order",
+      number: "04",
+      label: "STEP FOUR",
+      title: "Complete",
       description: "30-day guarantee"
     }
   ];
 
   return (
     <section 
-      className="bg-white border-y border-gray-100" 
-      style={{ height: '130px' }}
+      className="bg-white border-y border-gray-100 py-12" 
       data-testid="section-buy-process"
     >
-      <div className="max-w-[1440px] mx-auto px-8 h-full">
-        <div className="flex items-center h-full gap-16">
+      <div className="max-w-[1440px] mx-auto px-8">
+        {/* Section Label */}
+        <div className="text-xs tracking-[0.2em] uppercase text-gray-400 mb-8 font-medium">
+          The Process
+        </div>
+
+        {/* Steps Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-8">
           {steps.map((step, index) => (
-            <div key={step.id} className="flex items-center gap-16 flex-1">
-              <div className="flex items-center gap-4 flex-1" data-testid={`step-${step.id}`}>
-                {/* Number */}
-                <div className="flex-shrink-0 w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center">
-                  <span className="text-sm font-normal text-gray-900">{step.number}</span>
-                </div>
-
-                {/* Text */}
-                <div>
-                  <h3 className="text-base font-normal text-gray-900 mb-0.5 tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 font-normal">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Divider */}
+            <div 
+              key={step.id} 
+              className="relative group"
+              data-testid={`step-${step.id}`}
+            >
+              {/* Vertical divider for desktop */}
               {index < steps.length - 1 && (
-                <div className="hidden xl:block w-px h-12 bg-gray-200 flex-shrink-0"></div>
+                <div className="hidden md:block absolute right-0 top-0 h-full w-px bg-gray-200"></div>
               )}
+              
+              <div className="pr-4">
+                {/* Step Label */}
+                <div className="text-[10px] tracking-[0.15em] uppercase text-gray-400 mb-3 font-medium">
+                  {step.label}
+                </div>
+
+                {/* Large Number */}
+                <div className="text-6xl font-light text-gray-900 mb-2 leading-none tracking-tighter">
+                  {step.number}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-lg font-medium text-gray-900 mb-1 tracking-tight">
+                  {step.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  {step.description}
+                </p>
+
+                {/* Arrow indicator */}
+                {index < steps.length - 1 && (
+                  <svg 
+                    className="hidden md:block absolute -right-4 top-1/2 -translate-y-1/2 text-gray-300" 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 20 20" 
+                    fill="none"
+                  >
+                    <path 
+                      d="M7 4L13 10L7 16" 
+                      stroke="currentColor" 
+                      strokeWidth="1.5" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
+              </div>
             </div>
           ))}
         </div>
+
+        {/* Bottom keyline */}
+        <div className="mt-12 h-px bg-gray-100"></div>
       </div>
     </section>
   );

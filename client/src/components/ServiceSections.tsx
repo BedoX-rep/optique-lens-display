@@ -57,51 +57,138 @@ const ServiceSections = () => {
           ))}
         </div>
 
-        {/* Visit Our Store Section - Minimalist Redesign */}
+        {/* Visit Our Store Section - Creative Editorial Layout */}
         <div className="mb-12 md:mb-20">
           <div 
             className="bg-white" 
             data-testid="section-visit-store"
           >
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              {/* Image Side */}
-              <div className="order-2 lg:order-1">
-                <div className="aspect-[4/3] bg-gray-100 border border-gray-200">
-                  <img 
-                    src={getCloudinaryUrl("/attached_images/generated_images/Modern_optical_store_interior_681bc472.png")}
-                    alt="Modern optical store interior"
-                    className="w-full h-full object-cover"
-                  />
+            <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
+              {/* Left: Editorial Content (3 columns) */}
+              <div className="lg:col-span-3 order-1">
+                {/* Section Tag */}
+                <div className="inline-block px-4 py-1.5 border border-gray-900 mb-8">
+                  <span className="text-xs tracking-[0.2em] uppercase text-gray-900 font-medium">
+                    In-Person Experience
+                  </span>
+                </div>
+
+                {/* Large Headline */}
+                <h3 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-900 mb-8 leading-[0.95] tracking-tight">
+                  Visit our
+                  <br />
+                  boutique
+                  <br />
+                  <span className="italic font-light">in person</span>
+                </h3>
+
+                {/* Keyline */}
+                <div className="w-24 h-px bg-gray-900 mb-8"></div>
+
+                {/* Description */}
+                <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-xl font-light">
+                  Book a personal styling session and discover hundreds of designer frames with expert guidance from our certified opticians.
+                </p>
+
+                {/* Features with dividers */}
+                <div className="space-y-0 mb-12 max-w-xl">
+                  <div className="py-4 border-t border-gray-200">
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="text-sm text-gray-900 font-medium">Expert fittings</span>
+                      <span className="text-sm text-gray-500">Complimentary</span>
+                    </div>
+                  </div>
+                  <div className="py-4 border-t border-gray-200">
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="text-sm text-gray-900 font-medium">Eye examinations</span>
+                      <span className="text-sm text-gray-500">Same day available</span>
+                    </div>
+                  </div>
+                  <div className="py-4 border-t border-b border-gray-200">
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="text-sm text-gray-900 font-medium">Designer collections</span>
+                      <span className="text-sm text-gray-500">500+ styles</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <div className="flex flex-wrap gap-4">
+                  <button 
+                    className="bg-black hover:bg-gray-800 text-white px-8 py-4 font-medium transition-colors"
+                    data-testid="button-find-location"
+                  >
+                    Book appointment
+                  </button>
+                  <button 
+                    className="border border-gray-900 hover:bg-gray-50 text-gray-900 px-8 py-4 font-medium transition-colors"
+                  >
+                    View location
+                  </button>
                 </div>
               </div>
 
-              {/* Content Side */}
-              <div className="order-1 lg:order-2">
-                <div className="max-w-lg">
-                  {/* Heading */}
-                  <h3 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 leading-tight tracking-tight">
-                    Visit our store
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-lg text-gray-500 mb-8 leading-relaxed font-normal tracking-wide">
-                    Experience personalized service and try on hundreds of frames in our modern boutique. Our expert team provides professional eye care and fitting services.
-                  </p>
-
-                  {/* Features List */}
-                  <div className="space-y-3 mb-10">
-                    <div className="text-base text-gray-600">Expert consultations with certified optometrists</div>
-                    <div className="text-base text-gray-600">Premium brands and exclusive collections</div>
-                    <div className="text-base text-gray-600">Professional fittings and adjustments</div>
+              {/* Right: Asymmetric Frame Composition (2 columns) */}
+              <div className="lg:col-span-2 order-2 relative">
+                {/* Background accent */}
+                <div className="absolute inset-0 bg-gray-50 -z-10"></div>
+                
+                <div className="relative h-full min-h-[500px] lg:min-h-[600px]">
+                  {/* Frame 1 - Top Left */}
+                  <div className="absolute top-12 left-8 w-48 md:w-56">
+                    <div className="bg-white p-6 border border-gray-200 shadow-sm">
+                      <img 
+                        src="/Frames/Roseeyewear1/Front_nobg.png"
+                        alt="Designer frame front view"
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <div className="mt-3 text-xs tracking-wide text-gray-500">
+                      <div>COLLECTION 2025</div>
+                    </div>
                   </div>
 
-                  {/* CTA Button */}
-                  <button 
-                    className="bg-black hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium transition-colors"
-                    data-testid="button-find-location"
+                  {/* Frame 2 - Bottom Right Offset */}
+                  <div className="absolute bottom-16 right-8 w-52 md:w-64">
+                    <div className="bg-white p-6 border border-gray-200 shadow-sm">
+                      <img 
+                        src="/Frames/Roseeyewear1/Angle_nobg.png"
+                        alt="Designer frame angle view"
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <div className="mt-3 text-xs tracking-wide text-gray-500">
+                      <div>PREMIUM MATERIALS</div>
+                    </div>
+                  </div>
+
+                  {/* Circular Badge */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                    <div className="w-32 h-32 rounded-full border-2 border-gray-900 bg-white flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-2xl font-light text-gray-900">500+</div>
+                        <div className="text-[10px] tracking-wider uppercase text-gray-600 mt-1">Frames</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Diagonal line accent */}
+                  <svg 
+                    className="absolute top-1/4 right-1/4 text-gray-200" 
+                    width="120" 
+                    height="120" 
+                    viewBox="0 0 120 120"
                   >
-                    Find our location
-                  </button>
+                    <line 
+                      x1="0" 
+                      y1="0" 
+                      x2="120" 
+                      y2="120" 
+                      stroke="currentColor" 
+                      strokeWidth="1" 
+                      strokeDasharray="4 4"
+                    />
+                  </svg>
                 </div>
               </div>
             </div>
