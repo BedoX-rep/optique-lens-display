@@ -1,17 +1,11 @@
-
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
   "framework": null,
-  "functions": {
-    "api/**/*.ts": {
-      "includeFiles": "shared/**"
-    }
-  },
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "/api/:path*"
+      "source": "/api/(.*)",
+      "destination": "/api"
     },
     {
       "source": "/(.*)",
@@ -19,15 +13,6 @@
     }
   ],
   "headers": [
-    {
-      "source": "/api/proxy-image",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, s-maxage=3600, stale-while-revalidate"
-        }
-      ]
-    },
     {
       "source": "/api/(.*)",
       "headers": [
@@ -43,14 +28,6 @@
         {
           "key": "Cache-Control",
           "value": "no-cache, no-store, must-revalidate"
-        },
-        {
-          "key": "Pragma",
-          "value": "no-cache"
-        },
-        {
-          "key": "Expires",
-          "value": "0"
         }
       ]
     }
