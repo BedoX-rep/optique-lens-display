@@ -38,7 +38,7 @@ const BuyProcess = () => {
       style={{ height: '260px' }}
       data-testid="section-buy-process"
     >
-      <div className="max-w-[1440px] mx-auto px-8 h-full flex flex-col justify-center" style={{ marginLeft: '30px' }}>
+      <div className="max-w-[1440px] mx-auto px-8 h-full flex flex-col justify-center" style={{ marginLeft: '-30px' }}>
         {/* Section Label */}
         <div className="text-xs tracking-[0.2em] uppercase text-gray-400 mb-6 font-medium">
           The Process
