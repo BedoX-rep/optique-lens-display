@@ -34,12 +34,13 @@ const BuyProcess = () => {
 
   return (
     <section 
-      className="bg-white border-y border-gray-100 py-12" 
+      className="bg-white py-8" 
+      style={{ height: '260px' }}
       data-testid="section-buy-process"
     >
-      <div className="max-w-[1440px] mx-auto px-8">
+      <div className="max-w-[1440px] mx-auto px-8 h-full flex flex-col justify-center">
         {/* Section Label */}
-        <div className="text-xs tracking-[0.2em] uppercase text-gray-400 mb-8 font-medium">
+        <div className="text-xs tracking-[0.2em] uppercase text-gray-400 mb-6 font-medium">
           The Process
         </div>
 
@@ -99,9 +100,6 @@ const BuyProcess = () => {
             </div>
           ))}
         </div>
-
-        {/* Bottom keyline */}
-        <div className="mt-12 h-px bg-gray-100"></div>
       </div>
     </section>
   );
