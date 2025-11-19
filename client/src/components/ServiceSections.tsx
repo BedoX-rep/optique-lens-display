@@ -37,8 +37,8 @@ const ServiceSections = () => {
             <div key={index} className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg">
               {service.image ? (
                 <div className="aspect-[4/3] relative">
-                  <img 
-                    src={service.image} 
+                  <img
+                    src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover transition-transform group-hover:scale-105"
                   />
@@ -59,8 +59,8 @@ const ServiceSections = () => {
 
         {/* Visit Our Store Section - Creative Editorial Layout */}
         <div className="mb-12 md:mb-20">
-          <div 
-            className="bg-white" 
+          <div
+            className="bg-white"
             data-testid="section-visit-store"
           >
             <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
@@ -114,13 +114,13 @@ const ServiceSections = () => {
 
                 {/* CTA */}
                 <div className="flex flex-wrap gap-4">
-                  <button 
+                  <button
                     className="bg-black hover:bg-gray-800 text-white px-8 py-4 font-medium transition-colors"
                     data-testid="button-find-location"
                   >
                     Book appointment
                   </button>
-                  <button 
+                  <button
                     className="border border-gray-900 hover:bg-gray-50 text-gray-900 px-8 py-4 font-medium transition-colors"
                   >
                     View location
@@ -132,12 +132,12 @@ const ServiceSections = () => {
               <div className="lg:col-span-2 order-2 relative">
                 {/* Background accent */}
                 <div className="absolute inset-0 bg-gray-50 -z-10"></div>
-                
+
                 <div className="relative h-full min-h-[500px] lg:min-h-[600px]">
                   {/* Frame 1 - Top Left */}
                   <div className="absolute top-12 left-8 w-48 md:w-56">
                     <div className="bg-white p-6 border border-gray-200 shadow-sm">
-                      <img 
+                      <img
                         src="/Frames/Roseeyewear1/Front_nobg.png"
                         alt="Designer frame front view"
                         className="w-full h-auto"
@@ -151,7 +151,7 @@ const ServiceSections = () => {
                   {/* Frame 2 - Bottom Right Offset */}
                   <div className="absolute bottom-16 right-8 w-52 md:w-64">
                     <div className="bg-white p-6 border border-gray-200 shadow-sm">
-                      <img 
+                      <img
                         src="/Frames/Roseeyewear1/Angle_nobg.png"
                         alt="Designer frame angle view"
                         className="w-full h-auto"
@@ -173,19 +173,19 @@ const ServiceSections = () => {
                   </div>
 
                   {/* Diagonal line accent */}
-                  <svg 
-                    className="absolute top-1/4 right-1/4 text-gray-200" 
-                    width="120" 
-                    height="120" 
+                  <svg
+                    className="absolute top-1/4 right-1/4 text-gray-200"
+                    width="120"
+                    height="120"
                     viewBox="0 0 120 120"
                   >
-                    <line 
-                      x1="0" 
-                      y1="0" 
-                      x2="120" 
-                      y2="120" 
-                      stroke="currentColor" 
-                      strokeWidth="1" 
+                    <line
+                      x1="0"
+                      y1="0"
+                      x2="120"
+                      y2="120"
+                      stroke="currentColor"
+                      strokeWidth="1"
                       strokeDasharray="4 4"
                     />
                   </svg>
@@ -202,25 +202,25 @@ const ServiceSections = () => {
               {/* Image Side */}
               <div className="order-2 lg:order-1">
                 <div className="aspect-[4/3] lg:aspect-square lg:h-[500px]">
-                  <img 
-                    src="https://res.cloudinary.com/dox1gblux/image/upload/v1759875235/VTOOO-730x456_oogrne.jpg" 
+                  <img
+                    src="https://res.cloudinary.com/dox1gblux/image/upload/v1759875235/VTOOO-730x456_oogrne.jpg"
                     alt="Virtual try-on technology demonstration"
                     className="w-full h-full object-contain object-center"
                   />
                 </div>
               </div>
-              
+
               {/* Content Side */}
               <div className="order-1 lg:order-2 p-8 md:p-12 lg:p-16">
                 <div className="max-w-lg">
                   <h3 className="font-light text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 leading-[1.1] tracking-tight">
                     Curated frame picks, at your fingertips with AI
                   </h3>
-                  
+
                   <p className="font-normal text-lg md:text-xl text-gray-500 leading-relaxed mb-10 tracking-wide">
                     Virtually try on frames and get personalized recommendations with our ai technology
                   </p>
-                  
+
                   {/* CTA Button */}
                   <button className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium text-base transition-colors duration-300 group" data-testid="button-try-ai-finder">
                     <span className="flex items-center justify-center space-x-3">
