@@ -1,0 +1,56 @@
+# Brand Design System: Modern Minimalist
+
+## Core Philosophy
+- **Clean & Contemporary**: Focus on whitespace, strong typography, and high-quality imagery.
+- **Minimalist**: Remove unnecessary decorations, gradients, and bright colors (especially teal).
+- **Premium**: Use a monochrome palette with subtle textures or very muted accents.
+
+## Color Palette
+
+### Primary Colors
+- **Background**: White (`#FFFFFF`)
+- **Foreground (Text)**: Dark Gray (`#111827` - gray-900)
+- **Primary Action**: Black (`#000000`) or Very Dark Gray (`#18181b` - zinc-950)
+
+### Secondary Colors
+- **Secondary Background**: Light Gray (`#F9FAFB` - gray-50)
+- **Border**: Light Gray (`#E5E7EB` - gray-200)
+- **Muted Text**: Medium Gray (`#6B7280` - gray-500)
+
+### Accent (Minimal Use)
+- Used only for focus states or critical alerts.
+- **Focus/Active**: A slightly lighter gray or a very subtle metallic tone.
+
+## Typography
+- **Headings**: Clean Sans-Serif (e.g., Inter, system-ui). Light to Medium weights.
+  - H1: `text-4xl md:text-5xl font-light tracking-tight`
+  - H2: `text-3xl font-light`
+  - H3: `text-2xl font-normal`
+- **Body**: Clean Sans-Serif.
+  - Base: `text-base text-gray-600 leading-relaxed`
+  - Small: `text-sm text-gray-500`
+
+## UI Components
+
+### Buttons
+- **Primary**: Solid Black background, White text. `rounded-lg`. Hover: Dark Gray.
+- **Secondary**: White background, Black border, Black text. `rounded-lg`. Hover: Light Gray bg.
+- **Ghost**: Transparent background, Black text. Hover: Light Gray bg.
+
+### Cards
+- Minimal borders (`border border-gray-100`).
+- Subtle shadows (`shadow-sm` or `hover:shadow-md`).
+- Clean white backgrounds.
+
+### Navigation
+- White background.
+- Minimal border bottom.
+- Black text links.
+- Simple icons.
+
+## Implementation Guide (Tailwind)
+- Remove `teal-*` and `cyan-*` classes.
+- Replace with `gray-*`, `zinc-*`, or `black`/`white`.
+- Use `bg-white` for sections.
+- Use `text-gray-900` for headings.
+- Use `text-gray-500` for body text.

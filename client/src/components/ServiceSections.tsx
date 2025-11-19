@@ -57,131 +57,51 @@ const ServiceSections = () => {
           ))}
         </div>
 
-        {/* Visit Our Store Section - Completely Redesigned */}
+        {/* Visit Our Store Section - Minimalist Redesign */}
         <div className="mb-12 md:mb-20">
           <div 
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-[#064E3B] to-[#097969]" 
+            className="bg-white" 
             data-testid="section-visit-store"
           >
-            {/* Decorative Pattern Overlay */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-white to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#22D3EE] to-transparent rounded-full blur-3xl"></div>
-            </div>
-
-            <div className="relative grid lg:grid-cols-2 gap-0">
-              {/* Left Side - Image with Overlay */}
-              <div className="relative h-80 lg:h-auto order-2 lg:order-1">
-                <img 
-                  src={getCloudinaryUrl("/attached_images/generated_images/Modern_optical_store_interior_681bc472.png")}
-                  alt="Modern optical store interior"
-                  className="w-full h-full object-cover"
-                />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#064E3B]/50 to-[#064E3B]"></div>
-                
-                {/* Floating Stats Cards */}
-                <div className="absolute bottom-8 left-8 right-8 flex gap-4">
-                  <div className="flex-1 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-white/20">
-                    <div className="text-3xl font-bold text-[#097969] brand-font-heading">500+</div>
-                    <div className="text-sm text-gray-600 brand-font-primary">Premium Frames</div>
-                  </div>
-                  <div className="flex-1 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-white/20">
-                    <div className="text-3xl font-bold text-[#097969] brand-font-heading">15+</div>
-                    <div className="text-sm text-gray-600 brand-font-primary">Expert Staff</div>
-                  </div>
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Image Side */}
+              <div className="order-2 lg:order-1">
+                <div className="aspect-[4/3] bg-gray-100 border border-gray-200">
+                  <img 
+                    src={getCloudinaryUrl("/attached_images/generated_images/Modern_optical_store_interior_681bc472.png")}
+                    alt="Modern optical store interior"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
 
-              {/* Right Side - Content */}
-              <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center order-1 lg:order-2">
-                <div className="max-w-xl">
-                  {/* Badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-6">
-                    <div className="w-2 h-2 bg-[#22D3EE] rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium text-white/90 brand-font-primary">In-Store Experience</span>
-                  </div>
-
+              {/* Content Side */}
+              <div className="order-1 lg:order-2">
+                <div className="max-w-lg">
                   {/* Heading */}
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight brand-font-heading">
-                    Visit Our
-                    <span className="block bg-gradient-to-r from-[#22D3EE] to-white bg-clip-text text-transparent">
-                      Boutique Store
-                    </span>
+                  <h3 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 leading-tight tracking-tight">
+                    Visit our store
                   </h3>
 
                   {/* Description */}
-                  <p className="text-lg text-white/80 mb-8 leading-relaxed brand-font-primary">
-                    Experience personalized eyewear consultations in our modern boutique. Our certified optometrists and stylists help you find the perfect frames.
+                  <p className="text-lg text-gray-500 mb-8 leading-relaxed font-normal tracking-wide">
+                    Experience personalized service and try on hundreds of frames in our modern boutique. Our expert team provides professional eye care and fitting services.
                   </p>
 
-                  {/* Features Grid */}
-                  <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#22D3EE]/20 flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-[#22D3EE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-white mb-1">Expert Fitting</div>
-                        <div className="text-xs text-white/60">Professional adjustments</div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#22D3EE]/20 flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-[#22D3EE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-white mb-1">Eye Exams</div>
-                        <div className="text-xs text-white/60">Same-day available</div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#22D3EE]/20 flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-[#22D3EE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-white mb-1">Designer Brands</div>
-                        <div className="text-xs text-white/60">Exclusive collections</div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#22D3EE]/20 flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-[#22D3EE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-white mb-1">Quick Service</div>
-                        <div className="text-xs text-white/60">Most repairs in 30min</div>
-                      </div>
-                    </div>
+                  {/* Features List */}
+                  <div className="space-y-3 mb-10">
+                    <div className="text-base text-gray-600">Expert consultations with certified optometrists</div>
+                    <div className="text-base text-gray-600">Premium brands and exclusive collections</div>
+                    <div className="text-base text-gray-600">Professional fittings and adjustments</div>
                   </div>
 
                   {/* CTA Button */}
-                  <div className="flex gap-4">
-                    <button 
-                      className="group relative px-8 py-4 bg-white text-[#097969] rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-1 brand-font-primary"
-                      data-testid="button-find-location"
-                    >
-                      <span className="relative z-10 flex items-center gap-2">
-                        Find Our Location
-                        <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-white to-[#22D3EE]/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </button>
-                  </div>
+                  <button 
+                    className="bg-black hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium transition-colors"
+                    data-testid="button-find-location"
+                  >
+                    Find our location
+                  </button>
                 </div>
               </div>
             </div>
