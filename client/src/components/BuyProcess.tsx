@@ -59,31 +59,22 @@ const BuyProcess = () => {
               
               <div className="pr-4">
                 {/* Step Label */}
-                <div className="text-[10px] tracking-[0.15em] uppercase text-gray-400 mb-2 font-medium">
+                <div className="text-[10px] tracking-[0.15em] uppercase text-gray-400 mb-3 font-medium">
                   {step.label}
                 </div>
 
-                {/* Circular Number Container */}
-                <div className="relative inline-block mb-2 group-hover:scale-105 transition-transform duration-300">
-                  {/* Outer Circle */}
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gray-100 to-gray-50 border border-gray-200 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow duration-300">
-                    {/* Number */}
-                    <span className="text-2xl font-light text-gray-900 tracking-tight">
-                      {step.number}
-                    </span>
-                  </div>
-                  
-                  {/* Decorative Accent */}
-                  <div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {/* Large Number */}
+                <div className="text-6xl font-light text-gray-900 mb-2 leading-none tracking-tighter">
+                  {step.number}
                 </div>
 
                 {/* Title */}
-                <h3 className="text-base font-semibold text-gray-900 mb-1 tracking-tight" style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}>
+                <h3 className="text-lg font-medium text-gray-900 mb-1 tracking-tight">
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}>
+                <p className="text-sm text-gray-500 leading-relaxed">
                   {step.description}
                 </p>
 
